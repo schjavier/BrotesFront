@@ -26,9 +26,14 @@
     </ul>
 
   </mat-sidenav>
-  <mat-sidenav-content>
-    <button mat-button (click) = "sidenav.toggle()">Menu</button>
 
+  <mat-sidenav-content class="sidenavContent">
+    <div class="contentNavbar">
+    <button class="menuButton" mat-fab extended (click) = "sidenav.toggle()" aria-label="button with a menu icon">
+      <mat-icon>menu</mat-icon>Menu</button>
+
+    <app-navbar></app-navbar>
+    </div>
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>

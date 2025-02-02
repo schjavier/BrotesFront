@@ -3,17 +3,13 @@ form{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
 }
 
-h3{
-  text-align: center;
-
-
+.formTitle{
+  font-size: 1rem;
 }
 
 .formButton{
-
   margin: 10px 0;
-
 }
