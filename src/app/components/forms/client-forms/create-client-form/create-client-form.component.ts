@@ -10,6 +10,8 @@ import {MatButton} from '@angular/material/button';
 })
 export class CreateClientFormComponent {
 
+  formTitle: string = "Crear Clientes";
+
   createForm:FormGroup = new FormGroup ({
 
     name: new FormControl(''),
