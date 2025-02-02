@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sidenavContainer">
+  <mat-sidenav class="sidenav" #sidenav [(opened)]="opened">
+    <ul>
+
+      <ul class="ulTitle">Clientes
+        <li><a [routerLink]="['/dashboard/cliente/listar']" routerLinkActive="active">Listar</a></li>
+        <li><a [routerLink]="['/dashboard/cliente/registrar']" routerLinkActive="active">Registrar</a></li>
+        <li>Actualizar</li>
+        <li>Borrar</li>
+      </ul>
+
+      <ul class="ulTitle">Productos
+        <li>Listar</li>
+        <li>Registrar</li>
+        <li>Actualizar</li>
+        <li>Borrar</li>
+      </ul>
+
+      <ul class="ulTitle">Pedidos
+        <li>Listar</li>
+        <li>Registrar</li>
+        <li>Actualizar</li>
+        <li>Borrar</li>
+      </ul>
+
+    </ul>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-button (click) = "sidenav.toggle()">Menu</button>
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

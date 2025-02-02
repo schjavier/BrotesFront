@@ -1,0 +1,28 @@
+.sidenavContainer {
+  height: calc(100vh - 75px);
+  width: 100%;
+
+}
+
+.sidenav {
+  text-align: start;
+  padding: 20px;
+  color: #004643;
+}
+
+.ulTitle{
+  list-style-type: none;
+  font-size: large;
+  font-weight: bold;
+  padding: 10px;
+}
+
+li{
+  font-size: medium;
+  margin-left: 15px;
+  font-weight: normal;
+}
+
+a{
+  text-decoration: none;
+}

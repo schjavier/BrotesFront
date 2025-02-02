@@ -1,0 +1,16 @@
+
+<h3>Cargar Clientes</h3>
+<form [formGroup]="createForm">
+
+  <label for="name"> Nombre </label>
+  <input id="name" type="text" formControlName="name">
+
+  <label for="adress"> Direccion  </label>
+  <input id="adress" type="text" formControlName="adress">
+
+  <label for="phone"> Telefono </label>
+  <input id="phone" type="text" formControlName="phone">
+
+  <button class="formButton" mat-stroked-button type="submit">Crear</button>
+
+</form>

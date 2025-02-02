@@ -1,0 +1,13 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-between;
+  height: 75px;
+}
+
+h1{
+  font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fffffe;
+  margin-left: 1rem;
+}
