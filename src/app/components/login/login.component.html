@@ -1,12 +1,13 @@
 <div class="loginWrapper">
+ <h2 class="loginTitle">Bienvenidos a Brotes App</h2>
   <div class="loginContainer">
 
-    <label class="login" for="username"> UserName: </label>
+    <label class="loginLabel" for="username"> UserName: </label>
     <input class="loginInput" id="username" type="text" [formControl]="username" >
 
-    <label class="login" for="password"> Passsword: </label>
+    <label class="loginLabel" for="password"> Passsword: </label>
     <input class="loginInput" id="password" type="password" [formControl]="password" >
 
-    <button class="loginButton" type="submit">Entrar</button>
+    <button mat-flat-button class="loginButton" type="submit">Entrar</button>
   </div>
 </div>
