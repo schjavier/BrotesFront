@@ -1,15 +1,28 @@
-form{
+.clientForm{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  border: solid 1px white ;
+
 }
 
 .formTitle{
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
-.formButton{
+.clientLabel{
+  font-size: 1rem;
+  margin: 10px 0 10px 0;
+}
+
+.clientInput{
+  height: 20px;
+  width: 100%;
+}
+
+button.formButton{
   margin: 10px 0;
+
 }

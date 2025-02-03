@@ -1,16 +1,16 @@
 
-<form [formGroup]="createForm">
+<form class="clientForm" [formGroup]="createForm">
   <p class="formTitle">{{ formTitle }}</p>
 
-  <label for="name"> Nombre </label>
-  <input id="name" type="text" formControlName="name">
+  <label class="clientLabel" for="name"> Nombre </label>
+  <input class="clientInput" id="name" type="text" formControlName="name">
 
-  <label for="adress"> Direccion  </label>
-  <input id="adress" type="text" formControlName="adress">
+  <label class="clientLabel" for="adress"> Direccion  </label>
+  <input class="clientInput" id="adress" type="text" formControlName="adress">
 
-  <label for="phone"> Telefono </label>
-  <input id="phone" type="text" formControlName="phone">
+  <label class="clientLabel" for="phone"> Telefono </label>
+  <input class="clientInput" id="phone" type="text" formControlName="phone">
 
-  <button class="formButton" mat-stroked-button type="submit">Crear</button>
+  <button class="formButton" mat-raised-button type="submit">Crear</button>
 
 </form>

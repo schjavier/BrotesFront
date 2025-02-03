@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatFabButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-create-client-form',
-  imports: [FormsModule, ReactiveFormsModule, MatButton],
+  imports: [FormsModule, ReactiveFormsModule, MatButton, MatFabButton],
   templateUrl: './create-client-form.component.html',
   styleUrl: './create-client-form.component.css'
 })
