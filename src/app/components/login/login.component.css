@@ -1,11 +1,16 @@
 .loginWrapper{
   display: flex;
   align-items: center;
-  /*justify-content: center;*/
+  justify-content: center;
   flex-direction: column;
   width: 100%;
   height: 100%;
 
+}
+
+.loginTitle{
+  text-align: center;
+  color: whitesmoke;
 }
 
 .loginContainer{
@@ -15,25 +20,26 @@
   align-items: center;
   width: 30%;
   height: 30%;
-  background-color: #f9bc60;
+  background-color: #edc8a0;
   color: #001e1d;
   border-radius: 10px;
   padding: 1.5rem;
-  margin-top: 2rem;
 }
 
 
-.login {
-  flex: 1;
+.loginLabel {
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
 
+
 }
 
 .loginInput{
   margin: 1rem;
+  border-radius: 2px;
+  border: none;
 
 
 }
