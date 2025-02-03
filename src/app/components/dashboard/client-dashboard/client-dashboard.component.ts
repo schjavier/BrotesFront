@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {ClientFormsComponent} from "../../forms/client-forms/client-forms.component";
-import {ClientListComponent} from './client-list/client-list.component';
 import {RouterOutlet} from '@angular/router';
 
 @Component({

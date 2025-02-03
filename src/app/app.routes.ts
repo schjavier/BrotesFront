@@ -3,7 +3,7 @@ import {LoginComponent} from './components/login/login.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {ClientDashboardComponent} from './components/dashboard/client-dashboard/client-dashboard.component';
 import {ClientListComponent} from './components/dashboard/client-dashboard/client-list/client-list.component';
-import {ClientFormsComponent} from './components/forms/client-forms/client-forms.component';
+import {CreateClientFormComponent} from './components/forms/client-forms/create-client-form/create-client-form.component';
 
 export const routes: Routes = [
 
@@ -17,7 +17,7 @@ export const routes: Routes = [
         component : ClientDashboardComponent,
         children: [
           {path: 'listar', component: ClientListComponent},
-          {path: 'registrar', component: ClientFormsComponent}
+          {path: 'registrar', component: CreateClientFormComponent}
         ]}
 
     ]},
