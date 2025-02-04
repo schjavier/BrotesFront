@@ -23,16 +23,28 @@
   font-size: large;
   font-weight: bold;
   padding: 10px;
+  color: var(--mat-sys-primary);
 }
 
 li{
   font-size: medium;
   margin-left: 15px;
   font-weight: normal;
+  padding: 5px;
 }
 
 a{
   text-decoration: none;
+  padding: 5px;
+  color: var(--mat-sys-primary);
+}
+
+a:hover{
+  text-decoration: none;
+  color: whitesmoke;
+  background-color: var(--mat-sys-primary);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .menuButton{
