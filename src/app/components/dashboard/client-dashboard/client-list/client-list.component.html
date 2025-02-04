@@ -1,8 +1,5 @@
+<div *ngFor = "let client of clients" [ngStyle]= "{'margin.px': 10}" >
 
-@if (client$ | async; as client) {
-  <p>{{client.id}}</p>
-  <p>{{client.nombre}}</p>
-  <p>{{client.direccion}}</p>
-  <p>{{client.telefono}}</p>
-  <p>{{client.activo}}</p>
-  }
+  <app-client-card [id]="client.id" ></app-client-card>
+
+</div>
