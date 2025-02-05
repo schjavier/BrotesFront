@@ -8,7 +8,6 @@ import {ClientCardComponent} from '../client-card/client-card.component';
 @Component({
   selector: 'app-client-list',
   imports: [
-    AsyncPipe,
     ClientCardComponent,
     NgForOf,
     NgStyle
@@ -20,7 +19,6 @@ export class ClientListComponent {
 
   clientList$!: Observable<Client[]>;
   clients:Client[] = [];
-  id!:number;
 
   constructor(private clientService: ClientService) {
   }
