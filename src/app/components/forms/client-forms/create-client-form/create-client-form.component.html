@@ -1,5 +1,5 @@
 
-<form class="clientForm" [formGroup]="createForm">
+<form class="clientForm" [formGroup]="createClientForm">
   <p class="formTitle">{{ formTitle }}</p>
 
   <label class="clientLabel" for="name"> Nombre </label>
@@ -11,6 +11,8 @@
   <label class="clientLabel" for="phone"> Telefono </label>
   <input class="clientInput" id="phone" type="text" formControlName="phone" required>
 
-  <button class="formButton" mat-raised-button type="submit" (click)="createClient()">Crear</button>
+  <button class="formButton" mat-raised-button type="submit"
+          (click)="createClient()"
+          [disabled]="createClientForm.invalid">Crear</button>
 
 </form>

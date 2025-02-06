@@ -7,7 +7,7 @@ import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-create-client-form',
-  imports: [FormsModule, ReactiveFormsModule, MatButton],
+  imports: [FormsModule, ReactiveFormsModule, MatButton, NgIf],
   templateUrl: './create-client-form.component.html',
   styleUrl: './create-client-form.component.css'
 })
@@ -15,7 +15,8 @@ export class CreateClientFormComponent {
 
   formTitle: string = "Crear Clientes";
 
-  createForm:FormGroup = new FormGroup ({
+
+  createClientForm:FormGroup = new FormGroup ({
 
     name: new FormControl('', Validators.required),
     adress: new FormControl('', Validators.required),
@@ -23,11 +24,12 @@ export class CreateClientFormComponent {
 
 });
 
-  get name():string{
-    return this.createForm.controls['name'].value;
-  }
 
   constructor(private clientService: ClientService) {
+  }
+
+  get name():string{
+    return this.createClientForm.controls['name'].value;
   }
 
 
@@ -37,17 +39,21 @@ export class CreateClientFormComponent {
 
   createClient():void {
 
-    let clientDto:CreateClientDto = this.createDto(
-      this.createForm.controls['name'].value,
-      this.createForm.controls['adress'].value,
-      this.createForm.controls['phone'].value,
+    if(this.createClientForm.valid) {
+      let clientDto: CreateClientDto = this.createDto(
+        this.createClientForm.controls['name'].value,
+        this.createClientForm.controls['adress'].value,
+        this.createClientForm.controls['phone'].value,
       )
 
-    this.clientService.createClient(clientDto).subscribe(
-          client => {
-            console.log("Client created successfully:", client);
-          });
-    this.createForm.reset();
+
+      this.clientService.createClient(clientDto).subscribe(
+        client => {
+          console.log("Client created successfully:", client);
+        });
+
+    }
+      this.createClientForm.reset();
 
   }
 
