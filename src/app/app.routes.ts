@@ -4,6 +4,10 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {ClientDashboardComponent} from './components/dashboard/client-dashboard/client-dashboard.component';
 import {ClientListComponent} from './components/dashboard/client-dashboard/client-list/client-list.component';
 import {CreateClientFormComponent} from './components/forms/client-forms/create-client-form/create-client-form.component';
+import {
+  UpdateClientFormComponent
+} from './components/forms/client-forms/update-client-form/update-client-form.component';
+import {DefaultDashboardComponent} from './components/dashboard/default-dashboard/default-dashboard.component';
 
 export const routes: Routes = [
 
@@ -13,11 +17,13 @@ export const routes: Routes = [
 
   {path: 'dashboard', component : DashboardComponent, children:[
 
+      {path:'', component : DefaultDashboardComponent},
       {path: 'cliente',
         component : ClientDashboardComponent,
         children: [
           {path: 'listar', component: ClientListComponent},
-          {path: 'registrar', component: CreateClientFormComponent}
+          {path: 'registrar', component: CreateClientFormComponent},
+          {path: 'actualizar', component: UpdateClientFormComponent}
         ]}
 
     ]},
