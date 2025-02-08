@@ -5,7 +5,7 @@
       <ul class="ulTitle">Clientes
         <li><a [routerLink]="['/dashboard/cliente/listar']" routerLinkActive="active">Listar</a></li>
         <li><a [routerLink]="['/dashboard/cliente/registrar']" routerLinkActive="active">Registrar</a></li>
-        <li>Actualizar</li>
+        <li><a [routerLink]="['/dashboard/cliente/actualizar']" routerLinkActive="active">Actualizar</a></li>
         <li>Borrar</li>
       </ul>
 
@@ -34,6 +34,7 @@
 
     <app-navbar></app-navbar>
     </div>
+
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>
