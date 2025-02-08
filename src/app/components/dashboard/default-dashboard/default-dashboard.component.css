@@ -13,20 +13,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.searchBarContainer{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.searchBar{
-
-  border: none;
-  border-radius: 5px;
-  width: 40%;
-  height: 30px;
-  margin-left: 10px;
-}

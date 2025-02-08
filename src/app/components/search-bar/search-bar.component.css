@@ -1,0 +1,44 @@
+:host(){
+  width: 100%;
+}
+
+h3 {
+  text-align: center;
+}
+
+.searchIcon{
+  position: absolute;
+  left: 33.3%
+
+}
+
+
+.searchBarContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.searchBar{
+  border: none;
+  border-radius: 5px;
+  width: 30%;
+  height: 30px;
+  margin: 10px ;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.closeIcon{
+  position: absolute;
+  right: 33.5%;
+  color: darkred;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+}

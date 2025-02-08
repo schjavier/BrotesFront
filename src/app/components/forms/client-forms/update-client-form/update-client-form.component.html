@@ -1,1 +1,21 @@
-<p>update-client-form works!</p>
+
+
+
+<form class="updateClientForm" [formGroup]="updateClientForm">
+
+  <label for="id">Identificador</label>
+  <input id="id" type="text" formControlName="id" required>
+
+  <label for="nombre">Nombre</label>
+  <input id="nombre" type="text" formControlName="nombre" required>
+
+  <label for="adress">Direccion</label>
+  <input id="adress" type="text" formControlName="direccion" required>
+
+  <label for="phone">Teléfono</label>
+  <input id="phone" type="text" formControlName="telefono" required>
+
+  <label for="estado">Estado</label>
+  <input id="estado" type="text" formControlName="estado" required>
+
+</form>

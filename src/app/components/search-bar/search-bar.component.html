@@ -1,0 +1,27 @@
+<h3>Que vamos a hacer hoy?</h3>
+<div class="searchBarContainer">
+      <span class="searchIcon">
+      <mat-icon>search</mat-icon>
+      </span>
+
+      <input class="searchBar" role="searchbox"
+                                        [formControl]="searchControl"
+                                        [placeholder]="searchConfig.placeholder">
+      <span class="closeIcon"
+              *ngIf="searchControl.value"
+              (click)="searchControl.reset()">
+              <mat-icon>close</mat-icon>
+      </span>
+</div>
+
+<!--<mat-form-field>-->
+<!--  <mat-icon matPrefix>search</mat-icon>-->
+<!--  <input matInput [formControl]="searchControl" [placeholder]="searchConfig.placeholder">-->
+<!--  <button mat-icon-button matSuffix-->
+<!--          *ngIf="searchControl.value"-->
+<!--          (click)="searchControl.reset()">-->
+<!--    <mat-icon>close</mat-icon>-->
+<!--  </button>-->
+
+
+<!--</mat-form-field>-->
