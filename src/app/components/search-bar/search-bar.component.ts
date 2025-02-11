@@ -17,6 +17,7 @@ import {NgIf} from '@angular/common';
 export class SearchBarComponent implements OnInit {
 
   @Input() searchConfig: SearchConfig = {
+    title: "Que Vamos a hacer hoy?",
     placeholder: 'Search...',
     debounceTime: 300,
     minLength: 3,
