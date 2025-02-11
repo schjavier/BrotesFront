@@ -1,21 +1,28 @@
 
+<app-search-bar [searchConfig]="{
+   title: 'Buscar Clientes por Nombre' ,
+   placeholder: 'Ingrese el Nombre',
+   debounceTime: 500,
+   minLength: 3 }">
 
+</app-search-bar>
 
-<form class="updateClientForm" [formGroup]="updateClientForm">
+<div class="formWrapper">
+<div class="updateClientForm">
+  <form [formGroup]="updateClientForm">
+        <label for="id">ID:</label>
+        <input id="id" type="text" formControlName="id" required readonly>
 
-  <label for="id">Identificador</label>
-  <input id="id" type="text" formControlName="id" required>
+        <label class="headFormLabel" for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" required>
 
-  <label for="nombre">Nombre</label>
-  <input id="nombre" type="text" formControlName="nombre" required>
+        <label for="adress">Direccion</label>
+        <input id="adress" type="text" formControlName="direccion" required>
 
-  <label for="adress">Direccion</label>
-  <input id="adress" type="text" formControlName="direccion" required>
+        <label for="phone">Teléfono</label>
+        <input id="phone" type="text" formControlName="telefono" required>
 
-  <label for="phone">Teléfono</label>
-  <input id="phone" type="text" formControlName="telefono" required>
-
-  <label for="estado">Estado</label>
-  <input id="estado" type="text" formControlName="estado" required>
-
-</form>
+        <mat-slide-toggle class="activeClient" checked > Activar Cliente </mat-slide-toggle>
+  </form>
+</div>
+</div>
