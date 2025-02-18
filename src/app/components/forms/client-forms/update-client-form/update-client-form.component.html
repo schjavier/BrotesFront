@@ -3,12 +3,19 @@
    title: 'Buscar Clientes por Nombre' ,
    placeholder: 'Ingrese el Nombre',
    debounceTime: 500,
-   minLength: 3 }">
+   minLength: 3 }"
+(searchChange)="searchClientByName($event)">
 
 </app-search-bar>
 
+
 <div class="formWrapper">
-<div class="updateClientForm">
+
+  <div class="errorContainer" *ngIf="errorMessage!=null">
+    <p class="errorMsg">{{ errorMessage }}</p>
+  </div>
+
+  <div class="updateClientForm" *ngIf="updateClientForm.valid">
   <form [formGroup]="updateClientForm">
         <label for="id">ID:</label>
         <input id="id" type="text" formControlName="id" required readonly>
@@ -22,7 +29,19 @@
         <label for="phone">Teléfono</label>
         <input id="phone" type="text" formControlName="telefono" required>
 
-        <mat-slide-toggle class="activeClient" checked > Activar Cliente </mat-slide-toggle>
+        <mat-slide-toggle
+          class="activeClient"
+          [checked] = isClientActive
+          (change)="toggleClient(updateClientForm.get('id')?.value, $event.checked)">
+          {{ isClientActive ? 'Desactivar Cliente'  : 'Activar Cliente'}}
+
+        </mat-slide-toggle>
+
+        <button mat-button
+                (click)="updateClient()"
+                [disabled]="!updateClientForm.dirty">
+          Actualizar
+        </button>
   </form>
 </div>
 </div>

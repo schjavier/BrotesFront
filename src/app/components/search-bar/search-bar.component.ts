@@ -3,6 +3,7 @@ import {SearchConfig} from './search-config';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import {NgIf} from '@angular/common';
+import {debounceTime, distinctUntilChanged, filter} from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -17,7 +18,7 @@ import {NgIf} from '@angular/common';
 export class SearchBarComponent implements OnInit {
 
   @Input() searchConfig: SearchConfig = {
-    title: "Que Vamos a hacer hoy?",
+    title: "Que vamos a hacer hoy?",
     placeholder: 'Search...',
     debounceTime: 300,
     minLength: 3,
@@ -28,8 +29,12 @@ export class SearchBarComponent implements OnInit {
   searchControl:FormControl = new FormControl('');
 
   ngOnInit(): void {
-  }
-// todo logica de la barra de busqueda!
+    this.searchControl.valueChanges.pipe(
+      debounceTime(this.searchConfig.debounceTime),
+      distinctUntilChanged(),
+      filter(value => !value || value.length >= this.searchConfig.minLength)
+    ).subscribe(value => {this.searchChange.emit(value)});
 
+  }
 
 }

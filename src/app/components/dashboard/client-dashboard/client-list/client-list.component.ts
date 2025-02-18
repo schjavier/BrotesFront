@@ -27,7 +27,7 @@ export class ClientListComponent {
     this.clientList$ = this.clientService.getAllClients();
 
     this.clientList$.subscribe(clients => this.clients = clients);
-    console.log(this.clients);
+
 
   }
 }
