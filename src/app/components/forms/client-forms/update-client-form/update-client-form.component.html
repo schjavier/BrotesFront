@@ -15,7 +15,7 @@
     <p class="errorMsg">{{ errorMessage }}</p>
   </div>
 
-  <div class="updateClientForm" *ngIf="updateClientForm.valid">
+  <div class="updateClientForm">
   <form [formGroup]="updateClientForm">
         <label for="id">ID:</label>
         <input id="id" type="text" formControlName="id" required readonly>
@@ -39,7 +39,7 @@
 
         <button mat-button
                 (click)="updateClient()"
-                [disabled]="!updateClientForm.dirty">
+                [disabled]="!updateClientForm.dirty || !updateClientForm.valid">
           Actualizar
         </button>
   </form>
