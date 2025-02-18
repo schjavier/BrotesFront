@@ -34,7 +34,7 @@ export class CreateClientFormComponent {
 
 
   createDto(name:string, adress:string, phone:string):CreateClientDto{
-    return new CreateClientDto (name, adress, phone);
+    return new CreateClientDto (name.toLowerCase(), adress, phone);
   }
 
   createClient():void {

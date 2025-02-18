@@ -11,6 +11,18 @@
 
 }
 
+.errorContainer{
+  text-align: center;
+  background-color: darkred;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.errorMsg{
+  color: white
+}
+
 .updateClientForm{
   width: 35%;
   background-color: rgba(237, 200, 160, 0.3);
