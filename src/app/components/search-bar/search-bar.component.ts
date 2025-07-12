@@ -35,6 +35,7 @@ export class SearchBarComponent implements OnInit {
       filter(value => !value || value.length >= this.searchConfig.minLength)
     ).subscribe(value => {this.searchChange.emit(value)});
 
+
   }
 
 }

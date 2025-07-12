@@ -66,4 +66,7 @@ export class ClientService {
 
     }
 
+    deleteClient(clientId:number):Observable<Client>{
+      return this.http.delete<Client>(this.url + "/" + clientId).pipe(catchError(this.errorHandler));
+    }
 }

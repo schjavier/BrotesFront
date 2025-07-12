@@ -37,11 +37,18 @@
 
         </mat-slide-toggle>
 
+    <div class="client-buttons">
         <button mat-button
                 (click)="updateClient()"
                 [disabled]="!updateClientForm.dirty || !updateClientForm.valid">
           Actualizar
         </button>
+      <button mat-button
+        (click)="deleteClient(updateClientForm.get('id')?.value)"
+      [disabled]="!updateClientForm.valid">
+        Borrar
+      </button>
+    </div>
   </form>
 </div>
 </div>
