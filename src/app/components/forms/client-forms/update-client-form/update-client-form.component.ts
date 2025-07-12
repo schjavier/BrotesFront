@@ -70,7 +70,6 @@ export class UpdateClientFormComponent {
         this.errorMessage = error.message;
       }
     } );
-
   }
 
 
@@ -122,6 +121,19 @@ export class UpdateClientFormComponent {
     })
   }
 
+  deleteClient(clientId: number) {
+    this.clientService.deleteClient(clientId).subscribe({
+      next: () => {
+        console.log("Cliente Eliminado");
+        this.popUp.open("Cliente Eliminado", "OK" ,{
+          duration:3000
+        })
+      }, error: error => {
+        this.errorMessage = error.message;
+      }
+    })
+    this.updateClientForm.reset();
+  }
 
   updateClient() {
 
