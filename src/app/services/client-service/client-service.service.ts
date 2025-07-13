@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, map, Observable, throwError} from 'rxjs';
-import {Client} from '../model/client/client';
-import {CreateClientDto} from '../model/client/create-client-dto';
-import {UpdateClientDto} from '../model/client/update-client-dto';
+import {Client} from '../../model/client/client';
+import {CreateClientDto} from '../../model/client/create-client-dto';
+import {UpdateClientDto} from '../../model/client/update-client-dto';
+import {ErrorHandlerService} from '../error-handler-service/error-handler.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private errorHandler:ErrorHandlerService) {
   }
 
   url:string = 'http://localhost:8080/clientes';
 
   getClientById(id:number):Observable<Client>{
     return this.http.get<Client>(this.url + "/" + id).pipe
-    (catchError(this.errorHandler));
+    (catchError(error => this.errorHandler.handleHttpError(error)));
   }
 
   getAllClients():Observable<Client[]>{
     return this.http.get<any>(this.url).pipe(
       map(response => response.content)).pipe
-        (catchError(this.errorHandler));
+        (catchError(error=> this.errorHandler.handleHttpError(error) ));
   }
 
   createClient(clientDto:CreateClientDto):Observable<Client>{
@@ -32,41 +35,28 @@ export class ClientService {
 
     getClientByName(searchTerm: string):Observable<Client> {
       return this.http.get<Client>(this.url + "/client?nombre=" + searchTerm).pipe
-        (catchError(this.errorHandler));
+        (catchError(error => this.errorHandler.handleHttpError(error)));
 
     }
 
     deactivateClient(clientId:number):Observable<Client>{
     return this.http.patch<Client>(this.url + "/" + clientId.toString() + "/desactivar", {}).pipe
-    (catchError(this.errorHandler));
+    (catchError(error => this.errorHandler.handleHttpError(error)));
     }
 
   activateClient(clientId:number):Observable<Client>{
     return this.http.patch<Client>(this.url + "/" + clientId.toString() + "/activar", {}).pipe
-    (catchError(this.errorHandler));
+    (catchError(error => this.errorHandler.handleHttpError(error)));
   }
 
 
   updateClient(dataClient: UpdateClientDto) {
-    return this.http.put<Client>(this.url, dataClient).pipe(catchError(this.errorHandler));
-    }
-
-
-    private errorHandler(error: HttpErrorResponse) {
-      console.error('Ocurrio un error:', error);
-
-      if (error.status === 0){
-        return throwError( () => new Error('Error de Red: No se pudo conectar al servidor.') );
-      } else if (error.status === 404) {
-        return throwError( () =>  new Error('Cliente no encontrado!'));
-      } else {
-        return throwError( () => new Error(error.message) );
-      }
-
-
+    return this.http.put<Client>(this.url, dataClient).pipe(
+      catchError(error => this.errorHandler.handleHttpError(error)));
     }
 
     deleteClient(clientId:number):Observable<Client>{
-      return this.http.delete<Client>(this.url + "/" + clientId).pipe(catchError(this.errorHandler));
+      return this.http.delete<Client>(this.url + "/" + clientId).pipe(
+        catchError(error => this.errorHandler.handleHttpError(error)));
     }
 }

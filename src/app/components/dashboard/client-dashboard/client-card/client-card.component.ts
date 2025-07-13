@@ -1,7 +1,7 @@
 import {Component, EventEmitter, input, Input, Output} from '@angular/core';
 import {Client} from '../../../../model/client/client';
 import {Observable} from 'rxjs';
-import {ClientService} from '../../../../services/client-service.service';
+import {ClientService} from '../../../../services/client-service/client-service.service';
 import {AsyncPipe} from '@angular/common';
 import {
   MatCard,

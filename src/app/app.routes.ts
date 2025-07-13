@@ -8,6 +8,7 @@ import {
   UpdateClientFormComponent
 } from './components/forms/client-forms/update-client-form/update-client-form.component';
 import {DefaultDashboardComponent} from './components/dashboard/default-dashboard/default-dashboard.component';
+import {ProductDashboardComponent} from './components/dashboard/product-dashboard/product-dashboard.component';
 
 export const routes: Routes = [
 
@@ -24,7 +25,9 @@ export const routes: Routes = [
           {path: 'listar', component: ClientListComponent},
           {path: 'registrar', component: CreateClientFormComponent},
           {path: 'actualizar', component: UpdateClientFormComponent}
-        ]}
+        ]},
+      {path: 'product',
+        component : ProductDashboardComponent,}
 
     ]},
 
