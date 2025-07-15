@@ -11,6 +11,6 @@ import {RouterOutlet} from '@angular/router';
 })
 export class ClientDashboardComponent {
 
-  titulo:string = "Client Dashboard";
+  titulo:string = "Tablero de Clientes";
 
 }

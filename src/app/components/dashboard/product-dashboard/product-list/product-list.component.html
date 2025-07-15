@@ -1,1 +1,38 @@
-<p>product-list works!</p>
+<div *ngIf="productList$ | async as productList; else loadingOrNotProducts">
+  <div *ngIf="productList && productList.length > 0; else noProductsFound">
+
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr *ngFor="let product of productList">
+            <td>{{ product.id }}</td>
+            <td>{{ product.nombre }}</td>
+            <td>{{ product.precio }}</td>
+            <td>{{ product.categoria }}</td>
+            @if (product.activo) {
+             <td class="status-active">Activo</td>
+            } @else {
+              <td class="status-inactive">Inactivo</td>
+            }
+          </tr>
+
+        </tbody>
+    </table>
+  </div>
+  <ng-template #noProductsFound>
+    <p class="info-message">No se encontraron prodcutos en el Sistema</p>
+  </ng-template>
+
+</div>
+
+<ng-template #loadingOrNotProducts>
+  <p class="loading-message">Cargando Productos Por favor espere!</p>
+</ng-template>

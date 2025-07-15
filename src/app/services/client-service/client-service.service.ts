@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, map, Observable, throwError} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {catchError, map, Observable} from 'rxjs';
 import {Client} from '../../model/client/client';
 import {CreateClientDto} from '../../model/client/create-client-dto';
 import {UpdateClientDto} from '../../model/client/update-client-dto';

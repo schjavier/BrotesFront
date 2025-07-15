@@ -9,6 +9,7 @@ import {
 } from './components/forms/client-forms/update-client-form/update-client-form.component';
 import {DefaultDashboardComponent} from './components/dashboard/default-dashboard/default-dashboard.component';
 import {ProductDashboardComponent} from './components/dashboard/product-dashboard/product-dashboard.component';
+import {ProductListComponent} from './components/dashboard/product-dashboard/product-list/product-list.component';
 
 export const routes: Routes = [
 
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path: 'dashboard', component : DashboardComponent, children:[
 
       {path:'', component : DefaultDashboardComponent},
+
       {path: 'cliente',
         component : ClientDashboardComponent,
         children: [
@@ -26,8 +28,12 @@ export const routes: Routes = [
           {path: 'registrar', component: CreateClientFormComponent},
           {path: 'actualizar', component: UpdateClientFormComponent}
         ]},
-      {path: 'product',
-        component : ProductDashboardComponent,}
+
+      {path: 'producto',
+        component : ProductDashboardComponent,
+        children: [
+          {path: 'listar', component: ProductListComponent}
+        ]}
 
     ]},
 

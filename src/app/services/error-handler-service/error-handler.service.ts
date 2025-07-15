@@ -25,9 +25,6 @@ export class ErrorHandlerService {
         break;
       case 404:
         errorMessage = "Recurso no encontrado!";
-        if (error.url){
-          errorMessage += `(URL: ${error.url})`;
-        }
         if (error.error && error.error.message) {
           errorMessage = error.error.message;
         }
