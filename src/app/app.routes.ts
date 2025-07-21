@@ -10,6 +10,9 @@ import {
 import {DefaultDashboardComponent} from './components/dashboard/default-dashboard/default-dashboard.component';
 import {ProductDashboardComponent} from './components/dashboard/product-dashboard/product-dashboard.component';
 import {ProductListComponent} from './components/dashboard/product-dashboard/product-list/product-list.component';
+import {
+  CreateProductFormComponent
+} from './components/forms/product-forms/create-product-form/create-product-form.component';
 
 export const routes: Routes = [
 
@@ -32,7 +35,8 @@ export const routes: Routes = [
       {path: 'producto',
         component : ProductDashboardComponent,
         children: [
-          {path: 'listar', component: ProductListComponent}
+          {path: 'listar', component: ProductListComponent},
+          {path: 'registrar', component: CreateProductFormComponent}
         ]}
 
     ]},

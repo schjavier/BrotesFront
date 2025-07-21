@@ -1,0 +1,41 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.productForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+
+}
+
+.formTitle{
+  font-size: 1.2rem;
+}
+
+.productLabel{
+  font-size: 1rem;
+  margin: 10px 0 10px 0;
+}
+
+.productInput{
+  height: 30px;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+}
+
+button.formButton{
+  margin: 10px 0;
+
+}
+
+.mat-mdc-form-field{
+  width: 100%;
+  margin-top: 30px;
+}

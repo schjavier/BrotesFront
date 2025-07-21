@@ -1,0 +1,35 @@
+
+<form class="productForm" [formGroup]="createProductForm">
+  <p class="formTitle">{{ formTitle }}</p>
+
+  <mat-form-field>
+
+    <mat-label class="productLabel"> Nombre </mat-label>
+    <input matInput class="productInput" id="name" type="text" formControlName="nombre" required>
+
+  </mat-form-field>
+
+  <mat-form-field>
+
+    <mat-label class="productLabel"> Precio  </mat-label>
+    <input matInput class="productInput" id="price" type="text" formControlName="precio" required>
+
+  </mat-form-field>
+
+  <mat-form-field class="selectField">
+
+  <mat-label>Categoria</mat-label>
+  <mat-select id="category" placeholder="Elija una categoria" formControlName="categoria">
+    <mat-option value="BROTES">Brotes</mat-option>
+    <mat-option value="HOJAS">Hojas</mat-option>
+    <mat-option value="VERDURA">Verdura</mat-option>
+  </mat-select>
+
+  </mat-form-field>
+
+  <button class="formButton" mat-raised-button type="submit"
+          [disabled]="createProductForm.invalid"
+          (click)="onSubmit()">Crear</button>
+
+</form>
+
