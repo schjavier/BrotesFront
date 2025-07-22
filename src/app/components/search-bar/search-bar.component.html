@@ -1,27 +1,44 @@
 <h3> {{ searchConfig.title }} </h3>
 <div class="searchBarContainer">
-      <span class="searchIcon">
-      <mat-icon>search</mat-icon>
-      </span>
+    <mat-form-field>
+        <mat-label>{{ searchConfig.placeholder }}</mat-label>
+        <input type="text"
+               matInput
+        [formControl]="searchControl"
+        [matAutocomplete]="auto">
+        <button mat-icon-button matPrefix *ngIf="!searchControl.value" color="primary">
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button matSuffix *ngIf="searchControl.value" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+        </button>
 
-      <input class="searchBar" role="searchbox"
-                                        [formControl]="searchControl"
-                                        [placeholder]="searchConfig.placeholder">
-      <span class="closeIcon"
-              *ngIf="searchControl.value"
-              (click)="searchControl.reset()">
-              <mat-icon>close</mat-icon>
-      </span>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let item of filteredItems$ | async" [value]="item">
+                {{ displayFn(item) }}
+            </mat-option>
+            <mat-option *ngIf="(filteredItems$ | async)?.length === 0 && searchControl.value.length >= searchConfig.minLength!">
+                No se encontraron sugerencias...
+            </mat-option>
+        </mat-autocomplete>
+
+    </mat-form-field>
+
 </div>
 
-<!--<mat-form-field>-->
-<!--  <mat-icon matPrefix>search</mat-icon>-->
-<!--  <input matInput [formControl]="searchControl" [placeholder]="searchConfig.placeholder">-->
-<!--  <button mat-icon-button matSuffix-->
-<!--          *ngIf="searchControl.value"-->
-<!--          (click)="searchControl.reset()">-->
-<!--    <mat-icon>close</mat-icon>-->
-<!--  </button>-->
 
 
-<!--</mat-form-field>-->
+
+
+<!--      <span class="searchIcon">-->
+<!--      <mat-icon>search</mat-icon>-->
+<!--      </span>-->
+
+<!--      <input class="searchBar" role="searchbox"-->
+<!--                                        [formControl]="searchControl"-->
+<!--                                        [placeholder]="searchConfig.placeholder">-->
+<!--      <span class="closeIcon"-->
+<!--              *ngIf="searchControl.value"-->
+<!--              (click)="searchControl.reset()">-->
+<!--              <mat-icon>close</mat-icon>-->
+<!--      </span>-->

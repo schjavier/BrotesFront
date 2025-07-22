@@ -1,13 +1,14 @@
 
 <app-search-bar [searchConfig]="{
-   title: 'Buscar Productos por Nombre' ,
+   title: 'Buscar Productos para editar' ,
    placeholder: 'Buscar ... ',
    debounceTime: 500,
    minLength: 3 }"
-   (searchChange)="searchProductByName($event)">
+[searchSuggestionFn]="getProductSuggestion"
+[displayFn]="displayProductSuggestion"
+(itemSelected)="onProductSelected($event)" >
 
 </app-search-bar>
-
 
 <div class="formWrapper">
 
@@ -33,7 +34,7 @@
         class="activeProduct"
         [checked] = isProductActive
         (change)="toggleProduct(updateProductForm.get('id')?.value, $event.checked)">
-        {{ isProductActive ? 'Desactivar Cliente'  : 'Activar Cliente'}}
+        {{ isProductActive ? 'Desactivar Producto'  : 'Activar Producto'}}
 
       </mat-slide-toggle>
 

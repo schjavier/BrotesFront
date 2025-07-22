@@ -9,6 +9,7 @@ import {Product} from '../../../../model/product/product';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ProductService} from '../../../../services/product-service/product.service';
 import {UpdateProductDTO} from '../../../../model/product/update-product-dto';
+import {DatosListaProducto} from '../../../../model/product/datos-lista-producto';
 
 @Component({
   selector: 'app-update-product-form',
@@ -44,12 +45,39 @@ export class UpdateProductFormComponent {
   constructor(private productService: ProductService) {
   }
 
-  searchProductByName(searchTerm:string) {
-    this.errorMessage = null;
-    this.updateProductForm.reset();
+  getProductSuggestion = (searchTerm: string) => {
+      return this.productService.getProductsSuggestionByName(searchTerm);
+  };
 
-    this.product$ = this.productService.getProductByName(searchTerm.toLowerCase());
-  //todo terminar este metodo...
+  displayProductSuggestion = (product: DatosListaProducto):string => {
+      return product ? `${product.nombre} (${product.categoria})` : '';
+  };
+
+  onProductSelected(selectedProductDto: DatosListaProducto):void{
+      this.errorMessage = null;
+      this.updateProductForm.reset();
+      if(selectedProductDto && selectedProductDto.id){
+          this.productService.getProductById(selectedProductDto.id).subscribe({
+              next: (productData: Product) => {
+                  this.product = productData;
+                  this.updateForm(
+                      this.product.id,
+                      this.product.nombre,
+                      this.product.precio,
+                      this.product.categoria
+                  );
+                  this.isProductActive = productData.activo;
+                  this.errorMessage = null;
+              },
+              error: error => {
+                  this.errorMessage = error.message;
+                  console.error("Error al cargar el prodcuto: ", error);
+                  this.updateProductForm.reset();
+              }
+          });
+      }else {
+          this.errorMessage = "No se pudo cargar el producto"
+      }
   }
 
   updateForm(id:number, nombre:string, precio:number, categoria:string):void{

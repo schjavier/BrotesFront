@@ -65,4 +65,10 @@ export class ProductService {
       catchError(error => this.errorHandler.handleHttpError(error))
     )
   }
+
+    getProductsSuggestionByName(nombre: string):Observable<Product[]> {
+        return this.http.get<Product[]>(this.url + "/buscar?nombre=" + nombre).pipe(
+            catchError(error => this.errorHandler.handleHttpError(error))
+        )
+    }
 }
