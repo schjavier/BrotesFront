@@ -2,17 +2,23 @@
 <form class="clientForm" [formGroup]="createClientForm">
   <p class="formTitle">{{ formTitle }}</p>
 
-  <label class="clientLabel" for="name"> Nombre </label>
-  <input class="clientInput" id="name" type="text" formControlName="name" required>
+  <mat-form-field>
+      <mat-label class="clientLabel"> Nombre </mat-label>
+      <input matInput class="clientInput" id="name" type="text" formControlName="nombre" required>
+  </mat-form-field>
 
-  <label class="clientLabel" for="adress"> Direccion  </label>
-  <input class="clientInput" id="adress" type="text" formControlName="adress" required>
+    <mat-form-field>
+      <mat-label class="clientLabel"> Direccion  </mat-label>
+      <input matInput class="clientInput" id="address" type="text" formControlName="direccion" required>
+  </mat-form-field>
 
-  <label class="clientLabel" for="phone"> Telefono </label>
-  <input class="clientInput" id="phone" type="text" formControlName="phone" required>
+  <mat-form-field>
+      <mat-label class="clientLabel"> Telefono </mat-label>
+      <input matInput class="clientInput" id="phone" type="text" formControlName="telefono" required>
+  </mat-form-field>
 
-  <button class="formButton" mat-raised-button type="submit"
-          (click)="createClient()"
+    <button class="formButton" mat-raised-button type="submit"
+          (click)="onSubmit()"
           [disabled]="createClientForm.invalid">Crear</button>
 
 </form>
