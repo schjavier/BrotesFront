@@ -9,6 +9,9 @@ import {MatButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
 import {UpdateClientDto} from '../../../../model/client/update-client-dto';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DatosListaProducto} from '../../../../model/product/datos-lista-producto';
+import {Product} from '../../../../model/product/product';
+import {DatosListaCliente} from '../../../../model/client/datos-lista-cliente';
 
 @Component({
   selector: 'app-update-client-form',
@@ -46,33 +49,42 @@ export class UpdateClientFormComponent {
   constructor(private clientService: ClientService) {
   }
 
-  searchClientByName(searchTerm: string) {
-
-    this.errorMessage = null;
-    this.updateClientForm.reset();
-
-    this.client$ = this.clientService.getClientByName(searchTerm.toLowerCase());
-
-    this.client$.subscribe( {
-      next: client => {
-
-        this.client = client;
-
-        this.updateForm(
-          this.client.id,
-          this.client.nombre,
-          this.client.direccion,
-          this.client.telefono);
-
-        this.isClientActive = client.activo;
-        }, error: error => {
-        this.errorMessage = error.message;
-      }
-    } );
+  getClientSuggestion = (searchTerm:string) => {
+      return this.clientService.getClientSuggestionByName(searchTerm);
   }
 
+    displayClientSuggestion = (client: DatosListaCliente):string => {
+        return client ? `${client.nombre} ` : '';
+    };
 
-  updateForm(id:number, nombre:string, direccion:string, telefono:string):void{
+    onClientSelected(selectedClientDto: DatosListaCliente):void{
+        this.errorMessage = null;
+        this.updateClientForm.reset();
+        if(selectedClientDto && selectedClientDto.id){
+            this.clientService.getClientById(selectedClientDto.id).subscribe({
+                next: (clientData: Client) => {
+                    this.client = clientData;
+                    this.updateForm(
+                        this.client.id,
+                        this.client.nombre,
+                        this.client.direccion,
+                        this.client.telefono
+                    );
+                    this.isClientActive = clientData.activo;
+                    this.errorMessage = null;
+                },
+                error: error => {
+                    this.errorMessage = error.message;
+                    console.error("Error al cargar el Cliente: ", error);
+                    this.updateClientForm.reset();
+                }
+            });
+        }else {
+            this.errorMessage = "No se pudo cargar el producto"
+        }
+    }
+
+    updateForm(id:number, nombre:string, direccion:string, telefono:string):void{
 
     this.updateClientForm.setValue({
       id: id,
@@ -102,7 +114,6 @@ export class UpdateClientFormComponent {
           })
         }, error: error => {
           this.errorMessage = error.message;
-
         }}
     );
   }

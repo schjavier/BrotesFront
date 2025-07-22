@@ -2,11 +2,21 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {ClientService} from '../../../../services/client-service/client-service.service';
-import {CreateClientDto} from '../../../../model/client/create-client-dto';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatFormField} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatLabel} from '@angular/material/select';
 
 @Component({
   selector: 'app-create-client-form',
-  imports: [FormsModule, ReactiveFormsModule, MatButton],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatButton,
+        MatFormField,
+        MatInput,
+        MatLabel
+    ],
   templateUrl: './create-client-form.component.html',
   styleUrl: './create-client-form.component.css'
 })
@@ -17,42 +27,27 @@ export class CreateClientFormComponent {
 
   createClientForm:FormGroup = new FormGroup ({
 
-    name: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    phone : new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
+    direccion: new FormControl('', Validators.required),
+    telefono: new FormControl('', Validators.required),
 
 });
 
+  popUp:MatSnackBar = new MatSnackBar();
 
   constructor(private clientService: ClientService) {
   }
 
-  get name():string{
-    return this.createClientForm.controls['name'].value;
-  }
-
-  createDto(name:string, address:string, phone:string):CreateClientDto{
-    return new CreateClientDto (name.toLowerCase(), address, phone);
-  }
-
-  createClient():void {
-
-    if(this.createClientForm.valid) {
-      let clientDto: CreateClientDto = this.createDto(
-        this.createClientForm.controls['name'].value,
-        this.createClientForm.controls['address'].value,
-        this.createClientForm.controls['phone'].value,
-      )
-
-
-      this.clientService.createClient(clientDto).subscribe(
-        client => {
-          console.log("Client created successfully:", client);
-        });
-
-    }
-      this.createClientForm.reset();
+  onSubmit():void{
+      if(this.createClientForm.valid){
+          this.clientService.createClient(this.createClientForm.value).subscribe();
+          this.popUp.open("Cliente creado", "OK");
+          this.createClientForm.reset();
+      } else {
+          this.createClientForm.markAllAsTouched();
+      }
 
   }
+
 
 }

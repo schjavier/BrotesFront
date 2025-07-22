@@ -1,5 +1,39 @@
-<div *ngFor = "let client of clients" [ngStyle]= "{'margin.px': 10}" >
+<div *ngIf="clientList$ | async as clientList; else loadingOrNotClients">
+    <div *ngIf="clientList && clientList.length > 0; else noClientsFound">
 
-  <app-client-card [id]="client.id" ></app-client-card>
+        <table class="client-table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let client of clientList">
+                <td>{{ client.id }}</td>
+                <td>{{ client.nombre }}</td>
+                <td>{{ client.direccion }}</td>
+                <td>{{ client.telefono }}</td>
+                @if (client.activo) {
+                    <td class="status-active">Activo</td>
+                } @else {
+                    <td class="status-inactive">Inactivo</td>
+                }
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noClientsFound>
+        <p class="info-message">No se encontraron productos en el Sistema</p>
+    </ng-template>
 
 </div>
+
+<ng-template #loadingOrNotClients>
+    <p class="loading-message">Cargando Productos Por favor espere!</p>
+</ng-template>
+

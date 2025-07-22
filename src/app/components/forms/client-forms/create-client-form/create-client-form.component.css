@@ -34,3 +34,8 @@ button.formButton{
   margin: 10px 0;
 
 }
+
+.mat-mdc-form-field{
+    width: 100%;
+    margin-top: 30px;
+}
