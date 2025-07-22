@@ -4,8 +4,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {MatFormField, MatLabel, MatOption, MatSelect} from '@angular/material/select';
 import {MatInput} from '@angular/material/input';
 import {ProductService} from '../../../../services/product-service/product.service';
-import {CreateProductDTO} from '../../../../model/product/create-product-dto';
-import {CreateClientDto} from '../../../../model/client/create-client-dto';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-product-form',
@@ -30,16 +29,19 @@ export class CreateProductFormComponent {
     categoria: new FormControl('', [Validators.required]),
   });
 
+  popUp: MatSnackBar = new MatSnackBar();
+
   constructor(private productService: ProductService) {
   }
 
   onSubmit(): void{
     if(this.createProductForm.valid){
-       this.productService.createProduct(this.createProductForm.value).subscribe()
+       this.productService.createProduct(this.createProductForm.value).subscribe();
+       this.popUp.open("Producto creado", "OK");
+       this.createProductForm.reset();
     } else {
       this.createProductForm.markAllAsTouched()
     }
   }
-
 
 }
