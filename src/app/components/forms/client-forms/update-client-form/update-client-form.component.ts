@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ClientService} from '../../../../services/client-service.service';
+import {ClientService} from '../../../../services/client-service/client-service.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {SearchBarComponent} from '../../../search-bar/search-bar.component';
 import {Client} from '../../../../model/client/client';
@@ -24,7 +24,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class UpdateClientFormComponent {
 
-  formTitle = 'Actualizar Cliente';
   errorMessage: string | null = null;
 
   client$!:Observable<Client>;

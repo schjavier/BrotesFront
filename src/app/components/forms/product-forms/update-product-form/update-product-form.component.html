@@ -1,0 +1,55 @@
+
+<app-search-bar [searchConfig]="{
+   title: 'Buscar Productos para editar' ,
+   placeholder: 'Buscar ... ',
+   debounceTime: 500,
+   minLength: 3 }"
+[searchSuggestionFn]="getProductSuggestion"
+[displayFn]="displayProductSuggestion"
+(itemSelected)="onProductSelected($event)" >
+
+</app-search-bar>
+
+<div class="formWrapper">
+
+  <div class="errorContainer" *ngIf="errorMessage!=null">
+    <p class="errorMsg">{{ errorMessage }}</p>
+  </div>
+
+  <div class="updateProductForm">
+    <form [formGroup]="updateProductForm">
+      <label for="id">ID:</label>
+      <input id="id" type="text" formControlName="id" required readonly>
+
+      <label class="headFormLabel" for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" required>
+
+      <label for="price">Precio</label>
+      <input id="price" type="text" formControlName="precio" required>
+
+      <label for="category">Categoría</label>
+      <input id="category" type="text" formControlName="categoria" required>
+
+      <mat-slide-toggle
+        class="activeProduct"
+        [checked] = isProductActive
+        (change)="toggleProduct(updateProductForm.get('id')?.value, $event.checked)">
+        {{ isProductActive ? 'Desactivar Producto'  : 'Activar Producto'}}
+
+      </mat-slide-toggle>
+
+      <div class="products-buttons">
+        <button mat-button
+                (click)="updateProduct()"
+                [disabled]="!updateProductForm.dirty || !updateProductForm.valid">
+          Actualizar
+        </button>
+        <button mat-button
+                (click)="deleteProduct(updateProductForm.get('id')?.value)"
+                [disabled]="!updateProductForm.valid">
+          Borrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+.product-table {
+  width: 100%;
+  border-collapse: collapse; /* Para que las celdas no tengan doble borde */
+  margin-top: 20px;
+}
+
+.product-table th,
+.product-table td {
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #074a09;
+  color: #1b1a1a;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.product-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Color de fondo para filas pares */
+}
+
+.product-table tbody tr:hover {
+  background-color: #ddd; /* Resaltar fila al pasar el ratón */
+}
+
+.status-active {
+  color: green;
+  /*font-weight: bold;*/
+}
+
+.status-inactive {
+  color: #5a0909;
+  /*font-weight: bold;*/
+}
+
+.error-message {
+  color: #d8000c;
+  background-color: #ffbaba;
+  border: 1px solid #d8000c;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading-message, .info-message {
+  text-align: center;
+  color: #b5821e;
+  padding: 20px;
+  font-style: italic;
+}

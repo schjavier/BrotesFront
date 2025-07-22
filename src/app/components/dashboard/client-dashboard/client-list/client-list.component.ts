@@ -1,5 +1,5 @@
 import {Component, output, Output} from '@angular/core';
-import {ClientService} from '../../../../services/client-service.service';
+import {ClientService} from '../../../../services/client-service/client-service.service';
 import {Observable} from 'rxjs';
 import {Client} from '../../../../model/client/client';
 import {AsyncPipe, NgForOf, NgStyle} from '@angular/common';

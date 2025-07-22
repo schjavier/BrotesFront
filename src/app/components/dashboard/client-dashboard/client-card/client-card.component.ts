@@ -1,7 +1,7 @@
-import {Component, EventEmitter, input, Input, Output} from '@angular/core';
+import {Component, EventEmitter, input, Input, OnInit, Output} from '@angular/core';
 import {Client} from '../../../../model/client/client';
 import {Observable} from 'rxjs';
-import {ClientService} from '../../../../services/client-service.service';
+import {ClientService} from '../../../../services/client-service/client-service.service';
 import {AsyncPipe} from '@angular/common';
 import {
   MatCard,
@@ -26,7 +26,7 @@ import {
   templateUrl: './client-card.component.html',
   styleUrl: './client-card.component.css'
 })
-export class ClientCardComponent {
+export class ClientCardComponent implements OnInit {
 
   client$!: Observable<Client>;
 

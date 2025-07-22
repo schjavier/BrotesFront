@@ -5,7 +5,6 @@ import {SearchBarComponent} from '../../search-bar/search-bar.component';
 @Component({
   selector: 'app-default-dashboard',
   imports: [
-    MatIcon,
     SearchBarComponent
   ],
   templateUrl: './default-dashboard.component.html',

@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LoginComponent} from './components/login/login.component';
-import {NavbarComponent} from './components/navbar/navbar.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
