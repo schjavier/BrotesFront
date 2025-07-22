@@ -24,7 +24,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class UpdateClientFormComponent {
 
-  formTitle = 'Actualizar Cliente';
   errorMessage: string | null = null;
 
   client$!:Observable<Client>;

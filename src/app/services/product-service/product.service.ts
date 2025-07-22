@@ -19,11 +19,6 @@ export class ProductService {
 
   url:string = "http://localhost:8080/productos";
 
-  getProductById(id:number):Observable<Product>{
-    return this.http.get<Product>(this.url + "/" + id).pipe(
-      catchError(error => this.errorHandler.handleHttpError(error)));
-  }
-
   getAllProducts():Observable<Product[]>{
     return this.http.get<any>(this.url).pipe(
       map(response => response.content)).pipe
@@ -54,5 +49,20 @@ export class ProductService {
     )
   }
 
+  getProductById(id:number):Observable<Product>{
+    return this.http.get<Product>(this.url + "/" + id).pipe(
+      catchError(error => this.errorHandler.handleHttpError(error)));
+  }
 
+  getProductByName(name: string):Observable<Product> {
+    return this.http.get<Product>(this.url + "/" + name).pipe(
+      catchError(error => this.errorHandler.handleHttpError(error))
+    );
+  }
+
+  deleteProduct(id:number):Observable<Product>{
+    return this.http.delete<Product>(this.url + "/" + id).pipe(
+      catchError(error => this.errorHandler.handleHttpError(error))
+    )
+  }
 }

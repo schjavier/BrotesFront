@@ -13,6 +13,9 @@ import {ProductListComponent} from './components/dashboard/product-dashboard/pro
 import {
   CreateProductFormComponent
 } from './components/forms/product-forms/create-product-form/create-product-form.component';
+import {
+  UpdateProductFormComponent
+} from './components/forms/product-forms/update-product-form/update-product-form.component';
 
 export const routes: Routes = [
 
@@ -36,7 +39,8 @@ export const routes: Routes = [
         component : ProductDashboardComponent,
         children: [
           {path: 'listar', component: ProductListComponent},
-          {path: 'registrar', component: CreateProductFormComponent}
+          {path: 'registrar', component: CreateProductFormComponent},
+          {path: 'actualizar', component: UpdateProductFormComponent}
         ]}
 
     ]},
