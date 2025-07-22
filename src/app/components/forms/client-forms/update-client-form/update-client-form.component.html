@@ -3,7 +3,10 @@
    title: 'Buscar Clientes por Nombre' ,
    placeholder: 'Ingrese el Nombre',
    debounceTime: 500,
-   minLength: 3 }">
+   minLength: 3 }"
+[searchSuggestionFn]="getClientSuggestion"
+[displayFn]="displayClientSuggestion"
+(itemSelected)="onClientSelected($event)">
 
 </app-search-bar>
 
@@ -31,6 +34,7 @@
         <mat-slide-toggle
           class="activeClient"
           [checked] = isClientActive
+          [disabled]="!updateClientForm.valid"
           (change)="toggleClient(updateClientForm.get('id')?.value, $event.checked)">
           {{ isClientActive ? 'Desactivar Cliente'  : 'Activar Cliente'}}
 

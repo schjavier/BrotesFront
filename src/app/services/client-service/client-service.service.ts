@@ -49,7 +49,6 @@ export class ClientService {
     (catchError(error => this.errorHandler.handleHttpError(error)));
   }
 
-
   updateClient(dataClient: UpdateClientDto) {
     return this.http.put<Client>(this.url, dataClient).pipe(
       catchError(error => this.errorHandler.handleHttpError(error)));
@@ -59,4 +58,12 @@ export class ClientService {
       return this.http.delete<Client>(this.url + "/" + clientId).pipe(
         catchError(error => this.errorHandler.handleHttpError(error)));
     }
+
+    getClientSuggestionByName(nombre: string):Observable<Client[]> {
+      return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre).pipe(
+          catchError(error => this.errorHandler.handleHttpError(error))
+      )
+    }
+
+
 }
