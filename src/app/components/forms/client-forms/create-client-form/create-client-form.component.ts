@@ -22,7 +22,7 @@ import {MatLabel} from '@angular/material/select';
 })
 export class CreateClientFormComponent {
 
-  formTitle: string = "Crear Clientes";
+  formTitle: string = "Cargar Clientes";
 
 
   createClientForm:FormGroup = new FormGroup ({

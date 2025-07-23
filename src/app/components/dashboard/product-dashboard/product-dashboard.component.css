@@ -5,3 +5,8 @@
   flex-direction: column;
 
 }
+
+h2{
+    font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: whitesmoke;
+}

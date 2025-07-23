@@ -1,13 +1,27 @@
 .navbar {
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   height: 75px;
+
 }
 
 h1{
   font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: black;
+  color: whitesmoke;
   margin-left: 1rem;
 }
+
+small{
+    font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #b5821e;
+}
+
+
+.logoutButton{
+    color: #b5821e;
+
+}
+
+
