@@ -13,14 +13,14 @@
 
 .client-table th {
     background-color: #074a09;
-    color: #1b1a1a;
+    color: #b5821e;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
 }
 
 .client-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2; /* Color de fondo para filas pares */
+    background-color: #5d9f5e; /* Color de fondo para filas pares */
 }
 
 .client-table tbody tr:hover {
@@ -28,13 +28,13 @@
 }
 
 .status-active {
-    color: green;
-    /*font-weight: bold;*/
+    color: #06420b;
+    font-weight: bold;
 }
 
 .status-inactive {
     color: #5a0909;
-    /*font-weight: bold;*/
+    font-weight: bold;
 }
 
 .error-message {
