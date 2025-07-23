@@ -13,9 +13,12 @@
 
 
 .contentNavbar {
-  display: flex;
-  flex-direction: row;
-
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #074a09;
+    width: 100vw;
+    align-items: center;
 }
 
 .ulTitle{
@@ -47,8 +50,9 @@ a:hover{
   padding: 5px;
 }
 
-.menuButton{
-  margin: 10px 0 0 10px ;
-  background-color: var(--mat-sys-tertiary);
-  color: whitesmoke;
+.mat-mdc-button:not(:disabled){
+    background-color: var(--mat-sys-primary);
+    color: whitesmoke;
+    font-size: 1rem;
 }
+

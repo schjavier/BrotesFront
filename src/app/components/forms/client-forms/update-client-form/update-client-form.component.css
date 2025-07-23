@@ -13,7 +13,7 @@
 
 .errorContainer{
   text-align: center;
-  background-color: darkred;
+  background-color: var(--mat-sys-tertiary);
   padding: 5px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -48,7 +48,7 @@ form {
   width: 50%;
 }
 
-#adress{
+#address{
   width: 50%;
 }
 
@@ -59,6 +59,7 @@ width: 30%;
 form label {
   font-size: 1rem;
   margin: 10px 0 10px 0;
+    color: whitesmoke;
 }
 
 
