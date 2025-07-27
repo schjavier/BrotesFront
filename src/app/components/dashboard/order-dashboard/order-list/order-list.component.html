@@ -21,7 +21,7 @@
 <!--                <td>{{ order.idPedido }}</td>-->
 <!--                <td>{{ order.idCliente }}</td>-->
                 <td>{{ order.nombreCliente}}</td>
-                <td>{{ order.fecha }}</td>
+                <td>{{ order.fecha.split("T", 1) }}</td>
                 <td>{{ order.diaDeEntrega }}</td>
                 <td>{{ order.precioTotal }}</td>
                 <td>
@@ -35,7 +35,7 @@
                         Sin items
                     </ng-container>
                 </td>
-                <td><button class="editButton" mat-button><mat-icon>edit</mat-icon>Editar</button></td>
+                <td><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></td>
             </tr>
 
             </tbody>

@@ -1,3 +1,4 @@
+
 .order-table {
     width: 100%;
     border-collapse: collapse;
@@ -22,6 +23,18 @@
 
 .order-table tbody tr:nth-child(even) {
     background-color: #5d9f5e; /* Color de fondo para filas pares */
+}
+
+.order-table tbody tr:nth-child(even) button{
+    background-color: #074a09;
+    color: whitesmoke;
+}
+
+.order-table tbody tr:nth-child(even) mat-icon.edit{
+    color: whitesmoke;
+}
+.order-table tbody tr:nth-child(even) mat-icon.info{
+    color: #074a09;
 }
 
 .order-table tbody tr:hover {
@@ -60,9 +73,14 @@ mat-icon{
 }
 
 mat-icon.info{
-    color: #b5821e;
+    color: #5d9f5e;
 }
 
 .editButton{
-    background-color: #b5821e;
+    background-color: #5d9f5e;
+    color: whitesmoke;
+}
+
+mat-icon.edit{
+    color: whitesmoke;
 }
