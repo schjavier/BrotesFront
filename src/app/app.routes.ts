@@ -16,6 +16,8 @@ import {
 import {
   UpdateProductFormComponent
 } from './components/forms/product-forms/update-product-form/update-product-form.component';
+import {OrderDashboardComponent} from './components/dashboard/order-dashboard/order-dashboard.component';
+import {OrderListComponent} from './components/dashboard/order-dashboard/order-list/order-list.component';
 
 export const routes: Routes = [
 
@@ -25,23 +27,29 @@ export const routes: Routes = [
 
   {path: 'dashboard', component : DashboardComponent, children:[
 
-      {path:'', component : DefaultDashboardComponent},
+          {path:'', component : DefaultDashboardComponent},
 
-      {path: 'cliente',
-        component : ClientDashboardComponent,
-        children: [
-          {path: 'listar', component: ClientListComponent},
-          {path: 'registrar', component: CreateClientFormComponent},
-          {path: 'actualizar', component: UpdateClientFormComponent}
-        ]},
+          {path: 'cliente',
+            component : ClientDashboardComponent,
+            children: [
+              {path: 'listar', component: ClientListComponent},
+              {path: 'registrar', component: CreateClientFormComponent},
+              {path: 'actualizar', component: UpdateClientFormComponent}
+            ]},
 
-      {path: 'producto',
-        component : ProductDashboardComponent,
-        children: [
-          {path: 'listar', component: ProductListComponent},
-          {path: 'registrar', component: CreateProductFormComponent},
-          {path: 'actualizar', component: UpdateProductFormComponent}
-        ]}
+          {path: 'producto',
+            component : ProductDashboardComponent,
+            children: [
+              {path: 'listar', component: ProductListComponent},
+              {path: 'registrar', component: CreateProductFormComponent},
+              {path: 'actualizar', component: UpdateProductFormComponent}
+            ]},
+
+          {path: 'pedido',
+          component : OrderDashboardComponent,
+          children: [
+              {path: 'listar', component: OrderListComponent},
+          ]}
 
     ]},
 

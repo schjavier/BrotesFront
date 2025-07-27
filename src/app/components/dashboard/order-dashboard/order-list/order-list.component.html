@@ -1,0 +1,52 @@
+<div *ngIf="orderList$ | async as orderList; else loadingOrNotOrders">
+    <div *ngIf="orderList && orderList.length > 0; else noOrderFound">
+
+        <table class="order-table">
+            <thead>
+            <tr>
+<!--                <th scope="col">Id Pedido</th>-->
+<!--                <th scope="col">id Cliente</th>-->
+                <th scope="col">Nombre Cliente</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Dia de Entrega</th>
+                <th scope="col">Precio Total</th>
+                <th scope="col">Items</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let order of orderList">
+<!--                <td>{{ order.idPedido }}</td>-->
+<!--                <td>{{ order.idCliente }}</td>-->
+                <td>{{ order.nombreCliente}}</td>
+                <td>{{ order.fecha }}</td>
+                <td>{{ order.diaDeEntrega }}</td>
+                <td>{{ order.precioTotal }}</td>
+                <td>
+                    <ng-container *ngIf="order.items && order.items.length > 0">
+                        <span [matTooltip]="formatItemsForTooltip(order.items)">
+                            {{ order.items.length}} item{{ order.items.length !==1 ? 's' : '' }}
+                            <mat-icon class="info">info_outline</mat-icon>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="!order.items || order.items.length === 0">
+                        Sin items
+                    </ng-container>
+                </td>
+                <td><button class="editButton" mat-button><mat-icon>edit</mat-icon>Editar</button></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noOrderFound>
+        <p class="info-message">No se encontraron productos en el Sistema</p>
+    </ng-template>
+
+</div>
+
+<ng-template #loadingOrNotOrders>
+    <p class="loading-message">Cargando Pedidos Por favor espere!</p>
+</ng-template>
