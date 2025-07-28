@@ -80,7 +80,7 @@ export class UpdateClientFormComponent {
                 }
             });
         }else {
-            this.errorMessage = "No se pudo cargar el producto"
+            this.errorMessage = "No se pudo cargar el cliente"
         }
     }
 

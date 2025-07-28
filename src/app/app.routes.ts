@@ -18,6 +18,7 @@ import {
 } from './components/forms/product-forms/update-product-form/update-product-form.component';
 import {OrderDashboardComponent} from './components/dashboard/order-dashboard/order-dashboard.component';
 import {OrderListComponent} from './components/dashboard/order-dashboard/order-list/order-list.component';
+import {CreateOrderFormComponent} from './components/forms/order/create-order-form/create-order-form.component';
 
 export const routes: Routes = [
 
@@ -49,6 +50,7 @@ export const routes: Routes = [
           component : OrderDashboardComponent,
           children: [
               {path: 'listar', component: OrderListComponent},
+              {path: 'registrar', component: CreateOrderFormComponent},
           ]}
 
     ]},

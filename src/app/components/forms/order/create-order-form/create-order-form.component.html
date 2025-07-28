@@ -1,0 +1,89 @@
+<div class="formWrapper">
+
+    <div class="errorContainer" *ngIf="errorMessage != null">
+        <p class="errorMsg">{{ errorMessage }}</p>
+    </div>
+
+    <div class="createOrderForm">
+        <form [formGroup]="createOrderForm">
+
+            <app-search-bar class="orderBar" [searchConfig]="{
+                          title: 'Buscar Cliente',
+                          placeholder: 'Nombre del Cliente...',
+                          debounceTime: 300,
+                          minLength: 2 }"
+                            [searchSuggestionFn]="getClientSuggestions"
+                            [displayFn]="displayClientSuggestion"
+                            (itemSelected)="onClientSelected($event)">
+            </app-search-bar>
+
+            <mat-form-field >
+                <mat-label>Id Cliente</mat-label>
+                <input matInput formControlName="idCliente" readonly>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Nombre Cliente</mat-label>
+                <input matInput formControlName="nombreCliente" readonly>
+            </mat-form-field>
+
+            <h3>Añadir Productos</h3>
+            <app-search-bar [searchConfig]="{
+                          title: 'Buscar Producto',
+                          placeholder: 'Nombre del Producto...',
+                          debounceTime: 300,
+                          minLength: 2 }"
+                            [searchSuggestionFn]="getProductSuggestions"
+                            [displayFn]="displayProductSuggestion"
+                            (itemSelected)="onProductSelected($event)">
+            </app-search-bar>
+
+            <mat-form-field class="quantityInput">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" [formControl]="productQuantityControl" min="1" >
+                <mat-error *ngIf="productQuantityControl.hasError('min')">
+                    Cantidad minima: 1
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button (click)="addOrderItem()"
+                    [disabled]="!selectedProduct || productQuantityControl.invalid">
+                Añadir
+            </button>
+
+            <div class="orderItemsDisplay">
+                <h4>Productos en el pedido</h4>
+                <mat-chip-listbox aria-label="order items selection">
+                    <mat-chip-row *ngFor="let itemControl of orderItems.controls; let i = index"
+                    (removed)="removeOrderItem(i)" color="primary">
+                        {{itemControl.get('nombreProducto')?.value }} ({{itemControl.get('categoria')!.value}}) (x{{itemControl.get('cantidad')?.value}})
+                        <mat-icon matChipRemove>Cancel</mat-icon>
+                    </mat-chip-row>
+                    <p *ngIf="orderItems.controls.length === 0" class="noItemMsg">
+                        No se han añadido productos al pedido.
+                    </p>
+                </mat-chip-listbox>
+            </div>
+
+            <mat-form-field>
+                <mat-label>Día de Entrega</mat-label>
+                <mat-select placeholder="Elija un dia..." formControlName="diaEntrega">
+                    <mat-option *ngFor="let day of deliveryDay | keyvalue" [value]="day.value">
+                        {{day.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="createOrderForm.get('diaEntrega')?.hasError('required') && createOrderForm.get('diaDeEntrega')?.touched">
+                    El día de entrega es obligatorio.
+                </mat-error>
+            </mat-form-field>
+
+            <div class="form-actions">
+                <button mat-raised-button type="submit"
+                        [disabled]="!createOrderForm.valid"
+                        (click)="createOrder()">
+                    Crear Pedido
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
