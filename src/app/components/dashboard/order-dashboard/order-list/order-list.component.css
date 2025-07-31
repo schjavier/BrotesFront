@@ -1,0 +1,86 @@
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-table th,
+.order-table td {
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+
+}
+
+.order-table th {
+    background-color: #074a09;
+    color: #b5821e;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #5d9f5e; /* Color de fondo para filas pares */
+}
+
+.order-table tbody tr:nth-child(even) button{
+    background-color: #074a09;
+    color: whitesmoke;
+}
+
+.order-table tbody tr:nth-child(even) mat-icon.edit{
+    color: whitesmoke;
+}
+.order-table tbody tr:nth-child(even) mat-icon.info{
+    color: #074a09;
+}
+
+.order-table tbody tr:hover {
+    background-color: #ddd; /* Resaltar fila al pasar el ratón */
+}
+
+.status-active {
+    color: #06420b;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #5a0909;
+    font-weight: bold;
+}
+
+.error-message {
+    color: #d8000c;
+    background-color: #ffbaba;
+    border: 1px solid #d8000c;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.loading-message, .info-message {
+    text-align: center;
+    color: #b5821e;
+    padding: 20px;
+    font-style: italic;
+}
+
+mat-icon{
+    color: var(--mat-sys-primary);
+}
+
+mat-icon.info{
+    color: #5d9f5e;
+}
+
+.editButton{
+    background-color: #5d9f5e;
+    color: whitesmoke;
+}
+
+mat-icon.edit{
+    color: whitesmoke;
+}

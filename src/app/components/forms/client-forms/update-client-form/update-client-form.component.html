@@ -1,4 +1,6 @@
+<div class="componentWrapper">
 
+<div class="searchBarWrapper">
 <app-search-bar [searchConfig]="{
    title: 'Buscar Clientes' ,
    placeholder: 'Ingrese el Nombre',
@@ -9,7 +11,7 @@
 (itemSelected)="onClientSelected($event)">
 
 </app-search-bar>
-
+</div>
 
 <div class="formWrapper">
 
@@ -53,5 +55,6 @@
       </button>
     </div>
   </form>
+</div>
 </div>
 </div>

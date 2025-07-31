@@ -1,4 +1,5 @@
-
+<div class="componentWrapper">
+<div class="searchBarWrapper">
 <app-search-bar [searchConfig]="{
    title: 'Buscar Productos para editar' ,
    placeholder: 'Buscar ... ',
@@ -9,7 +10,7 @@
 (itemSelected)="onProductSelected($event)" >
 
 </app-search-bar>
-
+</div>
 <div class="formWrapper">
 
   <div class="errorContainer" *ngIf="errorMessage!=null">
@@ -52,4 +53,5 @@
       </div>
     </form>
   </div>
+</div>
 </div>

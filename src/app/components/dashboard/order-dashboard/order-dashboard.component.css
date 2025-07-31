@@ -1,0 +1,13 @@
+.orderDashWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+h2{
+    font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: whitesmoke;
+}
