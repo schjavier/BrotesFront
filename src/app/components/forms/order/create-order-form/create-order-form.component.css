@@ -4,9 +4,118 @@ div.formWrapper {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+}
+
+div.createOrderForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 465px;
+    padding: 20px;
+    box-sizing: border-box;
+
 }
 
 div.createOrderForm app-search-bar.orderBar {
     width: 100%;
+}
+
+.quantityInputWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+
+
+}
+
+.quantityInput{
+    width: 30%;
+}
+
+/* quitar las flechitas al input numerico */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+/*fin de quitar las flechitas*/
+
+mat-error.quantityError {
+
+    background-color: #a94442;
+    border-radius: 5px;
+    text-align: center;
+    color: #302f2f;
+    position: relative;
+    width: 138px;
+    top: 10px;
+    right: 20px;
+}
+
+
+.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled){
+    background-color: #b5821e;
+}
+
+.mdc-evolution-chip__cell--trailing{
+    background-color: #5d9f5e;
+}
+
+.orderItemsDisplay {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Add a border for visual grouping */
+    padding: 10px;
+    border-radius: 4px;
+    min-height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+mat-chip-listbox {
+    display: flex;
+    flex-wrap: wrap; /* Allow chips to wrap to next line */
+    gap: 8px; /* Space between chips */
+    margin-top: 10px;
+
+}
+
+/*.mat-mdc-chip-set .mdc-evolution-chip-set__chips{*/
+/*    min-width: 40%;*/
+/*    width: 50%;*/
+/*    max-width: 73%;*/
+/*}*/
+
+div.orderItemsDisplay h4 {
+    color: #b5821e;
+    font-weight: bold;
+}
+
+div.orderItemsDisplay p {
+    color: #302f2f;
+
+}
+
+mat-error.deliveryDayError {
+    background-color: #a94442;
+    border-radius: 15px;
+    text-align: center;
+    color: #302f2f;
+    position: relative;
+    left: 210px;
+    bottom: 46px;
+
 }
