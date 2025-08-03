@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
@@ -20,8 +20,8 @@ import {CreateOrderDto} from '../../../../model/pedido/create-order-dto';
 import {MatIcon} from '@angular/material/icon';
 import {MatChipListbox, MatChipRemove, MatChipRow} from '@angular/material/chips';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ItemPedido} from '../../../../model/item-pedido/item-pedido';
 import {UpdateOrderDTO} from '../../../../model/pedido/update-order-dto';
+import {ProductOrderData} from '../../../../model/pedido/product-order-data';
 
 @Component({
   selector: 'app-create-order-form',
@@ -105,8 +105,8 @@ export class CreateOrderFormComponent implements OnInit {
                 this.createOrderForm.updateValueAndValidity();
             },
             error: (error) => {
-                this.popUp.open('Error al cargar el pedido. ' + error.message, 'Cerrar');
-                this.router.navigate(['/pedidos/listar'])
+                this.popUp.open('Error al cargar el pedido. ' + error.message, 'Cerrar', {duration:2000});
+                this.router.navigate(['/dashboard/pedidos/listar'])
             }
         });
     }
@@ -139,12 +139,10 @@ export class CreateOrderFormComponent implements OnInit {
 
             const formValues = this.createOrderForm.getRawValue();
 
-            const itemsForDto: ItemPedido[] = formValues.item.map((item:any) =>
+            const itemsForDto: ProductOrderData[] = formValues.item.map((item:any) =>
                 ({
-                    idProducto: item.idProducto,
-                    nombreProducto: item.producto.nombreProducto,
+                    id: item.idProducto,
                     cantidad: item.cantidad,
-                    precio: item.precio,
                 }));
 
             const orderData:UpdateOrderDTO = {
@@ -154,16 +152,17 @@ export class CreateOrderFormComponent implements OnInit {
                 diaEntrega: formValues.diaEntrega
             };
 
-            this.orderService.updateOrder(orderData).subscribe({
+            this.orderService.updateOrder(this.pedidoId, orderData).subscribe({
                 next: () => {
+                    console.log(orderData, this.pedidoId);
                     console.log('Pedido Actualizado con Exito');
-                    this.popUp.open('Pedido Actualizado', 'OK')
-                    this.router.navigate(['/pedidos/listar']);
+                    this.popUp.open('Pedido Actualizado', 'OK', {duration:2000})
+                    this.router.navigate(['/dashboard/pedidos/listar']);
                 },
                 error: (error) => {
                     this.errorMessage = error.message || 'Error al actualizar le Pedido';
                     console.error('Error al actualizar el pedido: ', error);
-                    this.popUp.open('Error actualizando el pedido', "OK");
+                    this.popUp.open('Error actualizando el pedido', "OK", {duration:2000});
                 }
             });
         } else {

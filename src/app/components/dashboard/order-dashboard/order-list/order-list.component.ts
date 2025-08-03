@@ -51,6 +51,7 @@ export class OrderListComponent implements OnInit {
     }
 
     formatItemsForTooltip(items: ItemPedidoDetailsDto[]):string {
+        console.log(items);
         if (!items || items.length === 0) {
             return 'No hay items en este pedido';
         }

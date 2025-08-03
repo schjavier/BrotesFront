@@ -31,8 +31,8 @@ export class OrderService {
         )
     }
 
-    updateOrder(orderData:UpdateOrderDTO):Observable<OrderDetailsDto>{
-        return this.http.put<OrderDetailsDto>(this.url, orderData).pipe(
+    updateOrder(orderId:number, orderData:UpdateOrderDTO):Observable<OrderDetailsDto>{
+        return this.http.put<OrderDetailsDto>(this.url + "/" + orderId, orderData).pipe(
             catchError(error => this.errorHandler.handleHttpError(error()))
         )
     }
