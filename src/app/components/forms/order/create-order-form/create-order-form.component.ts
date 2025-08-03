@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
@@ -13,14 +13,15 @@ import {DeliveryDay} from '../../../../model/pedido/deliveryDay';
 import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
 import {SearchBarComponent} from '../../../search-bar/search-bar.component';
 import {Observable} from 'rxjs';
-import {Client} from '../../../../model/client/client';
 import {DatosListaCliente} from '../../../../model/client/datos-lista-cliente';
 import {DatosListaProducto} from '../../../../model/product/datos-lista-producto';
-import {Product} from '../../../../model/product/product';
 import {ItemPedidoDetailsDto} from '../../../../model/item-pedido/item-pedido-details-dto';
 import {CreateOrderDto} from '../../../../model/pedido/create-order-dto';
 import {MatIcon} from '@angular/material/icon';
 import {MatChipListbox, MatChipRemove, MatChipRow} from '@angular/material/chips';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ItemPedido} from '../../../../model/item-pedido/item-pedido';
+import {UpdateOrderDTO} from '../../../../model/pedido/update-order-dto';
 
 @Component({
   selector: 'app-create-order-form',
@@ -40,19 +41,19 @@ import {MatChipListbox, MatChipRemove, MatChipRow} from '@angular/material/chips
         MatChipListbox,
         MatChipRow,
         MatError,
-        MatSuffix,
         MatChipRemove
     ],
   templateUrl: './create-order-form.component.html',
   styleUrl: './create-order-form.component.css'
 })
-export class CreateOrderFormComponent {
-    formTitle: string = "Cargar Pedido";
+export class CreateOrderFormComponent implements OnInit {
+
+    pedidoId:number | null = null;
+    isEditing:boolean = false;
 
     errorMessage: string | null = null;
 
     deliveryDay = DeliveryDay
-
 
     selectedClient: DatosListaCliente | null = null;
     selectedProduct: DatosListaProducto | null = null;
@@ -62,7 +63,7 @@ export class CreateOrderFormComponent {
     createOrderForm: FormGroup = new FormGroup({
         idCliente: new FormControl({value: '', disabled: true}, [Validators.required]),
         nombreCliente: new FormControl({value: '', disabled: true}, [Validators.required]),
-        items: new FormArray([], [Validators.required]),
+        item: new FormArray([], [Validators.required]),
         diaEntrega: new FormControl('', [Validators.required]),
     });
 
@@ -70,7 +71,106 @@ export class CreateOrderFormComponent {
 
     constructor(private orderService: OrderService,
                 private productService: ProductService,
-                private clientService: ClientService) {
+                private clientService: ClientService,
+                private route: ActivatedRoute,
+                private router: Router) {
+    }
+
+    ngOnInit(): void {
+        this.route.paramMap.subscribe(params => {
+            const id: string | null = params.get('id');
+            if(id){
+                this.isEditing = true;
+                this.pedidoId = +id;
+                this.loadOrderData(this.pedidoId);
+            } else {
+                this.isEditing = false;
+                this.pedidoId = null;
+                this.resetForm();
+            }
+        });
+
+    }
+
+    loadOrderData(id : number) :void {
+        this.orderService.getOrderById(id).subscribe({
+            next: (pedido) => {
+                this.createOrderForm.patchValue({
+                    idCliente: pedido.idCliente,
+                    nombreCliente: pedido.nombreCliente,
+                    diaEntrega: pedido.diaDeEntrega,
+                });
+                this.setOrderItems(pedido.item);
+                this.createOrderForm.markAsDirty();
+                this.createOrderForm.updateValueAndValidity();
+            },
+            error: (error) => {
+                this.popUp.open('Error al cargar el pedido. ' + error.message, 'Cerrar');
+                this.router.navigate(['/pedidos/listar'])
+            }
+        });
+    }
+
+    setOrderItems(items: ItemPedidoDetailsDto[]):void{
+        this.orderItems.clear();
+
+        items.forEach(  item => {
+            const productData = {
+                id: item.id,
+                nombre: item.nombreProducto,
+                precio: item.precioProducto,
+                categoria: item.categoria,
+                activo: true // aca no iria esto.
+            }
+            this.orderItems.push(this.createOrderItemFormGroup(productData, item.cantidad))
+        });
+    }
+
+    submitOrder():void{
+        if(this.isEditing){
+            this.updateOrder();
+        } else {
+            this.createOrder();
+        }
+    }
+
+    updateOrder():void{
+        if(this.createOrderForm.valid && this.pedidoId !== null){
+
+            const formValues = this.createOrderForm.getRawValue();
+
+            const itemsForDto: ItemPedido[] = formValues.item.map((item:any) =>
+                ({
+                    idProducto: item.idProducto,
+                    nombreProducto: item.producto.nombreProducto,
+                    cantidad: item.cantidad,
+                    precio: item.precio,
+                }));
+
+            const orderData:UpdateOrderDTO = {
+                idPedido: this.pedidoId,
+                idCliente: formValues.idCliente,
+                item: itemsForDto,
+                diaEntrega: formValues.diaEntrega
+            };
+
+            this.orderService.updateOrder(orderData).subscribe({
+                next: () => {
+                    console.log('Pedido Actualizado con Exito');
+                    this.popUp.open('Pedido Actualizado', 'OK')
+                    this.router.navigate(['/pedidos/listar']);
+                },
+                error: (error) => {
+                    this.errorMessage = error.message || 'Error al actualizar le Pedido';
+                    console.error('Error al actualizar el pedido: ', error);
+                    this.popUp.open('Error actualizando el pedido', "OK");
+                }
+            });
+        } else {
+            this.errorMessage = "Por favor Complete los campos del formulario"
+            this.createOrderForm.markAllAsTouched();
+            this.popUp.open(this.errorMessage, "Cerrar");
+        }
     }
 
     getClientSuggestions = (searchTerm:string):Observable<DatosListaCliente[]> => {
@@ -112,16 +212,16 @@ export class CreateOrderFormComponent {
     }
 
     get orderItems(): FormArray {
-        return this.createOrderForm.get('items') as FormArray;
+        return this.createOrderForm.get('item') as FormArray;
     }
 
-    createOrderItemFormGroup(product?:DatosListaProducto, quantity?: number):FormGroup {
+    createOrderItemFormGroup(product:DatosListaProducto, quantity: number = 1):FormGroup {
         return new FormGroup({
             idProducto: new FormControl(product ? product.id : '', Validators.required),
             nombreProducto: new FormControl(product ? product.nombre : '', Validators.required),
             categoria: new FormControl(product ? product.categoria : '', Validators.required),
             cantidad: new FormControl(quantity, [Validators.required, Validators.min(1)]),
-            precioUnitario: new FormControl(product ? product.precio : '', Validators.required),
+            precioProducto: new FormControl(product ? product.precio : '', Validators.required),
         })
     }
 
@@ -156,7 +256,8 @@ export class CreateOrderFormComponent {
                     id: item.idProducto,
                     nombreProducto: item.nombreProducto,
                     cantidad: item.cantidad,
-                    precioProducto: item.precioUnitario
+                    precioProducto: item.precioUnitario,
+                    categoria: item.categoria
                 }
             });
 
@@ -188,4 +289,14 @@ export class CreateOrderFormComponent {
         }
     }
 
+    resetForm():void{
+        this.createOrderForm.reset();
+        this.orderItems.clear();
+        this.selectedClient = null;
+        this.selectedProduct = null;
+        this.isEditing = false;
+        this.pedidoId = null;
+    }
+
 }
+

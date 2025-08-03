@@ -51,6 +51,7 @@ export const routes: Routes = [
           children: [
               {path: 'listar', component: OrderListComponent},
               {path: 'registrar', component: CreateOrderFormComponent},
+              {path: 'actualizar/:id', component: CreateOrderFormComponent}
           ]}
 
     ]},

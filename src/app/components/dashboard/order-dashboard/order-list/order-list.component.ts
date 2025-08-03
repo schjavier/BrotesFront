@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {Pedido} from '../../../../model/pedido/pedido';
 import {catchError, Observable, of} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
 import {OrderService} from '../../../../services/order-service/order.service';
-import {MatPrefix, MatSuffix} from '@angular/material/form-field';
 import {MatButton} from '@angular/material/button';
 import {OrderDetailsDto} from '../../../../model/pedido/order-details-dto';
 import {ItemPedidoDetailsDto} from '../../../../model/item-pedido/item-pedido-details-dto';
 import {MatTooltip} from '@angular/material/tooltip';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
@@ -19,6 +18,7 @@ import {MatTooltip} from '@angular/material/tooltip';
         MatIcon,
         MatButton,
         MatTooltip,
+        RouterLink,
 
     ],
   templateUrl: './order-list.component.html',

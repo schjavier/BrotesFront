@@ -3,4 +3,5 @@ export interface ItemPedidoDetailsDto {
     nombreProducto:string;
     cantidad:number;
     precioProducto:number;
+    categoria:string;
 }

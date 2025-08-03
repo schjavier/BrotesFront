@@ -35,7 +35,7 @@
                         Sin items
                     </ng-container>
                 </td>
-                <td><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></td>
+                <td><a [routerLink]="['/dashboard/pedido/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></td>
             </tr>
 
             </tbody>
