@@ -4,7 +4,7 @@ export interface UpdateOrderDTO {
 
     idPedido:number;
     idCliente:number;
-    item:ProductOrderData[];
+    items:ProductOrderData[];
     diaEntrega:string;
 
 

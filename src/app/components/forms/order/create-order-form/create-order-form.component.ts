@@ -148,13 +148,13 @@ export class CreateOrderFormComponent implements OnInit {
             const orderData:UpdateOrderDTO = {
                 idPedido: this.pedidoId,
                 idCliente: formValues.idCliente,
-                item: itemsForDto,
+                items: itemsForDto,
                 diaEntrega: formValues.diaEntrega
             };
 
             this.orderService.updateOrder(this.pedidoId, orderData).subscribe({
                 next: () => {
-                    console.log(orderData, this.pedidoId);
+                    console.error(orderData.idPedido, this.pedidoId);
                     console.log('Pedido Actualizado con Exito');
                     this.popUp.open('Pedido Actualizado', 'OK', {duration:2000})
                     this.router.navigate(['/dashboard/pedidos/listar']);
