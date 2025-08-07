@@ -17,6 +17,7 @@ export class ProductService {
   ) {
   }
 
+  status:string = "true";
   url:string = "http://localhost:8080/productos";
 
   getAllProducts():Observable<Product[]>{
@@ -68,6 +69,11 @@ export class ProductService {
 
     getProductsSuggestionByName(nombre: string):Observable<Product[]> {
         return this.http.get<Product[]>(this.url + "/buscar?nombre=" + nombre).pipe(
+            catchError(error => this.errorHandler.handleHttpError(error))
+        )
+    }
+    getProductsSuggestionByNameAndStatus(nombre: string):Observable<Product[]> {
+        return this.http.get<Product[]>(this.url + "/buscar?nombre=" + nombre + "&status=" + this.status).pipe(
             catchError(error => this.errorHandler.handleHttpError(error))
         )
     }
