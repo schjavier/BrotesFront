@@ -1,10 +1,10 @@
-import {ItemPedido} from '../item-pedido/item-pedido';
+import {ProductOrderData} from './product-order-data';
 
 export interface UpdateOrderDTO {
 
     idPedido:number;
     idCliente:number;
-    items:ItemPedido[];
+    items:ProductOrderData[];
     diaEntrega:string;
 
 

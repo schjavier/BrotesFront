@@ -25,17 +25,17 @@
                 <td>{{ order.diaDeEntrega }}</td>
                 <td>{{ order.precioTotal }}</td>
                 <td>
-                    <ng-container *ngIf="order.items && order.items.length > 0">
-                        <span [matTooltip]="formatItemsForTooltip(order.items)">
-                            {{ order.items.length}} item{{ order.items.length !==1 ? 's' : '' }}
+                    <ng-container *ngIf="order.item && order.item.length > 0">
+                        <span [matTooltip]="formatItemsForTooltip(order.item)">
+                            {{ order.item.length}} item{{ order.item.length !==1 ? 's' : '' }}
                             <mat-icon class="info">info_outline</mat-icon>
                         </span>
                     </ng-container>
-                    <ng-container *ngIf="!order.items || order.items.length === 0">
+                    <ng-container *ngIf="!order.item || order.item.length === 0">
                         Sin items
                     </ng-container>
                 </td>
-                <td><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></td>
+                <td><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></td>
             </tr>
 
             </tbody>

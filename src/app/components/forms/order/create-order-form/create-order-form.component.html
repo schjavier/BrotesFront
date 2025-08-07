@@ -1,8 +1,10 @@
 <div class="formWrapper">
 
-    <div class="errorContainer" *ngIf="errorMessage != null">
-        <p class="errorMsg">{{ errorMessage }}</p>
-    </div>
+    <h2>{{isEditing ? 'Editar Pedido' : 'Registrar Pedido'}}</h2>
+
+<!--    <div class="errorContainer" *ngIf="errorMessage != null">-->
+<!--        <p class="errorMsg">{{ errorMessage }}</p>-->
+<!--    </div>-->
 
     <div class="createOrderForm">
         <form [formGroup]="createOrderForm">
@@ -80,9 +82,9 @@
 
             <div class="form-actions">
                 <button mat-raised-button type="submit"
-                        [disabled]="!createOrderForm.valid"
-                        (click)="createOrder()">
-                    Crear Pedido
+                        [disabled]="!createOrderForm.valid && !createOrderForm.dirty"
+                        (click)="submitOrder()">
+                    {{ isEditing ? 'Actualizar' : 'Crear Pedido' }}
                 </button>
             </div>
         </form>
