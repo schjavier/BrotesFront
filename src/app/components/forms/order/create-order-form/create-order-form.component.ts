@@ -198,7 +198,7 @@ export class CreateOrderFormComponent implements OnInit {
     }
 
     getProductSuggestions = (searchTerm:string):Observable<DatosListaProducto[]> => {
-        return this.productService.getProductsSuggestionByName(searchTerm);
+        return this.productService.getProductsSuggestionByNameAndStatus(searchTerm);
     }
 
     displayProductSuggestion = (product:DatosListaProducto):string => {
