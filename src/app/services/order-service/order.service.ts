@@ -6,6 +6,7 @@ import {catchError, map, Observable} from 'rxjs';
 import {CreateOrderDto} from '../../model/pedido/create-order-dto';
 import {UpdateOrderDTO} from '../../model/pedido/update-order-dto';
 import {OrderDetailsDto} from '../../model/pedido/order-details-dto';
+import {ProductionSheet} from '../../model/production-sheet/production-sheet';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,12 @@ export class OrderService {
 
     getOrderByDeliveryDay(deliveryDay:string):Observable<OrderDetailsDto>{
         return this.http.get<OrderDetailsDto>(this.url + "/buscar?dia=" + deliveryDay).pipe(
+            catchError(error => this.errorHandler.handleHttpError(error()))
+        )
+    }
+
+    getProductionSheetByDay(deliveryDay:string):Observable<ProductionSheet[]>{
+        return this.http.get<ProductionSheet[]>(this.url + "/generar/planilla?dia=" + deliveryDay.toUpperCase()).pipe(
             catchError(error => this.errorHandler.handleHttpError(error()))
         )
     }

@@ -24,7 +24,7 @@ import {UpdateOrderDTO} from '../../../../model/pedido/update-order-dto';
 import {ProductOrderData} from '../../../../model/pedido/product-order-data';
 
 @Component({
-  selector: 'app-create-order-form',
+  selector: 'app-create-order-forms-form',
     imports: [
         ReactiveFormsModule,
         MatButton,
