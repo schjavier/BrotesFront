@@ -10,7 +10,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'app-order-list',
+  selector: 'app-order-forms-list',
     imports: [
         AsyncPipe,
         NgForOf,

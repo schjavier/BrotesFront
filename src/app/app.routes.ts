@@ -18,7 +18,10 @@ import {
 } from './components/forms/product-forms/update-product-form/update-product-form.component';
 import {OrderDashboardComponent} from './components/dashboard/order-dashboard/order-dashboard.component';
 import {OrderListComponent} from './components/dashboard/order-dashboard/order-list/order-list.component';
-import {CreateOrderFormComponent} from './components/forms/order/create-order-form/create-order-form.component';
+import {CreateOrderFormComponent} from './components/forms/order-forms/create-order-form/create-order-form.component';
+import {
+    ProductionSheetComponent
+} from './components/dashboard/order-dashboard/production-sheet/production-sheet.component';
 
 export const routes: Routes = [
 
@@ -51,7 +54,8 @@ export const routes: Routes = [
           children: [
               {path: 'listar', component: OrderListComponent},
               {path: 'registrar', component: CreateOrderFormComponent},
-              {path: 'actualizar/:id', component: CreateOrderFormComponent}
+              {path: 'actualizar/:id', component: CreateOrderFormComponent},
+              {path: 'generar', component: ProductionSheetComponent}
           ]}
 
     ]},

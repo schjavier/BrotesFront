@@ -2,6 +2,7 @@
   <mat-sidenav class="sidenav" #sidenav [(opened)]="opened">
     <ul>
 
+      <ul class="ulTitle"><a [routerLink]="['/dashboard']" >Inicio</a></ul>
       <ul class="ulTitle">Clientes
         <li><a [routerLink]="['/dashboard/cliente/listar']" routerLinkActive="active">Listar</a></li>
         <li><a [routerLink]="['/dashboard/cliente/registrar']" routerLinkActive="active">Registrar</a></li>
@@ -17,7 +18,7 @@
       <ul class="ulTitle">Pedidos
         <li><a [routerLink]="['/dashboard/pedidos/listar']" routerLinkActive="active">Listar</a></li>
           <li><a [routerLink]="['/dashboard/pedidos/registrar']" routerLinkActive="active">Registrar</a></li>
-        <li>Actualizar</li>
+        <li><a [routerLink]="['/dashboard/pedidos/generar']" routerLinkActive="active">Generar</a></li>
       </ul>
 
     </ul>
