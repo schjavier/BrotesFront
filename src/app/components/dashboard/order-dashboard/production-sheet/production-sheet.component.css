@@ -11,6 +11,14 @@
 
 }
 
+div.controls{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .genButton{
     background-color: #5d9f5e;
     color: whitesmoke;
@@ -39,17 +47,29 @@
     font-size: 0.9em;
 }
 
-.productionSheetTable thead>th {
+.productionSheetTable thead>tr>th.categoryHeader {
     font-weight: bold;
     background-color: #074a09;
     color: whitesmoke;
     padding: 5px;
     text-align: center;
+    border-radius: 15px 15px 0 0;
 
 }
 
-tbody>td{
+.productionSheetTable td.totals{
     background-color: #5d9f5e;
     color: whitesmoke;
     text-align: center;
+    border-radius: 0 0 15px 15px;
+    font-weight: bold;
 }
+
+.loading-message {
+    text-align: center;
+    color: #b5821e;
+    padding: 20px;
+    font-style: italic;
+}
+
+

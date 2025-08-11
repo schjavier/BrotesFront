@@ -2,6 +2,7 @@
 
 <div class="productionSheet">
     <h3>Generar Planilla de Producción</h3>
+<div class="controls">
     <mat-form-field>
         <mat-select placeholder="Elija un dia..." [(value)]="selectedDay" >
             <mat-option *ngFor="let day of deliveryDay | keyvalue" [value]="day.value">
@@ -9,28 +10,51 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-button class="genButton" (click)="fetchProductionSheet()">Generar!</button>
-    <ng-container class="dataContainer" *ngIf="productionSheetData != null">
-        <ng-container *ngFor="let prod of productionSheetData">
-        <table class="productionSheetTable">
-            <thead>
-            <th colspan="2">{{prod.categoria}}</th>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Cantidad</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of prod.items">
-                <td>{{item.nombre}}</td>
-                <td>{{item.cantidad}}</td>
-            </tr>
-                <td colspan="2" class="totals">Total {{prod.categoria}} - {{totals.get(prod.categoria)}} </td>
-            </tbody>
+    <button mat-button class="genButton" (click)="fetchProductionSheet()" [disabled]="isLoading || !selectedDay">
+        <mat-icon *ngIf="isLoading">sync</mat-icon>
+        <span *ngIf="!isLoading">Generar!</span>
+        </button>
+</div>
 
-        </table>
-        </ng-container>
-    </ng-container>
+        <div class="dataContainer" *ngIf="productionSheetData && !isLoading">
+            <ng-container *ngFor="let prod of productionSheetData">
+            <table class="productionSheetTable">
+                <thead>
+                <tr>
+                <th colspan="2" class="categoryHeader">{{prod.categoria}}</th>
+                </tr>
+
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cantidad</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let item of prod.items">
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.cantidad}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="totals">Total {{prod.categoria}} - {{totals.get(prod.categoria)}} </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            </ng-container>
+        </div>
+
+        <div class="loadingSpinner" *ngIf="isLoading">
+            <mat-spinner></mat-spinner>
+        </div>
+
+    <div class="noDataMessagge" *ngIf="!isLoading && productionSheetData && productionSheetData.length === 0">
+        <p>No hay datos para el dia seleccionado!</p>
+    </div>
 
 </div>
+
 </div>
+
