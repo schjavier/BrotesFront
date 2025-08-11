@@ -5,7 +5,6 @@ import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {OrderService} from '../../../../services/order-service/order.service';
 import {ProductionSheet} from '../../../../model/production-sheet/production-sheet';
-import {ItemProductionSheet} from '../../../../model/production-sheet/item-production-sheet';
 import {CdkCopyToClipboard} from '@angular/cdk/clipboard';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {finalize} from 'rxjs';
@@ -23,7 +22,8 @@ import {MatIcon} from '@angular/material/icon';
         MatButton,
         NgIf,
         MatIcon,
-        MatProgressSpinner
+        MatProgressSpinner,
+        CdkCopyToClipboard
     ],
   templateUrl: './production-sheet.component.html',
   styleUrl: './production-sheet.component.css'
@@ -70,8 +70,6 @@ export class ProductionSheetComponent {
 
     getTotalByCategory(productionSheet:ProductionSheet[]):Map<string, number>{
         let result:Map<string, number> = new Map<string, number>;
-        // let counts: number = 0;
-        // let category:string = "";
 
         productionSheet.forEach(sheet => {
             const totalCount = sheet.items.reduce((sum, item) => sum + item.cantidad, 0);
@@ -82,4 +80,37 @@ export class ProductionSheetComponent {
     }
 
     protected readonly deliveryDay = DeliveryDay;
+
+    getProductionSheetAsText():string {
+        if (!this.productionSheetData || this.productionSheetData.length === 0){
+            return '';
+        }
+
+        let sheetText = "PLANILLA DE PRODUCCION\n";
+        sheetText += "========================\n\n";
+
+        this.productionSheetData.forEach(prod => {
+            sheetText += `--- ${prod.categoria.toUpperCase()} ---\n`;
+            prod.items.forEach(item => {
+                sheetText += `--- ${item.nombre} - ${item.cantidad}\n`;
+            });
+            const total = this.totals.get(prod.categoria)
+            if (total !== undefined){
+                sheetText += ` Total ${prod.categoria}: ${total}\n\n`;
+            } else {
+                sheetText += ` Total ${prod.categoria}: 0\n\n`;
+            }
+        });
+
+        return sheetText;
+    }
+
+    showCopyMsg(success:boolean):void{
+        if (success){
+            this.popUp.open("Planilla copiada al portapapeles", 'Cerrar', {
+                duration:2000,
+                panelClass:['snackbar-success']
+            });
+        }
+    }
 }
