@@ -14,6 +14,16 @@
         <mat-icon *ngIf="isLoading">sync</mat-icon>
         <span *ngIf="!isLoading">Generar!</span>
         </button>
+
+    <div *ngIf="productionSheetData && productionSheetData.length > 0 && !isLoading" class="copyButtonWrapper">
+        <button mat-flat-button
+                [cdkCopyToClipboard]="getProductionSheetAsText()"
+                (cdkCopyToClipboardCopied)="showCopyMsg($event)"
+                class="copyButton">
+            <mat-icon>content_copy</mat-icon>
+            Copiar Planilla
+        </button>
+    </div>
 </div>
 
         <div class="dataContainer" *ngIf="productionSheetData && !isLoading">
