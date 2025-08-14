@@ -41,7 +41,7 @@ export class OrderListComponent implements OnInit {
     loadOrders() {
         this.errorMessage = null;
 
-        this.orderList$ = this.orderService.getAllOrders().pipe(
+        this.orderList$ = this.orderService.getAllUndeliveredOrders().pipe(
             catchError(error => {
                 this.errorMessage = error.message;
                 console.error("Error cargando pedidos", error);
