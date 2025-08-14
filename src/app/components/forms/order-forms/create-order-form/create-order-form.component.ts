@@ -173,7 +173,7 @@ export class CreateOrderFormComponent implements OnInit {
     }
 
     getClientSuggestions = (searchTerm:string):Observable<DatosListaCliente[]> => {
-        return this.clientService.getClientSuggestionByName(searchTerm);
+        return this.clientService.getClientSuggestionByNameAndStatus(searchTerm);
     }
 
     displayClientSuggestion = (client:DatosListaCliente):string => {
