@@ -26,6 +26,13 @@ export class OrderService {
         )
     }
 
+    getAllUndeliveredOrders():Observable<OrderDetailsDto[]>{
+        return this.http.get<any>(this.url + "/all/undelivered").pipe(
+            map(response => response.content)).pipe(
+                catchError(error => this.errorHandler.handleHttpError(error()))
+        )
+    }
+
     createOrder(orderData:CreateOrderDto):Observable<OrderDetailsWithUrlDto>{
         return this.http.post<OrderDetailsWithUrlDto>(this.url, orderData).pipe(
             catchError(error => this.errorHandler.handleHttpError(error()))
