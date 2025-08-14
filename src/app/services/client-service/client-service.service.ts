@@ -16,6 +16,7 @@ export class ClientService {
     private errorHandler:ErrorHandlerService) {
   }
 
+  status:string = "true"
   url:string = 'http://localhost:8080/clientes';
 
   getClientById(id:number):Observable<Client>{
@@ -61,6 +62,11 @@ export class ClientService {
 
     getClientSuggestionByName(nombre: string):Observable<Client[]> {
       return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre).pipe(
+          catchError(error => this.errorHandler.handleHttpError(error))
+      )
+    }
+    getClientSuggestionByNameAndStatus(nombre: string):Observable<Client[]> {
+      return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre + "&status=" + this.status).pipe(
           catchError(error => this.errorHandler.handleHttpError(error))
       )
     }
