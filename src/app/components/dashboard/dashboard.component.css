@@ -6,12 +6,28 @@
   background: var(--mat-sys-primary);
 }
 
-.sidenav {
-  text-align: start;
-  padding: 20px;
-    width: 17.5%;
+mat-sidenav.sidenav {
+    text-align: start;
+    }
+
+ul.ulContainer{
+    margin-top: 20px;
 }
 
+ul.ulContainer mat-icon{
+    position: relative;
+    left: 119px;
+    top: -14px;
+    cursor: pointer;
+    color: var(--mat-sys-primary);
+    padding:5px;
+}
+
+ul.ulContainer mat-icon:hover{
+    background-color: var(--mat-sys-primary);
+    color: whitesmoke;
+    border-radius: 100%;
+}
 
 .contentNavbar {
     display: flex;
@@ -57,3 +73,7 @@ a:hover{
     font-size: 1rem;
 }
 
+.mat-mdc-button:hover{
+    background-color: #5d9f5e;
+    color: whitesmoke;
+}

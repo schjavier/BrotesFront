@@ -1,7 +1,8 @@
 <mat-sidenav-container class="sidenavContainer">
   <mat-sidenav class="sidenav" #sidenav [(opened)]="opened">
-    <ul>
 
+      <ul class="ulContainer">
+          <mat-icon (click)="sidenav.toggle()">close</mat-icon>
       <ul class="ulTitle"><a [routerLink]="['/dashboard']" >Inicio</a></ul>
       <ul class="ulTitle">Clientes
         <li><a [routerLink]="['/dashboard/cliente/listar']" routerLinkActive="active">Listar</a></li>
@@ -12,7 +13,7 @@
       <ul class="ulTitle">Productos
         <li><a [routerLink]="['/dashboard/producto/listar']" routerLinkActive="active">Listar</a></li>
         <li><a [routerLink]="['/dashboard/producto/registrar']" routerLinkActive="active">Registrar</a></li>
-        <li><a [routerLink]="['/dashboard/producto/actualizar']">Actualizar</a></li>
+        <li><a [routerLink]="['/dashboard/producto/actualizar']" routerLinkActive="active">Actualizar</a></li>
       </ul>
 
       <ul class="ulTitle">Pedidos
