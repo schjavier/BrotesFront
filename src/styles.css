@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --mat-sidenav-container-width: 200px;
+
+}
+
 
 html {
   font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
