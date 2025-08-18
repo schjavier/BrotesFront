@@ -3,6 +3,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import {MatInput} from '@angular/material/input';
         MatLabel,
         MatFormField,
         MatInput,
+        NgOptimizedImage,
     ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

@@ -37,8 +37,8 @@
 
 .updateProductForm{
   width: 35%;
-  background-color: rgba(237, 200, 160, 0.3);
-  padding-bottom: 10px;
+    background-color: var(--mat-sys-primary);
+    padding-bottom: 10px;
   border-radius: 0 0 15px 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
