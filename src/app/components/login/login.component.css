@@ -1,3 +1,5 @@
+
+
 .loginWrapper{
   display: flex;
   align-items: center;
@@ -5,49 +7,29 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-
+    background-color: #074a09;
 }
 
-.loginTitle{
-  text-align: center;
-  color: whitesmoke;
+h1{
+    color: whitesmoke;
+}
+
+small{
+    color: #b5821e;
 }
 
 .loginContainer{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  height: 30%;
-  background-color: #edc8a0;
-  border-radius: 10px;
-  padding: 1.5rem;
-}
-
-
-.loginLabel {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
+    min-width: 20%;
+    background-color: var(--mat-sys-primary);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
-.loginInput{
-  margin: 1rem;
-  border-radius: 5px;
-  border: none;
-  height: 30px;
-  width: 60%;
-
-
-}
-
-.loginButton {
-
-  border-radius: 10px;
-  padding: 1rem 2rem;
-
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

@@ -68,6 +68,10 @@ div.copyButtonWrapper{
     font-weight: bold;
 }
 
+.loadingSpinner{
+    margin-top: 70px;
+}
+
 .loading-message {
     text-align: center;
     color: #b5821e;
