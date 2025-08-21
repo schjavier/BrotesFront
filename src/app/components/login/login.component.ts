@@ -3,7 +3,9 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {NgOptimizedImage} from '@angular/common';
+import {AuthService} from '../../services/auth-service/auth.service';
+import {AuthRequest} from '../../model/user/auth-request';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +15,7 @@ import {NgOptimizedImage} from '@angular/common';
         MatLabel,
         MatFormField,
         MatInput,
-        NgOptimizedImage,
-    ],
+        ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -30,6 +31,23 @@ export class LoginComponent {
         password: new FormControl('', Validators.required),
     })
 
+    constructor(private authService:AuthService,
+                private router: Router) {
+    }
 
+    login(){
+
+        const authRequest:AuthRequest = {
+            username: this.authForm.get('username')?.value,
+            password: this.authForm.get('password')?.value
+        }
+
+        this.authService.login(authRequest).subscribe({
+            next: () => {
+                this.router.navigate(['/dashboard']);
+            }
+        })
+
+    }
 
 }
