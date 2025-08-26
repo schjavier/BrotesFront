@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {AuthResponse} from '../../model/user/auth-response';
 import {AuthRequest} from '../../model/user/auth-request';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthService {
       private errorHandler:ErrorHandler
   ) { }
 
-    url:string = "http://localhost:8080/auth";
+
+    url:string = `${environment.apiUrl}/auth`;
 
     login(authRequest:AuthRequest):Observable<AuthResponse>{
         return this.http.post<AuthResponse>(this.url + "/login", authRequest).pipe(
