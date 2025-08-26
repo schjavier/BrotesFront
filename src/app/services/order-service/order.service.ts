@@ -7,6 +7,8 @@ import {CreateOrderDto} from '../../model/pedido/create-order-dto';
 import {UpdateOrderDTO} from '../../model/pedido/update-order-dto';
 import {OrderDetailsDto} from '../../model/pedido/order-details-dto';
 import {ProductionSheet} from '../../model/production-sheet/production-sheet';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class OrderService {
       private http: HttpClient,
       private errorHandler: ErrorHandlerService) {}
 
-    url:string = "http://localhost:8080/pedidos";
+    url:string = `${environment.apiUrl}/pedidos`;
 
     getAllOrders():Observable<OrderDetailsDto[]>{
         return this.http.get<any>(this.url + "/all").pipe(

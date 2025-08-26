@@ -5,6 +5,7 @@ import {catchError, map, Observable} from 'rxjs';
 import {ErrorHandlerService} from '../error-handler-service/error-handler.service';
 import {CreateProductDTO} from '../../model/product/create-product-dto';
 import {UpdateProductDTO} from '../../model/product/update-product-dto';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ProductService {
   }
 
   status:string = "true";
-  url:string = "http://localhost:8080/productos";
+  url:string = `${environment.apiUrl}/productos`;
 
   getAllProducts():Observable<Product[]>{
     return this.http.get<any>(this.url).pipe(

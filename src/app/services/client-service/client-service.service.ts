@@ -5,6 +5,8 @@ import {Client} from '../../model/client/client';
 import {CreateClientDto} from '../../model/client/create-client-dto';
 import {UpdateClientDto} from '../../model/client/update-client-dto';
 import {ErrorHandlerService} from '../error-handler-service/error-handler.service';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class ClientService {
   }
 
   status:string = "true"
-  url:string = 'http://localhost:8080/clientes';
+  url:string = `${environment.apiUrl}/clientes`;
 
   getClientById(id:number):Observable<Client>{
     return this.http.get<Client>(this.url + "/" + id).pipe
