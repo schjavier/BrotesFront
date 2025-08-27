@@ -70,9 +70,17 @@
     border-radius: 15px;
 }
 
+.hide-on-desktop{
+    display: none;
+}
+
 @media (max-width: 576px) {
     .hide-on-mobile{
         display: none;
+    }
+
+    .hide-on-desktop{
+        display: block;
     }
 
     .product-table tbody tr {

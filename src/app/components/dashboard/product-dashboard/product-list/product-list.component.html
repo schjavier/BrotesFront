@@ -23,7 +23,7 @@
             } @else {
               <td class="status-inactive hide-on-mobile">Inactivo</td>
             }
-              <td><mat-icon>{{product.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
+              <td class="hide-on-desktop"><mat-icon>{{product.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
           </tr>
             <tr *ngIf="product.isExpanded">
                 <td colspan="4" class="detailsRow">

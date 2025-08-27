@@ -26,6 +26,9 @@
 .order-table tr {
     color: #082302;
 }
+.order-table tbody {
+    border-top: 2px solid #b5821e;
+}
 
 .order-table tbody tr {
     background-color: var(--mat-sys-primary);
@@ -80,7 +83,7 @@
     border-radius: 15px;
 }
 
-mat-icon{
+mat-icon.info{
     color: var(--mat-sys-primary);
 }
 
@@ -95,4 +98,25 @@ mat-icon.info{
 
 mat-icon.edit{
     color: whitesmoke;
+}
+
+.hide-on-desktop{
+    display: none;
+}
+
+@media (max-width: 576px){
+    .hide-on-mobile{
+        display: none;
+    }
+
+    .hide-on-desktop{
+        display: block;
+    }
+    .order-table tbody tr {
+        cursor: pointer;
+    }
+
+    .detailsRow {
+        background-color: lightgrey;
+    }
 }
