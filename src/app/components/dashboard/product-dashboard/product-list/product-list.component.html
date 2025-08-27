@@ -4,26 +4,38 @@
     <table class="product-table">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col" class="hide-on-mobile">ID</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Precio</th>
+          <th scope="col" class="hide-on-mobile">Precio</th>
           <th scope="col">Categoria</th>
-          <th scope="col">Estado</th>
+          <th scope="col" class="hide-on-mobile">Estado</th>
         </tr>
       </thead>
         <tbody>
-          <tr *ngFor="let product of productList">
-            <td>{{ product.id }}</td>
+        <ng-container *ngFor="let product of productList">
+          <tr (click)="toggleDetails(product)" [class.expanded]="product.isExpanded">
+            <td class="hide-on-mobile">{{ product.id }}</td>
             <td>{{ product.nombre }}</td>
-            <td>{{ product.precio }}</td>
+            <td class="hide-on-mobile">{{ product.precio }}</td>
             <td>{{ product.categoria }}</td>
             @if (product.activo) {
-             <td class="status-active">Activo</td>
+             <td class="status-active hide-on-mobile">Activo</td>
             } @else {
-              <td class="status-inactive">Inactivo</td>
+              <td class="status-inactive hide-on-mobile">Inactivo</td>
             }
+              <td><mat-icon>{{product.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
           </tr>
+            <tr *ngIf="product.isExpanded">
+                <td colspan="4" class="detailsRow">
+                    <div>
+                        <p><strong>Precio:</strong> $ {{product.precio}}</p>
+                        <p><strong>Estado:</strong> {{product.activo ? 'Activo' : 'Inactivo'}}</p>
+                    </div>
 
+                </td>
+
+            </tr>
+        </ng-container>
         </tbody>
     </table>
   </div>

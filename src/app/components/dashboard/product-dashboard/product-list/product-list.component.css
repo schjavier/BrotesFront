@@ -11,6 +11,10 @@
   text-align: left;
 }
 
+.product-table tbody {
+    border-top: 2px solid #b5821e;
+}
+
 .product-table tbody tr {
     background-color: var(--mat-sys-primary);
 }
@@ -64,4 +68,19 @@
   font-style: italic;
     background-color: var(--mat-sys-primary);
     border-radius: 15px;
+}
+
+@media (max-width: 576px) {
+    .hide-on-mobile{
+        display: none;
+    }
+
+    .product-table tbody tr {
+        cursor: pointer;
+    }
+
+    .detailsRow {
+        background-color: lightgrey;
+    }
+
 }
