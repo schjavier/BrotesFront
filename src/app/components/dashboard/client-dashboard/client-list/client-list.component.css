@@ -17,6 +17,21 @@
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
+    text-align: center;
+    border-bottom: #b5821e solid 2px;
+}
+
+
+.client-table tr {
+    color: #082302;
+}
+
+.client-table tbody {
+    border-top: 2px solid #b5821e;
+}
+
+.client-table tbody tr {
+    background-color: var(--mat-sys-primary);
 }
 
 .client-table tbody tr:nth-child(even) {
@@ -24,7 +39,10 @@
 }
 
 .client-table tbody tr:hover {
-    background-color: #ddd; /* Resaltar fila al pasar el ratón */
+    background-color: lightgrey;
+    color: #06420b;
+
+
 }
 
 .status-active {
@@ -52,4 +70,30 @@
     color: #b5821e;
     padding: 20px;
     font-style: italic;
+    background-color: var(--mat-sys-primary);
+    border-radius: 15px;
+}
+
+.hide-on-desktop{
+    display: none;
+}
+
+@media (max-width: 576px) {
+
+    .hide-on-mobile{
+        display: none;
+    }
+
+    .hide-on-desktop {
+        display: block;
+    }
+
+    .client-table tbody tr {
+        cursor: pointer;
+    }
+
+    .detailsRow {
+        background-color: lightgrey;
+    }
+
 }

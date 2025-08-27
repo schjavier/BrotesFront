@@ -5,5 +5,6 @@ export interface Product {
   precio: number;
   categoria: string;
   activo: boolean;
+  isExpanded?: boolean;
 
 }

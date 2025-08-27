@@ -19,6 +19,19 @@
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
+    text-align: center;
+    border-bottom: #b5821e solid 2px;
+}
+
+.order-table tr {
+    color: #082302;
+}
+.order-table tbody {
+    border-top: 2px solid #b5821e;
+}
+
+.order-table tbody tr {
+    background-color: var(--mat-sys-primary);
 }
 
 .order-table tbody tr:nth-child(even) {
@@ -38,7 +51,7 @@
 }
 
 .order-table tbody tr:hover {
-    background-color: #ddd; /* Resaltar fila al pasar el ratón */
+    background-color: lightgrey; /* Resaltar fila al pasar el ratón */
 }
 
 .status-active {
@@ -66,9 +79,11 @@
     color: #b5821e;
     padding: 20px;
     font-style: italic;
+    background-color: var(--mat-sys-primary);
+    border-radius: 15px;
 }
 
-mat-icon{
+mat-icon.info{
     color: var(--mat-sys-primary);
 }
 
@@ -83,4 +98,25 @@ mat-icon.info{
 
 mat-icon.edit{
     color: whitesmoke;
+}
+
+.hide-on-desktop{
+    display: none;
+}
+
+@media (max-width: 576px){
+    .hide-on-mobile{
+        display: none;
+    }
+
+    .hide-on-desktop{
+        display: block;
+    }
+    .order-table tbody tr {
+        cursor: pointer;
+    }
+
+    .detailsRow {
+        background-color: lightgrey;
+    }
 }

@@ -5,27 +5,24 @@
         <table class="order-table">
             <thead>
             <tr>
-<!--                <th scope="col">Id Pedido</th>-->
-<!--                <th scope="col">id Cliente</th>-->
                 <th scope="col">Nombre Cliente</th>
-                <th scope="col">Fecha</th>
+                <th scope="col" class="hide-on-mobile">Fecha</th>
                 <th scope="col">Dia de Entrega</th>
-                <th scope="col">Precio Total</th>
-                <th scope="col">Items</th>
-                <th scope="col"></th>
+                <th scope="col" class="hide-on-mobile">Precio Total</th>
+                <th scope="col" class="hide-on-mobile">Items</th>
+<!--                <th scope="col"></th>-->
 
             </tr>
             </thead>
             <tbody>
 
-            <tr *ngFor="let order of orderList">
-<!--                <td>{{ order-forms.idPedido }}</td>-->
-<!--                <td>{{ order-forms.idCliente }}</td>-->
+            <ng-container *ngFor="let order of orderList">
+            <tr (click)="toggleDetails(order)" [class.expanded]="order.isExpanded">
                 <td>{{ order.nombreCliente}}</td>
-                <td>{{ order.fecha.split("T", 1) }}</td>
+                <td class="hide-on-mobile">{{ order.fecha.split("T", 1) }}</td>
                 <td>{{ order.diaDeEntrega }}</td>
-                <td>{{ order.precioTotal }}</td>
-                <td>
+                <td class="hide-on-mobile">{{ order.precioTotal }}</td>
+                <td class="hide-on-mobile">
                     <ng-container *ngIf="order.item && order.item.length > 0">
                         <span [matTooltip]="formatItemsForTooltip(order.item)">
                             {{ order.item.length}} item{{ order.item.length !==1 ? 's' : '' }}
@@ -36,9 +33,25 @@
                         Sin items
                     </ng-container>
                 </td>
-                <td><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></td>
+                <td class="hide-on-mobile"><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></td>
+                <td class="hide-on-desktop"><mat-icon>{{order.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
             </tr>
+                <tr *ngIf="order.isExpanded">
+                    <td colspan="4" class="detailsRow">
+                        <div>
+                            <p><strong>Fecha: </strong> {{order.fecha.split("T", 1)}}</p>
+                            <p><strong>Precio Total: </strong> $ {{order.precioTotal}}</p>
+                            <p><strong>Items:</strong></p>
+                            <ng-container *ngFor="let item of order.item">
+                            <p>{{item.nombreProducto}} - {{item.cantidad}}</p>
+                            </ng-container>
+                            <span><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></span>
+                        </div>
+                    </td>
 
+                </tr>
+
+            </ng-container>
             </tbody>
         </table>
     </div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {catchError, Observable, of} from 'rxjs';
+import {catchError, map, Observable, of} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
 import {OrderService} from '../../../../services/order-service/order.service';
 import {MatButton} from '@angular/material/button';
@@ -38,10 +38,16 @@ export class OrderListComponent implements OnInit {
         this.loadOrders();
     }
 
+    toggleDetails(order:OrderDetailsDto):void{
+        order.isExpanded = !order.isExpanded;
+    }
+
     loadOrders() {
         this.errorMessage = null;
 
         this.orderList$ = this.orderService.getAllUndeliveredOrders().pipe(
+            map(orders => orders.map(order => ({...order, isExpanded: false}))
+            ),
             catchError(error => {
                 this.errorMessage = error.message;
                 console.error("Error cargando pedidos", error);

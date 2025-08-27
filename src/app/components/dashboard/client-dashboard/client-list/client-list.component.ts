@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientService} from '../../../../services/client-service/client-service.service';
-import {catchError, Observable, of} from 'rxjs';
+import {catchError, map, Observable, of} from 'rxjs';
 import {Client} from '../../../../model/client/client';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-client-list',
     imports: [
         NgForOf,
         AsyncPipe,
-        NgIf
+        NgIf,
+        MatIcon
     ],
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css'
@@ -25,6 +27,10 @@ export class ClientListComponent implements OnInit {
     this.clientList$ = of([]);
   }
 
+  toggleDetails(client:Client): void{
+      client.isExpanded = !client.isExpanded;
+  }
+
   ngOnInit() {
     this.loadClients();
   }
@@ -32,6 +38,8 @@ export class ClientListComponent implements OnInit {
   loadClients():void {
       this.errorMessage = null;
       this.clientList$ = this.clientService.getAllClients().pipe(
+          map(clients => clients.map(client => ({...client, isExpanded: false}))
+          ),
           catchError(error => {
               this.errorMessage = error;
               console.error('Error al cargar clientes');

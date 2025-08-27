@@ -9,5 +9,6 @@ export interface OrderDetailsDto {
     precioTotal:number;
     fecha:string;
     diaDeEntrega:string;
+    isExpanded?: boolean;
 
 }

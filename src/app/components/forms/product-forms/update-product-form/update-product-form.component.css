@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10dvh;
 }
 
 .searchBarWrapper{
@@ -85,4 +86,13 @@ form input{
 
 .activeProduct{
   margin-top: 15px;
+}
+
+
+.products-buttons{
+    margin-top: 10px;
+}
+
+.updateButton {
+    margin-right: 10px;
 }

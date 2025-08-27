@@ -5,5 +5,6 @@ export interface Client {
   direccion:string;
   telefono:string;
   activo:boolean;
+  isExpanded?:boolean;
 
 }
