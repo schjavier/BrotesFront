@@ -100,3 +100,18 @@ form input{
 .updateButton {
     margin-right: 10px;
 }
+
+
+@media (max-width: 576px){
+
+    .searchBarWrapper{
+        width: 80%;
+
+    }
+
+    .updateClientForm {
+        width: 80%;
+    }
+
+
+}

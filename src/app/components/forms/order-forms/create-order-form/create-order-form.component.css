@@ -130,3 +130,14 @@ mat-error.deliveryDayError {
     justify-content: center;
 
 }
+
+
+@media (max-width: 576px){
+
+    div.createOrderForm {
+        width: 80%;
+        margin-bottom: 10dvh;
+    }
+
+
+}
