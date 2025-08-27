@@ -19,6 +19,16 @@
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
+    text-align: center;
+    border-bottom: #b5821e solid 2px;
+}
+
+.order-table tr {
+    color: #082302;
+}
+
+.order-table tbody tr {
+    background-color: var(--mat-sys-primary);
 }
 
 .order-table tbody tr:nth-child(even) {
@@ -38,7 +48,7 @@
 }
 
 .order-table tbody tr:hover {
-    background-color: #ddd; /* Resaltar fila al pasar el ratón */
+    background-color: lightgrey; /* Resaltar fila al pasar el ratón */
 }
 
 .status-active {
@@ -66,6 +76,8 @@
     color: #b5821e;
     padding: 20px;
     font-style: italic;
+    background-color: var(--mat-sys-primary);
+    border-radius: 15px;
 }
 
 mat-icon{

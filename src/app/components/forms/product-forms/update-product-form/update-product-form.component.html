@@ -40,12 +40,12 @@
       </mat-slide-toggle>
 
       <div class="products-buttons">
-        <button mat-button
+        <button class="updateButton" mat-raised-button
                 (click)="updateProduct()"
                 [disabled]="!updateProductForm.dirty || !updateProductForm.valid">
           Actualizar
         </button>
-        <button mat-button
+        <button mat-raised-button
                 (click)="deleteProduct(updateProductForm.get('id')?.value)"
                 [disabled]="!updateProductForm.valid">
           Borrar

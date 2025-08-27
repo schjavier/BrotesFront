@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10dvh;
 }
 
 .formWrapper{
@@ -90,4 +91,12 @@ form input{
 
 .activeClient{
   margin-top: 15px;
+}
+
+.client-buttons{
+    margin-top: 10px;
+}
+
+.updateButton {
+    margin-right: 10px;
 }

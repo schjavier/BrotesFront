@@ -11,12 +11,21 @@
   text-align: left;
 }
 
+.product-table tbody tr {
+    background-color: var(--mat-sys-primary);
+}
 .product-table th {
-  background-color: #074a09;
-  color: #b5821e;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.9em;
+    background-color: #074a09;
+    color: #b5821e;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    text-align: center;
+    border-bottom: #b5821e solid 2px;
+}
+
+.product-table tr {
+    color: #082302;
 }
 
 .product-table tbody tr:nth-child(even) {
@@ -24,10 +33,11 @@
 }
 
 .product-table tbody tr:hover {
-  background-color: #ddd; /* Resaltar fila al pasar el ratón */
-}
+    background-color: lightgrey;
+    }
 
-.status-active {
+
+    .status-active {
   color: #06420b;
   font-weight: bold;
 }
@@ -52,4 +62,6 @@
   color: #b5821e;
   padding: 20px;
   font-style: italic;
+    background-color: var(--mat-sys-primary);
+    border-radius: 15px;
 }

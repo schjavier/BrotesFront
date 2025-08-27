@@ -5,8 +5,6 @@
         <table class="order-table">
             <thead>
             <tr>
-<!--                <th scope="col">Id Pedido</th>-->
-<!--                <th scope="col">id Cliente</th>-->
                 <th scope="col">Nombre Cliente</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Dia de Entrega</th>
@@ -19,8 +17,6 @@
             <tbody>
 
             <tr *ngFor="let order of orderList">
-<!--                <td>{{ order-forms.idPedido }}</td>-->
-<!--                <td>{{ order-forms.idCliente }}</td>-->
                 <td>{{ order.nombreCliente}}</td>
                 <td>{{ order.fecha.split("T", 1) }}</td>
                 <td>{{ order.diaDeEntrega }}</td>
