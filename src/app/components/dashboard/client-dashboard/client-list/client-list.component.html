@@ -4,26 +4,39 @@
         <table class="client-table">
             <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col" class="hide-on-mobile">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Direccion</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Estado</th>
+                <th scope="col" class="hide-on-mobile">Telefono</th>
+                <th scope="col" class="hide-on-mobile">Estado</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let client of clientList">
-                <td>{{ client.id }}</td>
+            <ng-container *ngFor="let client of clientList">
+            <tr (click)="toggleDetails(client)" [class.expanded]="client.isExpanded">
+                <td class="hide-on-mobile">{{ client.id }}</td>
                 <td>{{ client.nombre }}</td>
                 <td>{{ client.direccion }}</td>
-                <td>{{ client.telefono }}</td>
+                <td class="hide-on-mobile">{{ client.telefono }}</td>
                 @if (client.activo) {
-                    <td class="status-active">Activo</td>
+                    <td class="status-active hide-on-mobile">Activo</td>
                 } @else {
-                    <td class="status-inactive">Inactivo</td>
+                    <td class="status-inactive hide-on-mobile">Inactivo</td>
                 }
+                <td><mat-icon>{{client.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
             </tr>
+                <tr *ngIf="client.isExpanded">
+                    <td colspan="4" class="detailsRow">
+                        <div>
+                            <p><strong>Teléfono:</strong> {{client.telefono}}</p>
+                            <p><strong>Estado:</strong> {{client.activo ? 'Activo' : 'Inactivo'}}</p>
+                        </div>
 
+                    </td>
+
+                </tr>
+
+            </ng-container>
             </tbody>
         </table>
     </div>

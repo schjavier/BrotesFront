@@ -26,6 +26,10 @@
     color: #082302;
 }
 
+.client-table tbody {
+    border-top: 2px solid #b5821e;
+}
+
 .client-table tbody tr {
     background-color: var(--mat-sys-primary);
 }
@@ -68,4 +72,20 @@
     font-style: italic;
     background-color: var(--mat-sys-primary);
     border-radius: 15px;
+}
+
+@media (max-width: 576px) {
+
+    .hide-on-mobile{
+        display: none;
+    }
+
+    .client-table tbody tr {
+        cursor: pointer;
+    }
+
+    .detailsRow {
+        background-color: lightgrey;
+    }
+
 }

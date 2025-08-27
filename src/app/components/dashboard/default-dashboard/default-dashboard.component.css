@@ -18,3 +18,13 @@
     border-top: 2px solid lightgrey;
 }
 
+@media (max-width: 576px) {
+
+    .searchBarWrapper{
+        width: 60%;
+        position: relative;
+        top:20dvh;
+    }
+
+
+}
