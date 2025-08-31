@@ -7,11 +7,9 @@
 
 :root{
     @include mat.progress-spinner-overrides((
-        active-indicator-color: orange,
+        active-indicator-color: #468539,
     ))
 }
-
-
 
 html {
   @include mat.theme((

@@ -37,6 +37,7 @@ ul.ulContainer mat-icon:hover{
     background-color: var(--mat-sys-primary);
     width: 100vw;
     align-items: center;
+    box-shadow: var(--mat-sys-level3);
 }
 
 .ulTitle{
@@ -72,6 +73,7 @@ a:hover{
     background-color: var(--background-color);
     color: var(--mat-sys-primary);
     font-size: 1rem;
+    box-shadow: var(--mat-sys-level3);
 
 }
 

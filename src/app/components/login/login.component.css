@@ -11,7 +11,7 @@
 }
 
 h1{
-    color: var(--mat-sys-on-tertiary);
+    color: var(--mat-sys-primary);
 }
 
 .loginContainer{

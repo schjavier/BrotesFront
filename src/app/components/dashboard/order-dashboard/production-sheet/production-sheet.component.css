@@ -11,6 +11,10 @@
 
 }
 
+.productionSheet h3{
+    color: var(--mat-sys-primary);
+}
+
 div.controls{
     display: flex;
     flex-direction: column;
@@ -19,13 +23,41 @@ div.controls{
     width: 100%;
 }
 
-.genButton{
-    background-color: #5d9f5e;
-    color: whitesmoke;
+button.genButton{
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+    box-shadow: var(--mat-sys-level3);
+}
+
+.genButton:hover{
+    background-color: var(--background-color);
+    color: var(--mat-sys-primary);
+    border: 1px solid var(--mat-sys-primary);
 }
 
 div.copyButtonWrapper{
     margin-top: 20px;
+}
+
+div.copyButtonWrapper button{
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
+    box-shadow: var(--mat-sys-level3);
+}
+
+div.copyButtonWrapper button:hover{
+    background-color: var(--background-color);
+    color: var(--mat-sys-primary);
+    border: 1px solid var(--mat-sys-primary);
+}
+
+.dataContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
 }
 
 .productionSheetTable{
@@ -43,8 +75,8 @@ div.copyButtonWrapper{
 }
 
 .productionSheetTable th {
-    background-color: #074a09;
-    color: #b5821e;
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
@@ -52,8 +84,8 @@ div.copyButtonWrapper{
 
 .productionSheetTable thead>tr>th.categoryHeader {
     font-weight: bold;
-    background-color: #074a09;
-    color: whitesmoke;
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
     padding: 5px;
     text-align: center;
     border-radius: 15px 15px 0 0;
@@ -61,8 +93,8 @@ div.copyButtonWrapper{
 }
 
 .productionSheetTable td.totals{
-    background-color: #5d9f5e;
-    color: whitesmoke;
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
     text-align: center;
     border-radius: 0 0 15px 15px;
     font-weight: bold;
@@ -74,9 +106,15 @@ div.copyButtonWrapper{
 
 .loading-message {
     text-align: center;
-    color: #b5821e;
+    color: var(--mat-sys-primary);
     padding: 20px;
     font-style: italic;
 }
 
 
+@media (max-width: 576px){
+
+    .productionSheet {
+        flex-direction: column;
+    }
+}

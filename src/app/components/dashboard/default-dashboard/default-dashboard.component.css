@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-top: 3px solid var(--mat-sys-primary);
+
 }
 
 @media (max-width: 576px) {
