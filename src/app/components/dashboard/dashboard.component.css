@@ -3,11 +3,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: #074a09;
+  background: var(--background-color);
 }
 
 mat-sidenav.sidenav {
     text-align: start;
+    background-color: var(--mat-sys-secondary);
     }
 
 ul.ulContainer{
@@ -19,13 +20,13 @@ ul.ulContainer mat-icon{
     left: 119px;
     top: -14px;
     cursor: pointer;
-    color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-tertiary);
     padding:5px;
 }
 
 ul.ulContainer mat-icon:hover{
-    background-color: var(--mat-sys-primary);
-    color: whitesmoke;
+    background-color: var(--mat-sys-on-primary);
+    color: var(--mat-sys-primary);
     border-radius: 100%;
 }
 
@@ -33,9 +34,10 @@ ul.ulContainer mat-icon:hover{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #074a09;
+    background-color: var(--mat-sys-primary);
     width: 100vw;
     align-items: center;
+    box-shadow: var(--mat-sys-level3);
 }
 
 .ulTitle{
@@ -43,7 +45,7 @@ ul.ulContainer mat-icon:hover{
   font-size: large;
   font-weight: bold;
   padding: 10px;
-  color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-secondary);
 }
 
 li{
@@ -56,24 +58,27 @@ li{
 a{
   text-decoration: none;
   padding: 5px;
-  color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-secondary);
 }
 
 a:hover{
   text-decoration: none;
-  color: whitesmoke;
-  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-tertiary);
+  background-color: var(--mat-sys-on-tertiary);
   border-radius: 5px;
   padding: 5px;
 }
 
 .mat-mdc-button:not(:disabled){
-    background-color: var(--mat-sys-primary);
-    color: whitesmoke;
+    background-color: var(--background-color);
+    color: var(--mat-sys-primary);
     font-size: 1rem;
+    box-shadow: var(--mat-sys-level3);
+
 }
 
 .mat-mdc-button:hover{
-    background-color: #5d9f5e;
-    color: whitesmoke;
+    background-color: var(--mat-sys-primary);
+    color: var(--background-color);
+
 }

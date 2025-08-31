@@ -28,6 +28,7 @@ export class OrderListComponent implements OnInit {
 
     orderList$!: Observable<OrderDetailsDto[] | null>;
     errorMessage:string | null = null;
+    isMobile:boolean = false;
 
     constructor(private orderService: OrderService) {
         this.orderList$ = of([]);
@@ -39,7 +40,14 @@ export class OrderListComponent implements OnInit {
     }
 
     toggleDetails(order:OrderDetailsDto):void{
-        order.isExpanded = !order.isExpanded;
+        this.isMobile = window.innerWidth < 576;
+
+        if(this.isMobile){
+            order.isExpanded = !order.isExpanded;
+        } else {
+            order.isExpanded = false;
+        }
+
     }
 
     loadOrders() {
@@ -50,7 +58,7 @@ export class OrderListComponent implements OnInit {
             ),
             catchError(error => {
                 this.errorMessage = error.message;
-                console.error("Error cargando pedidos", error);
+                console.error("Error cargando pedidos", this.errorMessage);
                 return of(null);
             })
         )

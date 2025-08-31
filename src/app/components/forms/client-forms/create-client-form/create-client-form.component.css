@@ -20,7 +20,7 @@
 
 .formTitle{
   font-size: 1.2rem;
-    color:#b5821e;
+    color:var(--background-color);
 }
 
 .clientLabel{
@@ -37,7 +37,13 @@
 
 button.formButton{
   margin: 10px 0;
+    background-color: var(--background-color);
+    box-shadow: var(--mat-sys-level3);
 
+}
+
+button.formButton:disabled{
+    box-shadow: var(--mat-sys-level3);
 }
 
 .mat-mdc-form-field{

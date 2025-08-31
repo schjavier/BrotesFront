@@ -9,11 +9,14 @@
                 <th scope="col">Direccion</th>
                 <th scope="col" class="hide-on-mobile">Telefono</th>
                 <th scope="col" class="hide-on-mobile">Estado</th>
+                <th scope="col" class="hide-on-desktop">Info</th>
             </tr>
             </thead>
             <tbody>
             <ng-container *ngFor="let client of clientList">
-            <tr (click)="toggleDetails(client)" [class.expanded]="client.isExpanded">
+
+                <tr (click)="toggleDetails(client)">
+
                 <td class="hide-on-mobile">{{ client.id }}</td>
                 <td>{{ client.nombre }}</td>
                 <td>{{ client.direccion }}</td>
@@ -25,6 +28,7 @@
                 }
                 <td class="hide-on-desktop"><mat-icon>{{client.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
             </tr>
+
                 <tr *ngIf="client.isExpanded">
                     <td colspan="4" class="detailsRow">
                         <div>

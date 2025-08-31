@@ -3,11 +3,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-    border-top: 2px solid lightgrey;
 }
 
 h1{
     font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: whitesmoke;
+    color: var(--mat-sys-primary);
     margin-top: 10dvh;
 }

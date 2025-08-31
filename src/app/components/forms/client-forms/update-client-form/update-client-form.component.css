@@ -28,7 +28,7 @@
 
 .errorContainer{
   text-align: center;
-  background-color: var(--mat-sys-tertiary);
+  background-color: var(--mat-sys-error);
   padding: 5px;
   border-radius: 10px;
   margin-bottom: 10px;

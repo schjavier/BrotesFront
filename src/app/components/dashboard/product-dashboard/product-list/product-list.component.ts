@@ -20,7 +20,7 @@ export class ProductListComponent implements OnInit {
 
   productList$!: Observable<Product[] | null>;
   errorMessage:string | null = null;
-
+  isMobile:boolean = false;
 
   constructor(private productService: ProductService) {
     this.productList$ = of([]);
@@ -31,7 +31,15 @@ export class ProductListComponent implements OnInit {
   }
 
   toggleDetails(product:Product):void{
-      product.isExpanded = !product.isExpanded;
+      this.isMobile = window.innerWidth <= 576;
+
+      if (this.isMobile) {
+
+          product.isExpanded = !product.isExpanded;
+
+      } else {
+          product.isExpanded = false;
+      }
   }
 
   loadProducts(): void {

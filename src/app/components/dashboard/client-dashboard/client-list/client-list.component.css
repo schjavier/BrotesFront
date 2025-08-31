@@ -12,53 +12,66 @@
 }
 
 .client-table th {
-    background-color: #074a09;
-    color: #b5821e;
+
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
     text-align: center;
-    border-bottom: #b5821e solid 2px;
+
 }
 
+.client-table th:first-child {
+    border-radius: 10px 0 0 0;
+}
 
-.client-table tr {
-    color: #082302;
+.client-table th:nth-child(5) {
+    border-radius: 0 10px 0 0;
 }
 
 .client-table tbody {
-    border-top: 2px solid #b5821e;
+    border-top: var(--mat-sys-primary) solid 3px;
 }
 
 .client-table tbody tr {
-    background-color: var(--mat-sys-primary);
+    background-color: var(--background-color);
+    border-bottom: 2px solid var(--mat-sys-primary);
 }
 
 .client-table tbody tr:nth-child(even) {
-    background-color: #5d9f5e; /* Color de fondo para filas pares */
+    background-color: var(--background-color); /* Color de fondo para filas pares */
 }
 
 .client-table tbody tr:hover {
-    background-color: lightgrey;
-    color: #06420b;
-
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
 
 }
 
+.client-table tbody tr:hover .status-active{
+    color: var(--mat-sys-on-primary);
+}
+
+.client-table tbody tr:hover .status-inactive{
+    color: var(--mat-sys-on-primary);
+}
+
+
 .status-active {
-    color: #06420b;
+    color: var(--mat-sys-on-background);
     font-weight: bold;
 }
 
 .status-inactive {
-    color: #5a0909;
+    color: var(--mat-sys-on-background);
     font-weight: bold;
 }
 
 .error-message {
-    color: #d8000c;
-    background-color: #ffbaba;
-    border: 1px solid #d8000c;
+    color: var(--mat-sys-on-error);
+    background-color: var(--mat-sys-error);
+    /*border: 1px solid #d8000c;*/
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -67,10 +80,10 @@
 
 .loading-message, .info-message {
     text-align: center;
-    color: #b5821e;
+    color: var(--mat-sys-primary);
     padding: 20px;
     font-style: italic;
-    background-color: var(--mat-sys-primary);
+    background-color: var(--background-color);
     border-radius: 15px;
 }
 
@@ -88,12 +101,30 @@
         display: block;
     }
 
+    .client-table th:nth-child(2) {
+        border-radius: 10px 0 0 0;
+    }
+
+    .client-table th:last-child {
+        border-radius: 0 10px 0 0;
+    }
+
     .client-table tbody tr {
         cursor: pointer;
     }
 
     .detailsRow {
         background-color: lightgrey;
+        cursor: default;
     }
+
+    .detailsRow p {
+        color: var(--mat-sys-primary);
+    }
+
+        .client-table tbody tr.detailsRow:hover {
+            background-color: lightgrey;
+
+        }
 
 }
