@@ -3,6 +3,7 @@
 // For more information: https://material.angular.io/guide/theming
 
 @use '@angular/material' as mat;
+@use './app_theme-colors' as custom-colors;
 
 :root{
     @include mat.progress-spinner-overrides((
@@ -10,12 +11,14 @@
     ))
 }
 
+
+
 html {
   @include mat.theme((
     color: (
       theme-type: light,
-      primary: mat.$spring-green-palette,
-      tertiary: mat.$orange-palette,
+        primary: custom-colors.$primary-palette,
+        tertiary: custom-colors.$tertiary-palette,
     ),
     typography: Roboto,
     density: 0,

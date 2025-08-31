@@ -1,7 +1,7 @@
 
 h3 {
   text-align: center;
-    color: #b5821e;
+    color: var(--mat-sys-primary);
 }
 
 .searchBarContainer{
@@ -11,12 +11,16 @@ h3 {
   justify-content: center;
   width: 100%;
   height: 70%;
-  /*position: relative;*/
 }
 
 .mat-mdc-form-field{
     width: 100%;
 
+}
+
+.clearSearch{
+    cursor: pointer;
+    color: var(--mat-sys-primary);
 }
 
 

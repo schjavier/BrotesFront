@@ -8,19 +8,8 @@
 
 h1{
   font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: whitesmoke;
+  color: var(--mat-sys-on-primary);
   margin-left: 1rem;
-}
-
-small{
-    font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #b5821e;
-}
-
-
-.logoutButton{
-    color: #b5821e;
-
 }
 
 

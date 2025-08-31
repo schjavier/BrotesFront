@@ -14,45 +14,64 @@
 }
 
 .order-table th {
-    background-color: #074a09;
-    color: #b5821e;
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
     text-align: center;
-    border-bottom: #b5821e solid 2px;
 }
 
-.order-table tr {
-    color: #082302;
+.order-table th:nth-child(1) {
+    border-radius: 10px 0 0 0 ;
 }
+
+.order-table th:last-child {
+    border-radius: 0 10px 0 0 ;
+}
+
+
 .order-table tbody {
-    border-top: 2px solid #b5821e;
+    border-top: var(--mat-sys-primary) solid 3px;
 }
+
 
 .order-table tbody tr {
-    background-color: var(--mat-sys-primary);
+    background-color: var(--background-color);
+    border-bottom: 2px solid var(--mat-sys-primary);
 }
-
+/* Filas pares*/
 .order-table tbody tr:nth-child(even) {
-    background-color: #5d9f5e; /* Color de fondo para filas pares */
+    background-color: var(--background-color);
 }
 
-.order-table tbody tr:nth-child(even) button{
-    background-color: #074a09;
-    color: whitesmoke;
-}
-
-.order-table tbody tr:nth-child(even) mat-icon.edit{
-    color: whitesmoke;
-}
-.order-table tbody tr:nth-child(even) mat-icon.info{
-    color: #074a09;
+.editButton{
+    background-color: var(--mat-sys-secondary);
+    color: var(--mat-sys-on-secondary);
 }
 
 .order-table tbody tr:hover {
-    background-color: lightgrey; /* Resaltar fila al pasar el ratón */
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
 }
+
+.order-table tbody tr:hover td button.editButton{
+    background-color: var(--background-color);
+    color: var(--mat-sys-primary);
+    }
+
+.order-table tbody tr:hover td button.editButton mat-icon.edit{
+    color: var(--mat-sys-primary);
+}
+
+.order-table tbody tr:hover td mat-icon.info{
+    color: var(--background-color);
+}
+
+mat-icon.info{
+    color: var(--mat-sys-primary);
+}
+
 
 .status-active {
     color: #06420b;
@@ -76,28 +95,11 @@
 
 .loading-message, .info-message {
     text-align: center;
-    color: #b5821e;
+    color: var(--mat-sys-primary);
     padding: 20px;
     font-style: italic;
-    background-color: var(--mat-sys-primary);
+    background-color: var(--background-color);
     border-radius: 15px;
-}
-
-mat-icon.info{
-    color: var(--mat-sys-primary);
-}
-
-mat-icon.info{
-    color: #5d9f5e;
-}
-
-.editButton{
-    background-color: #5d9f5e;
-    color: whitesmoke;
-}
-
-mat-icon.edit{
-    color: whitesmoke;
 }
 
 .hide-on-desktop{
@@ -118,5 +120,24 @@ mat-icon.edit{
 
     .detailsRow {
         background-color: lightgrey;
+        cursor: default;
+    }
+
+    .detailsRow p {
+        color: var(--mat-sys-primary);
+    }
+
+    .order-table tbody tr.detailsRow:hover {
+        background-color: lightgrey;
+
+    }
+
+    .order-table tbody tr:hover td button.editButton{
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+    }
+
+    .order-table tbody tr:hover td button.editButton mat-icon.edit{
+        color: var(--mat-sys-on-primary);
     }
 }

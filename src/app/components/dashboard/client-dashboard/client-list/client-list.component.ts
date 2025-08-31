@@ -20,6 +20,7 @@ export class ClientListComponent implements OnInit {
 
   clientList$!: Observable<Client[] | null>;
   errorMessage:string | null = null;
+  isMobile: boolean = false;
 
 
 
@@ -28,12 +29,19 @@ export class ClientListComponent implements OnInit {
   }
 
   toggleDetails(client:Client): void{
-      client.isExpanded = !client.isExpanded;
+      this.isMobile = window.innerWidth <= 576;
+
+      if (this.isMobile){
+        client.isExpanded = !client.isExpanded;
+
+      } else {
+          client.isExpanded = false;
+      }
   }
 
   ngOnInit() {
     this.loadClients();
-  }
+    }
 
   loadClients():void {
       this.errorMessage = null;
@@ -47,7 +55,5 @@ export class ClientListComponent implements OnInit {
         })
       );
   }
-
-
 
 }

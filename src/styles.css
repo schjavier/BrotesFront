@@ -1,13 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
     --mat-sidenav-container-width: 200px;
+    --background-color: #defbd7
 
 }
 
 
 html {
     font-family: "Roboto Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: var(--mat-sys-primary);
+    background-color: var(--mat-sys-background);
     height: 100%;
 
 }

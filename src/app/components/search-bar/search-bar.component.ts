@@ -4,7 +4,7 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {catchError, debounceTime, distinctUntilChanged, EMPTY, filter, Observable, of, switchMap} from 'rxjs';
-import {MatFormField} from '@angular/material/form-field';
+import {MatFormField, MatPrefix, MatSuffix} from '@angular/material/form-field';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
 import {MatIconButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
@@ -24,7 +24,9 @@ import {MatLabel} from '@angular/material/select';
         MatOption,
         AsyncPipe,
         NgForOf,
-        MatLabel
+        MatLabel,
+        MatSuffix,
+        MatPrefix
     ],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
