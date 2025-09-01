@@ -3,8 +3,8 @@
 <div class="searchBarWrapper">
 <app-search-bar [searchConfig]="{
    title: 'Buscar Clientes' ,
-   placeholder: 'Ingrese el Nombre',
-   debounceTime: 500,
+   placeholder: 'Ingrese el nombre',
+   debounceTime: 300,
    minLength: 3 }"
 [searchSuggestionFn]="getClientSuggestion"
 [displayFn]="displayClientSuggestion"
@@ -13,34 +13,44 @@
 </app-search-bar>
 </div>
 
-<div class="formWrapper">
-
-  <div class="errorContainer" *ngIf="errorMessage!=null">
+  <ng-container class="errorContainer" *ngIf="errorMessage!=null">
     <p class="errorMsg">{{ errorMessage }}</p>
-  </div>
+  </ng-container>
 
-  <div class="updateClientForm">
-  <form [formGroup]="updateClientForm">
-        <label for="id">ID:</label>
-        <input id="id" type="text" formControlName="id" required readonly>
 
-        <label class="headFormLabel" for="nombre">Nombre</label>
-        <input id="nombre" type="text" formControlName="nombre" required>
+  <form class="updateClientForm" [formGroup]="updateClientForm">
 
-        <label for="address">Direccion</label>
-        <input id="address" type="text" formControlName="direccion" required>
+       <mat-form-field>
+        <mat-label>Id</mat-label>
+        <input matInput id="id" type="text" formControlName="id" required readonly>
+       </mat-form-field>
 
-        <label for="phone">Teléfono</label>
-        <input id="phone" type="text" formControlName="telefono" required>
+      <mat-form-field>
+        <mat-label class="headFormLabel">Nombre</mat-label>
+        <input matInput id="nombre" type="text" formControlName="nombre" required>
+      </mat-form-field>
 
-        <mat-slide-toggle
+      <mat-form-field>
+        <mat-label>Direccion</mat-label>
+        <input matInput id="address" type="text" formControlName="direccion" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input matInput id="phone" type="text" formControlName="telefono" required>
+          <mat-error class="formError" *ngIf="updateClientForm.controls['telefono'].invalid && updateClientForm.dirty">
+              <p>El número de teléfono debe tener entre 10 y 11 dígitos.</p>
+          </mat-error>
+      </mat-form-field>
+
+      <mat-slide-toggle
           class="activeClient"
           [checked] = isClientActive
           [disabled]="!updateClientForm.valid"
           (change)="toggleClient(updateClientForm.get('id')?.value, $event.checked)">
           {{ isClientActive ? 'Desactivar Cliente'  : 'Activar Cliente'}}
 
-        </mat-slide-toggle>
+      </mat-slide-toggle>
 
     <div class="client-buttons">
         <button class="updateButton" mat-raised-button
@@ -50,11 +60,10 @@
         </button>
       <button class="deleteButton" mat-raised-button
         (click)="deleteClient(updateClientForm.get('id')?.value)"
-      [disabled]="!updateClientForm.valid">
+        [disabled]="!updateClientForm.valid">
         Borrar
       </button>
     </div>
   </form>
-</div>
-</div>
+
 </div>

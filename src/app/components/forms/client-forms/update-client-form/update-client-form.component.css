@@ -39,62 +39,38 @@
 }
 
 .updateClientForm{
-  width: 35%;
+    width: 35%;
     background-color: var(--mat-sys-primary);
-    padding-bottom: 10px;
-  border-radius: 0 0 15px 15px;
+    padding-top: 20px;
+    border-radius: 0 0 15px 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-
-
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
 }
 
-#id{
-  width: 30%;
+.updateClientForm mat-form-field{
+    width: 75%;
 }
 
-#nombre{
-  width: 50%;
+.formError{
+    color: var(--mat-sys-on-primary);
 }
 
-#address{
-  width: 50%;
-}
-
-#phone{
-width: 30%;
-}
-
-form label {
-  font-size: 1rem;
-  margin: 10px 0 10px 0;
-    color: whitesmoke;
-}
-
-
-form input{
-  height: 30px;
-  width: 50%;
-  border-radius: 5px;
-  border: none;
+.formError p {
+    position: relative;
+    bottom:30px;
 }
 
 .activeClient{
-  margin-top: 15px;
+    margin-top: 20px;
 }
 
 .client-buttons{
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .updateButton {
