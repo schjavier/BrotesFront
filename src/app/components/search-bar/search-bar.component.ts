@@ -49,7 +49,7 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
       if (!this.searchSuggestionFn){
-          console.error('SearchBar component error, searchSuggestionFn input is requiered for autocomplete functionality');
+          console.error('SearchBar component error, searchSuggestionFn input is required for autocomplete functionality');
           return;
       }
 

@@ -1,41 +1,55 @@
 <div class="componentWrapper">
 <div class="searchBarWrapper">
 <app-search-bar [searchConfig]="{
-   title: 'Buscar Productos para editar' ,
-   placeholder: 'Buscar ... ',
-   debounceTime: 500,
+   title: 'Buscar Productos' ,
+   placeholder: 'Ingrese el nombre... ',
+   debounceTime: 300,
    minLength: 3 }"
 [searchSuggestionFn]="getProductSuggestion"
 [displayFn]="displayProductSuggestion"
-(itemSelected)="onProductSelected($event)" >
+(itemSelected)="onProductSelected($event)">
 
 </app-search-bar>
 </div>
-<div class="formWrapper">
 
-  <div class="errorContainer" *ngIf="errorMessage!=null">
+  <ng-container *ngIf="errorMessage!=null">
     <p class="errorMsg">{{ errorMessage }}</p>
-  </div>
+  </ng-container>
 
-  <div class="updateProductForm">
-    <form [formGroup]="updateProductForm">
-      <label for="id">ID:</label>
-      <input id="id" type="text" formControlName="id" required readonly>
+      <form class="updateProductForm" [formGroup]="updateProductForm">
+          <mat-form-field>
+            <mat-label>Id</mat-label>
+            <input matInput type="text" formControlName="id" required readonly>
+          </mat-form-field>
 
-      <label class="headFormLabel" for="nombre">Nombre</label>
-      <input id="nombre" type="text" formControlName="nombre" required>
+          <mat-form-field>
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" formControlName="nombre" required>
+          </mat-form-field>
 
-      <label for="price">Precio</label>
-      <input id="price" type="text" formControlName="precio" required>
+          <mat-form-field>
+              <mat-label>Precio</mat-label>
+              <input matInput type="text" formControlName="precio" required>
+          </mat-form-field>
 
-      <label for="category">Categoría</label>
-      <input id="category" type="text" formControlName="categoria" required>
+          <mat-form-field>
+
+              <mat-label>Categoria</mat-label>
+              <mat-select id="category" placeholder="Elija una categoria" formControlName="categoria">
+                  <mat-option value="BROTES">Brotes</mat-option>
+                  <mat-option value="HOJAS">Hojas</mat-option>
+                  <mat-option value="VERDURA">Verdura</mat-option>
+                  <mat-option value="FLORES">Flores</mat-option>
+              </mat-select>
+
+          </mat-form-field>
 
       <mat-slide-toggle
         class="activeProduct"
         [checked] = isProductActive
-        (change)="toggleProduct(updateProductForm.get('id')?.value, $event.checked)">
-        {{ isProductActive ? 'Desactivar Producto'  : 'Activar Producto'}}
+        (change)="toggleProduct(updateProductForm.get('id')?.value, $event.checked)"
+        [disabled]="!updateProductForm.dirty || !updateProductForm.valid">
+        {{ isProductActive ? 'Desactivar Producto' : 'Activar Producto'}}
 
       </mat-slide-toggle>
 
@@ -52,6 +66,5 @@
         </button>
       </div>
     </form>
-  </div>
-</div>
+
 </div>

@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {NgIf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SearchBarComponent} from "../../../search-bar/search-bar.component";
-import {Observable} from 'rxjs';
 import {Product} from '../../../../model/product/product';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ProductService} from '../../../../services/product-service/product.service';
-import {UpdateProductDTO} from '../../../../model/product/update-product-dto';
 import {DatosListaProducto} from '../../../../model/product/datos-lista-producto';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-update-product-form',
@@ -18,7 +20,12 @@ import {DatosListaProducto} from '../../../../model/product/datos-lista-producto
         MatSlideToggle,
         NgIf,
         ReactiveFormsModule,
-        SearchBarComponent
+        SearchBarComponent,
+        MatLabel,
+        MatInput,
+        MatFormField,
+        MatOption,
+        MatSelect
     ],
   templateUrl: './update-product-form.component.html',
   styleUrl: './update-product-form.component.css'
@@ -26,12 +33,8 @@ import {DatosListaProducto} from '../../../../model/product/datos-lista-producto
 export class UpdateProductFormComponent {
 
   errorMessage: string | null = null;
-
-  product$!:Observable<Product>;
   product!: Product;
-
   isProductActive: boolean = true;
-
   popUp:MatSnackBar = new MatSnackBar();
 
   updateProductForm: FormGroup = new FormGroup({
@@ -71,7 +74,7 @@ export class UpdateProductFormComponent {
               },
               error: error => {
                   this.errorMessage = error.message;
-                  console.error("Error al cargar el prodcuto: ", error);
+                  console.error("Error al cargar el producto: ", this.errorMessage);
                   this.updateProductForm.reset();
               }
           });
@@ -101,7 +104,7 @@ export class UpdateProductFormComponent {
 
   activateProduct(id:number):void{
     this.productService.activateProduct(id).subscribe({
-      next: ()=>{
+      next: () => {
         console.log("Producto Activado");
         this.popUp.open("Producto Activado", "OK", {
           duration: 3000,
@@ -114,7 +117,7 @@ export class UpdateProductFormComponent {
 
   deactivateProduct(id:number):void{
     this.productService.deactivateProduct(id).subscribe({
-      next: ()=>{
+      next: () => {
         console.log("Producto Desactivado");
         this.popUp.open("Producto Desactivado", "OK", {
           duration: 3000,
@@ -144,9 +147,12 @@ updateProduct():void{
     this.productService.updateProduct(this.updateProductForm.value).subscribe({
       next: ()=>{
         console.log("Producto Actualizado");
+        this.updateProductForm.reset();
+
         this.popUp.open("Producto Actualizado", "OK", {
           duration: 3000,
-        })
+        });
+
       }, error: error => {
         this.errorMessage = error;
       }

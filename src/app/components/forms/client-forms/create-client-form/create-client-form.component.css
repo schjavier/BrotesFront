@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   width: 35%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: var(--mat-sys-level3);
     padding: 20px;
     border-radius: 10px;
     background-color: var(--mat-sys-primary);
@@ -35,8 +35,19 @@
   border: none;
 }
 
+.formError{
+    color: var(--mat-sys-on-primary);
+}
+
+.formError p {
+    position: relative;
+    bottom:20px;
+}
+
+
 button.formButton{
-  margin: 10px 0;
+
+    margin: 20px 0;
     background-color: var(--background-color);
     box-shadow: var(--mat-sys-level3);
 

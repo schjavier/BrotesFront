@@ -12,16 +12,22 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {DatosListaProducto} from '../../../../model/product/datos-lista-producto';
 import {Product} from '../../../../model/product/product';
 import {DatosListaCliente} from '../../../../model/client/datos-lista-cliente';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-update-client-form',
-  imports: [
-    ReactiveFormsModule,
-    MatSlideToggle,
-    SearchBarComponent,
-    MatButton,
-    NgIf
-  ],
+    imports: [
+        ReactiveFormsModule,
+        MatSlideToggle,
+        SearchBarComponent,
+        MatButton,
+        NgIf,
+        MatLabel,
+        MatInput,
+        MatFormField,
+        MatError
+    ],
   templateUrl: './update-client-form.component.html',
   styleUrl: './update-client-form.component.css'
 })
@@ -41,7 +47,7 @@ export class UpdateClientFormComponent {
     id: new FormControl('', [Validators.required]),
     nombre: new FormControl('', [Validators.required]),
     direccion: new FormControl('', [Validators.required]),
-    telefono: new FormControl('', [Validators.required]),
+    telefono: new FormControl('', [Validators.required, Validators.pattern("^\\d{10,11}$")]),
 
 
   })
