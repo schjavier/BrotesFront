@@ -10,5 +10,6 @@ export interface OrderDetailsDto {
     fecha:string;
     diaDeEntrega:string;
     isExpanded?: boolean;
+    totalElements?:number;
 
 }
