@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {catchError, map, Observable, of, tap} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
@@ -6,10 +6,8 @@ import {OrderService} from '../../../../services/order-service/order.service';
 import {MatButton} from '@angular/material/button';
 import {OrderDetailsDto} from '../../../../model/pedido/order-details-dto';
 import {ItemPedidoDetailsDto} from '../../../../model/item-pedido/item-pedido-details-dto';
-import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../../../dialog/dialog.component';
 
@@ -21,10 +19,8 @@ import {DialogComponent} from '../../../dialog/dialog.component';
         NgIf,
         MatIcon,
         MatButton,
-        MatTooltip,
         RouterLink,
         MatPaginator,
-
     ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
