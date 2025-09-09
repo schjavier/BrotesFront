@@ -229,7 +229,6 @@ export class CreateOrderFormComponent implements OnInit {
         if (this.selectedProduct && this.productQuantityControl.valid){
             const quantity = this.productQuantityControl.value;
             this.orderItems.push(this.createOrderItemFormGroup(this.selectedProduct, quantity!));
-            // this.selectedProduct = null;
             this.productQuantityControl.setValue(1);
             this.popUp.open(`"${this.selectedProduct!.nombre}" agregado`, "OK", {duration:2000});
 
@@ -238,6 +237,8 @@ export class CreateOrderFormComponent implements OnInit {
         } else if (this.productQuantityControl.invalid){
             this.popUp.open("La cantidad debe ser al menos 1", "Cerrar", {duration:2000});
         }
+
+        this.selectedProduct = null;
     }
 
     removeOrderItem(index:number): void {
@@ -286,6 +287,8 @@ export class CreateOrderFormComponent implements OnInit {
             this.errorMessage = "Complete todos los campos requeridos"
             this.createOrderForm.markAllAsTouched();
         }
+
+        this.resetForm();
     }
 
     resetForm():void{

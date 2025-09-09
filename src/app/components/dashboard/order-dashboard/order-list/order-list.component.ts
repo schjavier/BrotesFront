@@ -6,9 +6,10 @@ import {OrderService} from '../../../../services/order-service/order.service';
 import {MatButton} from '@angular/material/button';
 import {OrderDetailsDto} from '../../../../model/pedido/order-details-dto';
 import {ItemPedidoDetailsDto} from '../../../../model/item-pedido/item-pedido-details-dto';
-import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogComponent} from '../../../dialog/dialog.component';
 
 @Component({
   selector: 'app-order-forms-list',
@@ -18,10 +19,8 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
         NgIf,
         MatIcon,
         MatButton,
-        MatTooltip,
         RouterLink,
         MatPaginator,
-
     ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
@@ -34,7 +33,9 @@ export class OrderListComponent implements OnInit {
     totalItems:number = 0;
     currentPage:number = 0;
 
-    constructor(private orderService: OrderService) {
+
+    constructor(private orderService:OrderService,
+                public dialog:MatDialog) {
         this.orderList$ = of([]);
     }
 
@@ -68,13 +69,15 @@ export class OrderListComponent implements OnInit {
         )
     }
 
-    formatItemsForTooltip(items: ItemPedidoDetailsDto[]):string {
-        console.log(items);
-        if (!items || items.length === 0) {
-            return 'No hay items en este pedido';
-        }
-        return items.map(item =>
+    showItems(items: ItemPedidoDetailsDto[]):void {
+
+        const stringItems = items.map( item =>
             `${item.nombreProducto} (x${item.cantidad})`).join('\n');
+
+        this.dialog.open(DialogComponent, {
+            width: '25%',
+            data: { items: stringItems },
+        })
     }
 
     onChangePage($event: PageEvent) {
