@@ -24,9 +24,10 @@
                 <td class="hide-on-mobile">{{ order.precioTotal }}</td>
                 <td class="hide-on-mobile">
                     <ng-container *ngIf="order.item && order.item.length > 0">
-                        <span [matTooltip]="formatItemsForTooltip(order.item)">
+
+                        <span>
                             {{ order.item.length}} item{{ order.item.length !==1 ? 's' : '' }}
-                            <mat-icon class="info">info_outline</mat-icon>
+                            <mat-icon class="info" (click)="showItems(order.item)">info_outline</mat-icon>
                         </span>
                     </ng-container>
                     <ng-container *ngIf="!order.item || order.item.length === 0">

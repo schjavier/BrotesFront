@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {catchError, map, Observable, of, tap} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
@@ -9,6 +9,9 @@ import {ItemPedidoDetailsDto} from '../../../../model/item-pedido/item-pedido-de
 import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogComponent} from '../../../dialog/dialog.component';
 
 @Component({
   selector: 'app-order-forms-list',
@@ -34,7 +37,9 @@ export class OrderListComponent implements OnInit {
     totalItems:number = 0;
     currentPage:number = 0;
 
-    constructor(private orderService: OrderService) {
+
+    constructor(private orderService:OrderService,
+                public dialog:MatDialog) {
         this.orderList$ = of([]);
     }
 
@@ -68,13 +73,15 @@ export class OrderListComponent implements OnInit {
         )
     }
 
-    formatItemsForTooltip(items: ItemPedidoDetailsDto[]):string {
-        console.log(items);
-        if (!items || items.length === 0) {
-            return 'No hay items en este pedido';
-        }
-        return items.map(item =>
+    showItems(items: ItemPedidoDetailsDto[]):void {
+
+        const stringItems = items.map( item =>
             `${item.nombreProducto} (x${item.cantidad})`).join('\n');
+
+        this.dialog.open(DialogComponent, {
+            width: '25%',
+            data: { items: stringItems },
+        })
     }
 
     onChangePage($event: PageEvent) {
