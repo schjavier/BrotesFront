@@ -20,8 +20,8 @@ div.createOrderForm {
 
 }
 
-div.createOrderForm app-search-bar.orderBar {
-    width: 100%;
+h2{
+    color: var(--mat-sys-primary);
 }
 
 .quantityInputWrapper{

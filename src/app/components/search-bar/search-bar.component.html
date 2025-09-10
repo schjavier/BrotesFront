@@ -6,7 +6,7 @@
                matInput
         [formControl]="searchControl"
         [matAutocomplete]="auto">
-        <mat-icon class="clearSearch" matIconSuffix *ngIf="searchControl.value" (click)="clearSearch()">close</mat-icon>
+<!--        <mat-icon class="clearSearch" matIconSuffix *ngIf="searchControl.value" (click)="clearSearch()">close</mat-icon>-->
 
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
             <mat-option *ngFor="let item of filteredItems$ | async" [value]="item">
@@ -21,19 +21,3 @@
 
 </div>
 
-
-
-
-
-<!--      <span class="searchIcon">-->
-<!--      <mat-icon>search</mat-icon>-->
-<!--      </span>-->
-
-<!--      <input class="searchBar" role="searchbox"-->
-<!--                                        [formControl]="searchControl"-->
-<!--                                        [placeholder]="searchConfig.placeholder">-->
-<!--      <span class="closeIcon"-->
-<!--              *ngIf="searchControl.value"-->
-<!--              (click)="searchControl.reset()">-->
-<!--              <mat-icon>close</mat-icon>-->
-<!--      </span>-->

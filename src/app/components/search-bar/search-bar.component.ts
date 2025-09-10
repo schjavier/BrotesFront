@@ -75,10 +75,11 @@ export class SearchBarComponent implements OnInit {
   onOptionSelected(event: any):void {
       const selectedItem = event.option.value;
       this.itemSelected.emit(selectedItem);
+
   }
 
   clearSearch():void{
-      this.searchControl.reset('');
+      this.searchControl.setValue('');
       this.filteredItems$ = of([]);
   }
 }
