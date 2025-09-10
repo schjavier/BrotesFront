@@ -2,18 +2,16 @@
 
     <h2>{{isEditing ? 'Editar' : 'Registrar'}}</h2>
 
-<!--    <div class="errorContainer" *ngIf="errorMessage != null">-->
-<!--        <p class="errorMsg">{{ errorMessage }}</p>-->
-<!--    </div>-->
-
     <div class="createOrderForm">
         <form [formGroup]="createOrderForm">
 
-            <app-search-bar class="orderBar" [searchConfig]="{
+            <app-search-bar class="orderBar"
+                            #clientSearchBar
+                            [searchConfig]="{
                           title: 'Añadir Cliente',
                           placeholder: 'Ingrese el nombre...',
                           debounceTime: 300,
-                          minLength: 2 }"
+                          minLength: 3 }"
                           [searchSuggestionFn]="getClientSuggestions"
                           [displayFn]="displayClientSuggestion"
                           (itemSelected)="onClientSelected($event)">
@@ -29,11 +27,12 @@
                 <input matInput formControlName="nombreCliente" readonly>
             </mat-form-field>
 
-            <app-search-bar [searchConfig]="{
-                          title: 'Añadir productos',
-                          placeholder: 'Ingrese el nombre...',
-                          debounceTime: 300,
-                          minLength: 2 }"
+            <app-search-bar #itemsSearchBar
+                            [searchConfig]="{
+                            title: 'Añadir productos',
+                            placeholder: 'Ingrese el nombre...',
+                            debounceTime: 300,
+                            minLength: 3 }"
                             [searchSuggestionFn]="getProductSuggestions"
                             [displayFn]="displayProductSuggestion"
                             (itemSelected)="onProductSelected($event)">

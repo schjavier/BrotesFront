@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
@@ -47,6 +47,12 @@ import {ProductOrderData} from '../../../../model/pedido/product-order-data';
   styleUrl: './create-order-form.component.css'
 })
 export class CreateOrderFormComponent implements OnInit {
+
+   @ViewChild('itemsSearchBar')
+    productSearchBar!: SearchBarComponent;
+
+   @ViewChild('clientSearchBar')
+   clientSearchBar!: SearchBarComponent;
 
     pedidoId:number | null = null;
     isEditing:boolean = false;
@@ -239,6 +245,7 @@ export class CreateOrderFormComponent implements OnInit {
         }
 
         this.selectedProduct = null;
+        this.productSearchBar.searchControl.setValue('')
     }
 
     removeOrderItem(index:number): void {
@@ -289,7 +296,10 @@ export class CreateOrderFormComponent implements OnInit {
         }
 
         this.resetForm();
+        this.clientSearchBar.searchControl.setValue('');
+
     }
+
 
     resetForm():void{
         this.createOrderForm.reset();
@@ -298,6 +308,7 @@ export class CreateOrderFormComponent implements OnInit {
         this.selectedProduct = null;
         this.isEditing = false;
         this.pedidoId = null;
+
     }
 
 }
