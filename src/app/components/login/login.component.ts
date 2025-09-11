@@ -29,7 +29,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-    this.authService.isLoggedIn() && !(this.authService.isTokenExpired())? this.router.navigate(['/dashboard']) : this.router.navigate(['/login']);
+        if(this.authService.isLoggedIn() && !(this.authService.isTokenExpired())){
+            this.router.navigate(['/dashboard']);
+        } else {
+            this.authService.logOut();
+            this.router.navigate(['/login']);
+        }
 
     }
 
