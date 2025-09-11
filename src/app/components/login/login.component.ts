@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {AuthService} from '../../services/auth-service/auth.service';
 import {AuthRequest} from '../../model/user/auth-request';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,20 +20,24 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrl: './login.component.css'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-    macroTitle:string = "Bienvenido al sistema de gestión de pedidos de"
     title:string = "Brotes"
-    subtitle:string = "Organicos"
+
+    constructor(private authService:AuthService,
+                private router: Router) {
+    }
+
+    ngOnInit(): void {
+    this.authService.isLoggedIn() && !(this.authService.isTokenExpired())? this.router.navigate(['/dashboard']) : this.router.navigate(['/login']);
+
+    }
 
     authForm: FormGroup = new FormGroup({
         username: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required),
     })
 
-    constructor(private authService:AuthService,
-                private router: Router) {
-    }
 
     login(){
 
