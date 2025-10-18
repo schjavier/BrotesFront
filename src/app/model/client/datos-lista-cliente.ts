@@ -3,5 +3,4 @@ export interface DatosListaCliente {
     nombre:string;
     direccion:string;
     activo:boolean;
-    telefono:string;
 }

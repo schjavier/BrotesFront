@@ -7,7 +7,6 @@
                 <th scope="col" class="hide-on-mobile">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Direccion</th>
-                <th scope="col" class="hide-on-mobile">Telefono</th>
                 <th scope="col" class="hide-on-mobile">Estado</th>
                 <th scope="col" class="hide-on-desktop">Info</th>
             </tr>
@@ -20,7 +19,6 @@
                 <td class="hide-on-mobile">{{ client.id }}</td>
                 <td>{{ client.nombre }}</td>
                 <td>{{ client.direccion }}</td>
-                <td class="hide-on-mobile">{{ client.telefono }}</td>
                 @if (client.activo) {
                     <td class="status-active hide-on-mobile">Activo</td>
                 } @else {
@@ -32,7 +30,6 @@
                 <tr *ngIf="client.isExpanded">
                     <td colspan="4" class="detailsRow">
                         <div>
-                            <p><strong>Teléfono:</strong> {{client.telefono}}</p>
                             <p><strong>Estado:</strong> {{client.activo ? 'Activo' : 'Inactivo'}}</p>
                         </div>
 

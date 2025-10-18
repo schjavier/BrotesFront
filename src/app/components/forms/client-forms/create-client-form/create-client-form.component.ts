@@ -17,8 +17,6 @@ import {NgIf} from '@angular/common';
         MatFormField,
         MatInput,
         MatLabel,
-        NgIf,
-        MatError
     ],
   templateUrl: './create-client-form.component.html',
   styleUrl: './create-client-form.component.css'
@@ -32,7 +30,6 @@ export class CreateClientFormComponent {
 
     nombre: new FormControl('', Validators.required),
     direccion: new FormControl('', Validators.required),
-    telefono: new FormControl('', [Validators.required,  Validators.pattern("^\\d{10,11}$")]),
 
 });
  //todo -> need refactor, must use Dependency Injection on this

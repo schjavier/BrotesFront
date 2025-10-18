@@ -35,13 +35,6 @@
         <input matInput id="address" type="text" formControlName="direccion" required>
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Teléfono</mat-label>
-        <input matInput id="phone" type="text" formControlName="telefono" required>
-          <mat-error class="formError" *ngIf="updateClientForm.controls['telefono'].invalid && updateClientForm.dirty">
-              <p>El número de teléfono debe tener entre 10 y 11 dígitos.</p>
-          </mat-error>
-      </mat-form-field>
 
       <mat-slide-toggle
           class="activeClient"

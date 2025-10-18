@@ -47,8 +47,6 @@ export class UpdateClientFormComponent {
     id: new FormControl('', [Validators.required]),
     nombre: new FormControl('', [Validators.required]),
     direccion: new FormControl('', [Validators.required]),
-    telefono: new FormControl('', [Validators.required, Validators.pattern("^\\d{10,11}$")]),
-
 
   })
 
@@ -74,8 +72,7 @@ export class UpdateClientFormComponent {
                         this.client.id,
                         this.client.nombre,
                         this.client.direccion,
-                        this.client.telefono
-                    );
+                        );
                     this.isClientActive = clientData.activo;
                     this.errorMessage = null;
                 },
@@ -90,13 +87,12 @@ export class UpdateClientFormComponent {
         }
     }
 
-    updateForm(id:number, nombre:string, direccion:string, telefono:string):void{
+    updateForm(id:number, nombre:string, direccion:string):void{
 
     this.updateClientForm.setValue({
       id: id,
       nombre: nombre,
       direccion: direccion,
-      telefono: telefono,
 
     })
   }
@@ -157,8 +153,7 @@ export class UpdateClientFormComponent {
       this.updateClientForm.get('id')?.value,
       this.updateClientForm.get('nombre')?.value,
       this.updateClientForm.get('direccion')?.value,
-      this.updateClientForm.get('telefono')?.value,
-    )
+      )
 
 
     this.clientService.updateClient(dataClient).subscribe({
