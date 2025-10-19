@@ -6,7 +6,6 @@ export interface OrderDetailsDto {
     idCliente:number;
     nombreCliente:string;
     item:ItemPedidoDetailsDto[];
-    precioTotal:number;
     fecha:string;
     diaDeEntrega:string;
     isExpanded?: boolean;

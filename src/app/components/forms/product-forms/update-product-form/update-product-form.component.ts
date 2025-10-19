@@ -40,7 +40,6 @@ export class UpdateProductFormComponent {
   updateProductForm: FormGroup = new FormGroup({
     id: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
-    precio: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
 
   })
@@ -66,7 +65,6 @@ export class UpdateProductFormComponent {
                   this.updateForm(
                       this.product.id,
                       this.product.nombre,
-                      this.product.precio,
                       this.product.categoria
                   );
                   this.isProductActive = productData.activo;
@@ -83,12 +81,11 @@ export class UpdateProductFormComponent {
       }
   }
 
-  updateForm(id:number, nombre:string, precio:number, categoria:string):void{
+  updateForm(id:number, nombre:string, categoria:string):void{
 
       this.updateProductForm.setValue({
         id: id,
         nombre: nombre,
-        precio: precio,
         categoria: categoria
       })
   }

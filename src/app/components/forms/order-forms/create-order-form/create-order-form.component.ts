@@ -124,7 +124,6 @@ export class CreateOrderFormComponent implements OnInit {
             const productData = {
                 id: item.id,
                 nombre: item.nombreProducto,
-                precio: item.precioProducto,
                 categoria: item.categoria,
                 activo: true // aca no iria esto.
             }
@@ -226,8 +225,7 @@ export class CreateOrderFormComponent implements OnInit {
             nombreProducto: new FormControl(product ? product.nombre : '', Validators.required),
             categoria: new FormControl(product ? product.categoria : '', Validators.required),
             cantidad: new FormControl(quantity, [Validators.required, Validators.min(1)]),
-            precioProducto: new FormControl(product ? product.precio : '', Validators.required),
-        })
+            })
     }
 
     addOrderItem():void{

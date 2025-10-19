@@ -8,7 +8,6 @@
                 <th scope="col">Nombre Cliente</th>
                 <th scope="col" class="hide-on-mobile">Fecha</th>
                 <th scope="col">Dia de Entrega</th>
-                <th scope="col" class="hide-on-mobile">Precio Total</th>
                 <th scope="col" class="hide-on-mobile">Items</th>
                 <th scope="col">Info</th>
 
@@ -21,7 +20,6 @@
                 <td>{{ order.nombreCliente}}</td>
                 <td class="hide-on-mobile">{{ order.fecha.split("T", 1) }}</td>
                 <td>{{ order.diaDeEntrega }}</td>
-                <td class="hide-on-mobile">{{ order.precioTotal }}</td>
                 <td class="hide-on-mobile">
                     <ng-container *ngIf="order.item && order.item.length > 0">
 
@@ -41,7 +39,6 @@
                     <td colspan="4" class="detailsRow">
                         <div>
                             <p><strong>Fecha: </strong> {{order.fecha.split("T", 1)}}</p>
-                            <p><strong>Precio Total: </strong> $ {{order.precioTotal}}</p>
                             <p><strong>Items:</strong></p>
                             <ng-container *ngFor="let item of order.item">
                             <p>{{item.nombreProducto}} - {{item.cantidad}}</p>

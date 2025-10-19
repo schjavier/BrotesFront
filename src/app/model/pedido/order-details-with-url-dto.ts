@@ -5,7 +5,6 @@ export interface OrderDetailsWithUrlDto {
     idPedido: number;
     idCliente: number;
     item: ItemPedidoDetailsDto[];
-    precioTotal: number;
     fecha: string;
     diaDeEntrega: string;
     url:string;
