@@ -4,20 +4,16 @@
     <table class="product-table">
       <thead>
         <tr>
-          <th scope="col" class="hide-on-mobile">ID</th>
           <th scope="col">Nombre</th>
-          <th scope="col" class="hide-on-mobile">Precio</th>
           <th scope="col">Categoria</th>
           <th scope="col" class="hide-on-mobile">Estado</th>
-            <th scope="col" class="hide-on-desktop">Info</th>
+          <th scope="col" class="hide-on-desktop">Info</th>
         </tr>
       </thead>
         <tbody>
         <ng-container *ngFor="let product of productList">
           <tr (click)="toggleDetails(product)" [class.expanded]="product.isExpanded">
-            <td class="hide-on-mobile">{{ product.id }}</td>
             <td>{{ product.nombre }}</td>
-            <td class="hide-on-mobile">{{ product.precio }}</td>
             <td>{{ product.categoria }}</td>
             @if (product.activo) {
              <td class="status-active hide-on-mobile">Activo</td>
@@ -29,7 +25,6 @@
             <tr *ngIf="product.isExpanded">
                 <td colspan="4" class="detailsRow">
                     <div>
-                        <p><strong>Precio:</strong> $ {{product.precio}}</p>
                         <p><strong>Estado:</strong> {{product.activo ? 'Activo' : 'Inactivo'}}</p>
                     </div>
 

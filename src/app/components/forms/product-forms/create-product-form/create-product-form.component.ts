@@ -25,7 +25,6 @@ export class CreateProductFormComponent {
 
   createProductForm:FormGroup = new FormGroup ({
     nombre: new FormControl('', [Validators.required]),
-    precio: new FormControl('', [Validators.required]),
     categoria: new FormControl('', [Validators.required]),
   });
 

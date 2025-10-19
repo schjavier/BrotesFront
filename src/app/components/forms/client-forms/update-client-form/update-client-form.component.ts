@@ -25,8 +25,7 @@ import {MatInput} from '@angular/material/input';
         NgIf,
         MatLabel,
         MatInput,
-        MatFormField,
-        MatError
+        MatFormField
     ],
   templateUrl: './update-client-form.component.html',
   styleUrl: './update-client-form.component.css'
@@ -35,7 +34,6 @@ export class UpdateClientFormComponent {
 
   errorMessage: string | null = null;
 
-  client$!:Observable<Client>;
   client!:Client;
 
   isClientActive: boolean = true;
