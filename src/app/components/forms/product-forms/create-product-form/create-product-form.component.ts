@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel, MatOption, MatSelect} from '@angular/material/select';
@@ -36,7 +36,7 @@ export class CreateProductFormComponent {
   onSubmit(): void{
     if(this.createProductForm.valid){
        this.productService.createProduct(this.createProductForm.value).subscribe();
-       this.popUp.open("Producto creado", "OK");
+       this.popUp.open("Producto creado", "OK", {duration: 3000});
        this.createProductForm.reset();
     } else {
       this.createProductForm.markAllAsTouched()

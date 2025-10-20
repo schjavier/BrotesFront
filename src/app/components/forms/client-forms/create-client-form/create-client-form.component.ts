@@ -41,7 +41,7 @@ export class CreateClientFormComponent {
   onSubmit():void{
       if(this.createClientForm.valid){
           this.clientService.createClient(this.createClientForm.value).subscribe();
-          this.popUp.open("Cliente creado", "OK");
+          this.popUp.open("Cliente creado", "OK", {duration: 3000});
           this.createClientForm.reset();
       } else {
           this.createClientForm.markAllAsTouched();
