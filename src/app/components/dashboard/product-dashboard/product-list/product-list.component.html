@@ -34,6 +34,8 @@
         </ng-container>
         </tbody>
     </table>
+      <mat-paginator [pageSize]="10" [length]="totalItems" [pageIndex]="currentPage" (page)="onChangePage($event)"></mat-paginator>
+
   </div>
 
 </div>
