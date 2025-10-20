@@ -3,4 +3,6 @@ export interface DatosListaProducto {
     nombre: string;
     categoria: string;
     activo: boolean;
+    isExpanded?:boolean;
+    totalElements?:number;
 }

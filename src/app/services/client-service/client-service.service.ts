@@ -6,6 +6,8 @@ import {CreateClientDto} from '../../model/client/create-client-dto';
 import {UpdateClientDto} from '../../model/client/update-client-dto';
 import {ErrorHandlerService} from '../error-handler-service/error-handler.service';
 import { environment } from '../../../environments/environment';
+import {DatosListaCliente} from '../../model/client/datos-lista-cliente';
+import {ClientResponse} from '../../model/client/client-response';
 
 
 @Injectable({
@@ -26,10 +28,9 @@ export class ClientService {
     (catchError(error => this.errorHandler.handleHttpError(error)));
   }
 
-  getAllClients():Observable<Client[]>{
-    return this.http.get<any>(this.url).pipe(
-      map(response => response.content)).pipe
-        (catchError(error=> this.errorHandler.handleHttpError(error) ));
+  getAllClients(pageNumber:number):Observable<ClientResponse>{
+    return this.http.get<any>(this.url + "?page=" + pageNumber).pipe(
+        catchError(error=> this.errorHandler.handleHttpError(error) ));
   }
 
   createClient(clientDto:CreateClientDto):Observable<Client>{

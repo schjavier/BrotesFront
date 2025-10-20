@@ -3,4 +3,6 @@ export interface DatosListaCliente {
     nombre:string;
     direccion:string;
     activo:boolean;
+    isExpanded?:boolean;
+    totalElements?:number;
 }

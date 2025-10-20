@@ -6,6 +6,7 @@ import {ErrorHandlerService} from '../error-handler-service/error-handler.servic
 import {CreateProductDTO} from '../../model/product/create-product-dto';
 import {UpdateProductDTO} from '../../model/product/update-product-dto';
 import {environment} from '../../../environments/environment';
+import {ProductResponse} from '../../model/product/product-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,9 @@ export class ProductService {
   status:string = "true";
   url:string = `${environment.apiUrl}/productos`;
 
-  getAllProducts():Observable<Product[]>{
-    return this.http.get<any>(this.url).pipe(
-      map(response => response.content)).pipe
-    (catchError(error => this.errorHandler.handleHttpError(error)));
+  getAllProducts(pageNumber:number):Observable<ProductResponse>{
+    return this.http.get<any>(this.url + "?page=" + pageNumber).pipe(
+      catchError(error => this.errorHandler.handleHttpError(error)));
   }
 
   createProduct(productData:CreateProductDTO):Observable<Product>{

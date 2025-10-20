@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../../../../model/product/product';
-import {catchError, map, Observable, of} from 'rxjs';
+import {catchError, map, Observable, of, tap} from 'rxjs';
 import {ProductService} from '../../../../services/product-service/product.service';
 import {AsyncPipe, NgFor, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product-list',
@@ -11,7 +12,8 @@ import {MatIcon} from '@angular/material/icon';
         NgFor,
         AsyncPipe,
         NgIf,
-        MatIcon
+        MatIcon,
+        MatPaginator
     ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
@@ -21,6 +23,9 @@ export class ProductListComponent implements OnInit {
   productList$!: Observable<Product[] | null>;
   errorMessage:string | null = null;
   isMobile:boolean = false;
+
+  totalItems = 0;
+  currentPage = 0;
 
   constructor(private productService: ProductService) {
     this.productList$ = of([]);
@@ -45,8 +50,9 @@ export class ProductListComponent implements OnInit {
   loadProducts(): void {
     this.errorMessage = null;
 
-    this.productList$ = this.productService.getAllProducts().pipe(
-        map(products => products.map(product => ({...product, isExpanded: false}))
+    this.productList$ = this.productService.getAllProducts(this.currentPage).pipe(
+        tap(response =>  this.totalItems = response.totalElements),
+        map(products => products.content.map(product => ({...product, isExpanded: false}))
         ),
       catchError(error => {
         this.errorMessage = error.message;
@@ -55,5 +61,13 @@ export class ProductListComponent implements OnInit {
       })
     );
   }
+
+
+    onChangePage($event: PageEvent) {
+        this.currentPage = $event.pageIndex;
+
+        this.loadProducts();
+
+    }
 
 }

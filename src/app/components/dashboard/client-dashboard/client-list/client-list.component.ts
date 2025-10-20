@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientService} from '../../../../services/client-service/client-service.service';
-import {catchError, map, Observable, of} from 'rxjs';
+import {catchError, map, Observable, of, tap} from 'rxjs';
 import {Client} from '../../../../model/client/client';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {DatosListaCliente} from '../../../../model/client/datos-lista-cliente';
 
 @Component({
   selector: 'app-client-list',
@@ -11,18 +13,20 @@ import {MatIcon} from '@angular/material/icon';
         NgForOf,
         AsyncPipe,
         NgIf,
-        MatIcon
+        MatIcon,
+        MatPaginator
     ],
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css'
 })
 export class ClientListComponent implements OnInit {
 
-  clientList$!: Observable<Client[] | null>;
+  clientList$!: Observable<DatosListaCliente[] | null>;
   errorMessage:string | null = null;
   isMobile: boolean = false;
 
-
+  totalItems:number = 0;
+  currentPage:number = 0;
 
   constructor(private clientService: ClientService) {
     this.clientList$ = of([]);
@@ -45,8 +49,10 @@ export class ClientListComponent implements OnInit {
 
   loadClients():void {
       this.errorMessage = null;
-      this.clientList$ = this.clientService.getAllClients().pipe(
-          map(clients => clients.map(client => ({...client, isExpanded: false}))
+
+      this.clientList$ = this.clientService.getAllClients(this.currentPage).pipe(
+          tap(response => this.totalItems = response.totalElements),
+          map(clients => clients.content.map(client => ({...client, isExpanded: false}))
           ),
           catchError(error => {
               this.errorMessage = error;
@@ -55,5 +61,13 @@ export class ClientListComponent implements OnInit {
         })
       );
   }
+
+
+    onChangePage($event: PageEvent) {
+        this.currentPage = $event.pageIndex;
+
+        this.loadClients()
+
+    }
 
 }
