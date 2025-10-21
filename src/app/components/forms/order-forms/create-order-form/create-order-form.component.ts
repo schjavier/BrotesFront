@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -22,6 +22,7 @@ import {MatChipListbox, MatChipRemove, MatChipRow} from '@angular/material/chips
 import {ActivatedRoute, Router} from '@angular/router';
 import {UpdateOrderDTO} from '../../../../model/pedido/update-order-dto';
 import {ProductOrderData} from '../../../../model/pedido/product-order-data';
+import {MatCheckbox} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-create-order-forms-form',
@@ -41,7 +42,9 @@ import {ProductOrderData} from '../../../../model/pedido/product-order-data';
         MatChipListbox,
         MatChipRow,
         MatError,
-        MatChipRemove
+        MatChipRemove,
+        MatCheckbox,
+        FormsModule
     ],
   templateUrl: './create-order-form.component.html',
   styleUrl: './create-order-form.component.css'
@@ -71,6 +74,7 @@ export class CreateOrderFormComponent implements OnInit {
         nombreCliente: new FormControl({value: '', disabled: true}, [Validators.required]),
         item: new FormArray([], [Validators.required]),
         diaEntrega: new FormControl('', [Validators.required]),
+        fijarPedido: new FormControl('', [Validators.required])
     });
 
     popUp:MatSnackBar = new MatSnackBar();
@@ -261,7 +265,6 @@ export class CreateOrderFormComponent implements OnInit {
                     id: item.idProducto,
                     nombreProducto: item.nombreProducto,
                     cantidad: item.cantidad,
-                    precioProducto: item.precioUnitario,
                     categoria: item.categoria
                 }
             });
@@ -269,7 +272,9 @@ export class CreateOrderFormComponent implements OnInit {
             const orderData: CreateOrderDto = {
                 idCliente: this.selectedClient!.id,
                 items: itemsForDto,
-                diaEntrega: this.createOrderForm.get("diaEntrega")!.value
+                diaEntrega: this.createOrderForm.get("diaEntrega")!.value,
+                isRecurrent: this.createOrderForm.get("fijarPedido")!.value
+
             };
 
             this.orderService.createOrder(orderData).subscribe({
@@ -297,7 +302,6 @@ export class CreateOrderFormComponent implements OnInit {
         this.clientSearchBar.searchControl.setValue('');
 
     }
-
 
     resetForm():void{
         this.createOrderForm.reset();
