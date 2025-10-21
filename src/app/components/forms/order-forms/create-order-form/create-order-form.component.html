@@ -79,6 +79,10 @@
                 </mat-error>
             </mat-form-field>
 
+            <div class="checkbox">
+                <mat-checkbox formControlName="fijarPedido">Fijar pedido</mat-checkbox>
+            </div>
+
             <div class="form-actions">
                 <button mat-raised-button type="submit"
                         [disabled]="!createOrderForm.valid && !createOrderForm.dirty"
