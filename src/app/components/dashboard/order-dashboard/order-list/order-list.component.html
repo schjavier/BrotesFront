@@ -1,13 +1,13 @@
-<div *ngIf="orderList$ | async as orderList; else loadingOrNotOrders">
+<div *ngIf="orderList() as orderList; else loadingOrNotOrders">
 
     <div *ngIf="orderList && orderList.length > 0; else noOrderFound">
 
-        <table class="order-table">
+        <table class="order-table" matSort (matSortChange)="sortData($event)">
             <thead>
             <tr>
                 <th scope="col">Nombre Cliente</th>
                 <th scope="col" class="hide-on-mobile">Fecha</th>
-                <th scope="col">Dia de Entrega</th>
+                <th scope="col" mat-sort-header="deliveryDay">Dia de Entrega</th>
                 <th scope="col" class="hide-on-mobile">Items</th>
                 <th scope="col">Info</th>
 

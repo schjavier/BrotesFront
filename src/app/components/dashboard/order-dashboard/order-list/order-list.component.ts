@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {Component, inject, signal} from '@angular/core';
+import {NgForOf, NgIf} from "@angular/common";
 import {catchError, map, Observable, of, tap} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
 import {OrderService} from '../../../../services/order-service/order.service';
@@ -10,36 +10,36 @@ import {RouterLink} from '@angular/router';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../../../dialog/dialog.component';
+import {MatSort, MatSortHeader, Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-order-forms-list',
     imports: [
-        AsyncPipe,
         NgForOf,
         NgIf,
         MatIcon,
         MatButton,
         RouterLink,
         MatPaginator,
+        MatSort,
+        MatSortHeader,
     ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent{
+
+    orderService = inject(OrderService);
+    dialog = inject(MatDialog);
 
     orderList$!: Observable<OrderDetailsDto[] | null>;
+    orderList = signal<OrderDetailsDto[] | null>(null);
     errorMessage:string | null = null;
     isMobile:boolean = false;
     totalItems:number = 0;
     currentPage:number = 0;
 
-
-    constructor(private orderService:OrderService,
-                public dialog:MatDialog) {
-        this.orderList$ = of([]);
-    }
-
-    ngOnInit() {
+    constructor() {
         this.loadOrders();
     }
 
@@ -56,7 +56,7 @@ export class OrderListComponent implements OnInit {
     loadOrders() {
         this.errorMessage = null;
 
-        this.orderList$ = this.orderService.getAllUndeliveredOrders(this.currentPage).pipe(
+       this.orderService.getAllUndeliveredOrders(this.currentPage).pipe(
             tap(response => this.totalItems = response.totalElements
             ),
             map(orders => orders.content.map(order => ({...order, isExpanded: false}))
@@ -64,9 +64,16 @@ export class OrderListComponent implements OnInit {
             catchError(error => {
                 this.errorMessage = error.message;
                 console.error("Error cargando pedidos", this.errorMessage);
+                this.orderList.set(null);
                 return of(null);
             })
-        )
+        ).subscribe(
+            orders => {
+                if(orders){
+                    this.orderList.set(orders);
+                }
+            }
+       )
     }
 
     showItems(items: ItemPedidoDetailsDto[]):void {
@@ -85,5 +92,38 @@ export class OrderListComponent implements OnInit {
 
         this.loadOrders()
 
+    }
+
+    sortData(sort: Sort) {
+        const data = this.orderList();
+
+        if(!data || !sort.active || sort.direction === ''){
+            this.loadOrders();
+            return ;
+        }
+
+        this.orderList.update(currentData => {
+            return currentData!.slice()
+                    .sort((a, b) => {
+                        const isAsc = sort.direction === 'asc';
+                        switch (sort.active) {
+                            case 'deliveryDay':
+                                return this.compare(a.diaDeEntrega, b.diaDeEntrega, isAsc);
+                            default: return 0;
+                        }
+                    });
+        })
+    }
+
+    private compare(diaDeEntrega: string, diaDeEntrega2: string, isAsc: boolean) {
+        if(diaDeEntrega < diaDeEntrega2){
+            return isAsc ? -1 : 1;
+
+        }
+        if(diaDeEntrega > diaDeEntrega2){
+            return isAsc ? 1 : -1;
+        }
+
+        return 0;
     }
 }
