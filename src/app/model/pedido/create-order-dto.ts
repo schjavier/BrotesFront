@@ -5,6 +5,6 @@ export interface CreateOrderDto {
     idCliente: number;
     items: ItemPedidoDetailsDto[];
     diaEntrega:string;
-    isRecurrent:boolean;
+    isRecurrent?:boolean;
 
 }

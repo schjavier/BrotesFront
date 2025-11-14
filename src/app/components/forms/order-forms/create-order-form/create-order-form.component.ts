@@ -169,7 +169,7 @@ export class CreateOrderFormComponent implements OnInit {
                     this.router.navigate(['/dashboard/pedidos/listar']);
                 },
                 error: (error) => {
-                    this.errorMessage = error.message || 'Error al actualizar le Pedido';
+                    this.errorMessage = error.message || 'Error al actualizar el Pedido';
                     console.error('Error al actualizar el pedido: ', error);
                     this.popUp.open('Error actualizando el pedido', "OK", {duration:2000});
                 }
@@ -273,7 +273,7 @@ export class CreateOrderFormComponent implements OnInit {
                 idCliente: this.selectedClient!.id,
                 items: itemsForDto,
                 diaEntrega: this.createOrderForm.get("diaEntrega")!.value,
-                isRecurrent: this.createOrderForm.get("fijarPedido")!.value
+                isRecurrent: this.createOrderForm.get("fijarPedido")?.value
 
             };
 
@@ -281,19 +281,22 @@ export class CreateOrderFormComponent implements OnInit {
                 next: (response)=> {
                     console.log("pedido creado con exito: ", response);
                     this.popUp.open("Pedido Creado Con exito", "OK", {duration:2000});
-                    this.createOrderForm.reset();
-                    this.orderItems.clear();
-                    this.selectedClient = null;
-                    this.selectedProduct = null;
+                    this.resetForm();
+
+                    // this.createOrderForm.reset();
+                    // this.orderItems.clear();
+                    // this.selectedClient = null;
+                    // this.selectedProduct = null;
 
                 },
                 error: error => {
-                    this.errorMessage = error.message || 'Error al crear el pedido.';
+                    this.errorMessage = error.error || 'Error al crear el pedido.';
                     console.error(error);
                     this.popUp.open("Error al crear el pedido " + this.errorMessage, "Cerrar", {duration:2000});
                 }
             });
-        } else {
+        }
+        else {
             this.errorMessage = "Complete todos los campos requeridos"
             this.createOrderForm.markAllAsTouched();
         }
