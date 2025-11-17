@@ -74,7 +74,7 @@ export class CreateOrderFormComponent implements OnInit {
         nombreCliente: new FormControl({value: '', disabled: true}, [Validators.required]),
         item: new FormArray([], [Validators.required]),
         diaEntrega: new FormControl('', [Validators.required]),
-        fijarPedido: new FormControl('', [Validators.required])
+        fijarPedido: new FormControl('')
     });
 
     popUp:MatSnackBar = new MatSnackBar();
