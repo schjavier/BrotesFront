@@ -30,7 +30,6 @@
     border-radius: 0 10px 0 0 ;
 }
 
-
 .order-table tbody {
     border-top: var(--mat-sys-primary) solid 3px;
 }
