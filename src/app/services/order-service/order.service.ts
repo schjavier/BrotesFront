@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ErrorHandlerService} from '../error-handler-service/error-handler.service';
 import {OrderDetailsWithUrlDto} from '../../model/pedido/order-details-with-url-dto';
 import {catchError, map, Observable} from 'rxjs';
@@ -23,15 +23,14 @@ export class OrderService {
 
     url:string = `${environment.apiUrl}/pedidos`;
 
-    getAllOrders():Observable<OrderDetailsDto[]>{
-        return this.http.get<any>(this.url + "/all").pipe(
-            map(response => response.content)).pipe(
-                catchError(error => this.errorHandler.handleHttpError(error()))
-        )
-    }
+    getAllUndeliveredOrders(pageNumber:number, sort:string):Observable<OrderResponse>{
 
-    getAllUndeliveredOrders(pageNumber:number):Observable<OrderResponse>{
-        return this.http.get<OrderResponse>(this.url + "/all/undelivered?page=" + pageNumber).pipe(
+        let params = new HttpParams()
+            .set('page', pageNumber.toString())
+            .set('size', '10')
+            .set('sort', sort);
+
+        return this.http.get<OrderResponse>(`${this.url}/all/undelivered`, {params}).pipe(
                 catchError(error => this.errorHandler.handleHttpError(error()))
         )
     }
@@ -48,6 +47,7 @@ export class OrderService {
         )
     }
 
+    //not implemented yet
     deleteOrder(idOrder:number):Observable<OrderDetailsDto>{
         return this.http.delete<OrderDetailsDto>(this.url + "/" + idOrder).pipe(
             catchError(error => this.errorHandler.handleHttpError(error()))
@@ -60,6 +60,7 @@ export class OrderService {
         )
     }
 
+    //not implemented yet
     getOrderByDeliveryDay(deliveryDay:string):Observable<OrderDetailsDto>{
         return this.http.get<OrderDetailsDto>(this.url + "/buscar?dia=" + deliveryDay).pipe(
             catchError(error => this.errorHandler.handleHttpError(error()))

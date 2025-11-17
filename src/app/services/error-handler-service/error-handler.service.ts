@@ -11,7 +11,7 @@ export class ErrorHandlerService {
 
   handleHttpError(error: HttpErrorResponse):Observable<never> {
     let errorMessage = "Ha ocurrido un error desconocido"
-    console.error('Ocurrio un error en la solicitud Http:', error);
+    console.error('Ocurrio un error en la solicitud Http:', error.error);
 
     switch (error.status) {
       case 0:

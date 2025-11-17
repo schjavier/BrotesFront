@@ -1,6 +1,6 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {catchError, map, Observable, of, tap} from 'rxjs';
+import {catchError, map, of, tap} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
 import {OrderService} from '../../../../services/order-service/order.service';
 import {MatButton} from '@angular/material/button';
@@ -27,26 +27,27 @@ import {MatSort, MatSortHeader, Sort} from '@angular/material/sort';
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
-export class OrderListComponent{
+export class OrderListComponent {
 
     orderService = inject(OrderService);
     dialog = inject(MatDialog);
 
-    orderList$!: Observable<OrderDetailsDto[] | null>;
     orderList = signal<OrderDetailsDto[] | null>(null);
-    errorMessage:string | null = null;
-    isMobile:boolean = false;
-    totalItems:number = 0;
-    currentPage:number = 0;
+    errorMessage: string | null = null;
+    isMobile: boolean = false;
+    totalItems: number = 0;
+    currentPage: number = 0;
+
+    currentSort: Sort = {active: 'diaEntrega', direction: 'asc'}
 
     constructor() {
         this.loadOrders();
     }
 
-    toggleDetails(order:OrderDetailsDto):void{
+    toggleDetails(order: OrderDetailsDto): void {
         this.isMobile = window.innerWidth < 576;
 
-        if(this.isMobile){
+        if (this.isMobile) {
             order.isExpanded = !order.isExpanded;
         } else {
             order.isExpanded = false;
@@ -56,34 +57,37 @@ export class OrderListComponent{
     loadOrders() {
         this.errorMessage = null;
 
-       this.orderService.getAllUndeliveredOrders(this.currentPage).pipe(
+        const sortParam =
+            this.currentSort.active && this.currentSort.direction? `${this.currentSort.active},${this.currentSort.direction}` : '' ;
+
+        this.orderService.getAllUndeliveredOrders(this.currentPage, sortParam).pipe(
             tap(response => this.totalItems = response.totalElements
             ),
             map(orders => orders.content.map(order => ({...order, isExpanded: false}))
             ),
             catchError(error => {
-                this.errorMessage = error.message;
+                this.errorMessage = error.error;
                 console.error("Error cargando pedidos", this.errorMessage);
                 this.orderList.set(null);
                 return of(null);
             })
         ).subscribe(
             orders => {
-                if(orders){
+                if (orders) {
                     this.orderList.set(orders);
                 }
             }
-       )
+        )
     }
 
-    showItems(items: ItemPedidoDetailsDto[]):void {
+    showItems(items: ItemPedidoDetailsDto[]): void {
 
-        const stringItems = items.map( item =>
+        const stringItems = items.map(item =>
             `${item.nombreProducto} (x${item.cantidad})`).join('\n');
 
         this.dialog.open(DialogComponent, {
             width: '25%',
-            data: { items: stringItems },
+            data: {items: stringItems},
         })
     }
 
@@ -95,35 +99,20 @@ export class OrderListComponent{
     }
 
     sortData(sort: Sort) {
-        const data = this.orderList();
+        this.currentSort = sort;
 
-        if(!data || !sort.active || sort.direction === ''){
-            this.loadOrders();
-            return ;
+        if(!sort.active || sort.direction === '' ) {
+            this.currentSort = {active: 'fecha', direction: 'asc'}
         }
 
-        this.orderList.update(currentData => {
-            return currentData!.slice()
-                    .sort((a, b) => {
-                        const isAsc = sort.direction === 'asc';
-                        switch (sort.active) {
-                            case 'deliveryDay':
-                                return this.compare(a.diaDeEntrega, b.diaDeEntrega, isAsc);
-                            default: return 0;
-                        }
-                    });
-        })
+        this.currentPage = 0;
+        this.loadOrders();
+
     }
 
-    private compare(diaDeEntrega: string, diaDeEntrega2: string, isAsc: boolean) {
-        if(diaDeEntrega < diaDeEntrega2){
-            return isAsc ? -1 : 1;
+    organizeDate(date:String){
+        const arrayDate = date.split('-');
+        return arrayDate.reverse().join('-');
 
-        }
-        if(diaDeEntrega > diaDeEntrega2){
-            return isAsc ? 1 : -1;
-        }
-
-        return 0;
     }
 }

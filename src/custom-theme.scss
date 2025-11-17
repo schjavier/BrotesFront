@@ -15,6 +15,10 @@
         container-background-color: #defbd7,
     ));
 
+    @include mat.sort-overrides((
+       arrow-color: #defbd7,
+    ))
+
 }
 
 html {
