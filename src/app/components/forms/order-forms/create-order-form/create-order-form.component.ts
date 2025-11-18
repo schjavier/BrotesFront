@@ -279,20 +279,20 @@ export class CreateOrderFormComponent implements OnInit {
 
             this.orderService.createOrder(orderData).subscribe({
                 next: (response)=> {
+
+                    // todo => podria mostrar una parte del response en el el popup
+
                     console.log("pedido creado con exito: ", response);
                     this.popUp.open("Pedido Creado Con exito", "OK", {duration:2000});
                     this.resetForm();
-
-                    // this.createOrderForm.reset();
-                    // this.orderItems.clear();
-                    // this.selectedClient = null;
-                    // this.selectedProduct = null;
-
                 },
                 error: error => {
-                    this.errorMessage = error.error || 'Error al crear el pedido.';
-                    console.error(error);
-                    this.popUp.open("Error al crear el pedido " + this.errorMessage, "Cerrar", {duration:2000});
+                    //todo si nos saltamos el error handler (lo borramos del service) muestra el error correctamente
+                    //
+                    // this.errorMessage = error.error;
+                    // console.error(this.errorMessage);
+                    // this.popUp.open("Error al crear el pedido " + this.errorMessage, "Cerrar", {duration:5000});
+                throw error;
                 }
             });
         }
