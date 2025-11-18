@@ -38,7 +38,7 @@ export class OrderListComponent {
     totalItems: number = 0;
     currentPage: number = 0;
 
-    currentSort: Sort = {active: 'diaEntrega', direction: 'asc'}
+    currentSort: Sort = {active: 'fecha', direction: 'asc'}
 
     constructor() {
         this.loadOrders();
@@ -57,8 +57,9 @@ export class OrderListComponent {
     loadOrders() {
         this.errorMessage = null;
 
-        const sortParam =
-            this.currentSort.active && this.currentSort.direction? `${this.currentSort.active},${this.currentSort.direction}` : '' ;
+        const sortParam = this.currentSort.active && this.currentSort.direction? `${this.currentSort.active},${this.currentSort.direction}` : '' ;
+
+        console.log(sortParam);
 
         this.orderService.getAllUndeliveredOrders(this.currentPage, sortParam).pipe(
             tap(response => this.totalItems = response.totalElements
