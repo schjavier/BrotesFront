@@ -1,5 +1,5 @@
-import {Component, computed, inject, signal} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {Component,inject, signal} from '@angular/core';
+import {DatePipe} from "@angular/common";
 import {catchError, map, of, tap} from 'rxjs';
 import {MatIcon} from '@angular/material/icon';
 import {OrderService} from '../../../../services/order-service/order.service';
@@ -15,14 +15,14 @@ import {MatSort, MatSortHeader, Sort} from '@angular/material/sort';
 @Component({
   selector: 'app-order-forms-list',
     imports: [
-        NgForOf,
-        NgIf,
+
         MatIcon,
         MatButton,
         RouterLink,
         MatPaginator,
         MatSort,
         MatSortHeader,
+        DatePipe,
     ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
@@ -57,9 +57,8 @@ export class OrderListComponent {
     loadOrders() {
         this.errorMessage = null;
 
-        const sortParam = this.currentSort.active && this.currentSort.direction? `${this.currentSort.active},${this.currentSort.direction}` : '' ;
-
-        console.log(sortParam);
+        const sortParam = this.currentSort.active && this.currentSort.direction?
+            `${this.currentSort.active},${this.currentSort.direction}` : 'fecha,asc' ;
 
         this.orderService.getAllUndeliveredOrders(this.currentPage, sortParam).pipe(
             tap(response => this.totalItems = response.totalElements
@@ -111,9 +110,5 @@ export class OrderListComponent {
 
     }
 
-    organizeDate(date:String){
-        const arrayDate = date.split('-');
-        return arrayDate.reverse().join('-');
 
-    }
 }
