@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel, MatOption, MatSelect} from '@angular/material/select';
 import {MatInput} from '@angular/material/input';
 import {ProductService} from '../../../../services/product-service/product.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-create-product-form',
@@ -28,15 +29,17 @@ export class CreateProductFormComponent {
     categoria: new FormControl('', [Validators.required]),
   });
 
-  popUp: MatSnackBar = new MatSnackBar();
+    notifier = inject(NotificationService)
+    productService = inject(ProductService)
 
-  constructor(private productService: ProductService) {
-  }
+    constructor() {
+
+    }
 
   onSubmit(): void{
     if(this.createProductForm.valid){
        this.productService.createProduct(this.createProductForm.value).subscribe();
-       this.popUp.open("Producto creado", "OK", {duration: 3000});
+       this.notifier.notifyInfo("Producto Creado", 2000)
        this.createProductForm.reset();
     } else {
       this.createProductForm.markAllAsTouched()

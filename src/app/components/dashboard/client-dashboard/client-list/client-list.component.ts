@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ClientService} from '../../../../services/client-service/client-service.service';
 import {catchError, map, Observable, of, tap} from 'rxjs';
 import {Client} from '../../../../model/client/client';
@@ -6,6 +6,8 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {DatosListaCliente} from '../../../../model/client/datos-lista-cliente';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { NotificationService } from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-client-list',
@@ -28,7 +30,10 @@ export class ClientListComponent implements OnInit {
   totalItems:number = 0;
   currentPage:number = 0;
 
-  constructor(private clientService: ClientService) {
+  clientService = inject(ClientService)
+  notifier = inject(NotificationService);
+
+  constructor() {
     this.clientList$ = of([]);
   }
 
@@ -54,10 +59,9 @@ export class ClientListComponent implements OnInit {
           tap(response => this.totalItems = response.totalElements),
           map(clients => clients.content.map(client => ({...client, isExpanded: false}))
           ),
-          catchError(error => {
-              this.errorMessage = error;
-              console.error('Error al cargar clientes');
-              return of(null);
+          catchError( () => {
+              this.notifier.notifyError("Error Cargando Clientes", 2000);
+              return of([]);
         })
       );
   }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {NgIf} from "@angular/common";
@@ -12,6 +12,7 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-update-product-form',
@@ -35,7 +36,8 @@ export class UpdateProductFormComponent {
   errorMessage: string | null = null;
   product!: Product;
   isProductActive: boolean = true;
-  popUp:MatSnackBar = new MatSnackBar();
+
+  notifier = inject(NotificationService)
 
   updateProductForm: FormGroup = new FormGroup({
     id: new FormControl('', Validators.required),
@@ -71,8 +73,7 @@ export class UpdateProductFormComponent {
                   this.errorMessage = null;
               },
               error: error => {
-                  this.errorMessage = error.message;
-                  console.error("Error al cargar el producto: ", this.errorMessage);
+                  this.notifier.notifyError(error.error, 2000);
                   this.updateProductForm.reset();
               }
           });
@@ -102,12 +103,11 @@ export class UpdateProductFormComponent {
   activateProduct(id:number):void{
     this.productService.activateProduct(id).subscribe({
       next: () => {
-        console.log("Producto Activado");
-        this.popUp.open("Producto Activado", "OK", {
-          duration: 3000,
-        })
+
+        this.notifier.notifyInfo("Producto Activado", 2000);
+
       }, error: error => {
-        this.errorMessage = error
+            throw error;
       }
     })
   }
@@ -115,12 +115,11 @@ export class UpdateProductFormComponent {
   deactivateProduct(id:number):void{
     this.productService.deactivateProduct(id).subscribe({
       next: () => {
-        console.log("Producto Desactivado");
-        this.popUp.open("Producto Desactivado", "OK", {
-          duration: 3000,
-        })
-      }, error: error => {
-        this.errorMessage = error;
+
+        this.notifier.notifyInfo("Producto Desactivado", 2000);
+
+        }, error: error => {
+            throw error;
       }
     })
   }
@@ -128,12 +127,11 @@ export class UpdateProductFormComponent {
   deleteProduct(id:number):void{
     this.productService.deleteProduct(id).subscribe({
       next: () => {
-        console.log("Producto Eliminado");
-        this.popUp.open("Producto Eliminado", "OK", {
-          duration: 3000,
-        })
+
+        this.notifier.notifyInfo("Producto Eliminado", 2000);
+
       }, error: error => {
-        this.errorMessage = error;
+        throw error;
       }
     })
     this.updateProductForm.reset();
@@ -146,12 +144,10 @@ updateProduct():void{
         console.log("Producto Actualizado");
         this.updateProductForm.reset();
 
-        this.popUp.open("Producto Actualizado", "OK", {
-          duration: 3000,
-        });
+        this.notifier.notifyInfo("Producto Actualizado", 2000);
 
       }, error: error => {
-        this.errorMessage = error;
+        throw error;
       }
     })
 }

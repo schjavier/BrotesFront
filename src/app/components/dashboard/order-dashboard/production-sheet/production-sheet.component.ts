@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatFormField, MatOption, MatSelect} from '@angular/material/select';
 import {DeliveryDay} from '../../../../model/pedido/deliveryDay';
 import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
@@ -10,6 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {finalize} from 'rxjs';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatIcon} from '@angular/material/icon';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-production-sheet',
@@ -32,16 +33,18 @@ export class ProductionSheetComponent {
 
     selectedDay:string = "";
     productionSheetData:ProductionSheet[] | null = null;
-    errorMessage:string | null = null;
     isLoading:boolean = false;
     totals:Map<string, number> = new Map<string, number>();
 
-    constructor(private orderService:OrderService, private popUp:MatSnackBar) {
+    notifier = inject(NotificationService);
+    orderService = inject(OrderService)
+
+    constructor() {
     }
 
     fetchProductionSheet():void{
         if (!this.selectedDay){
-            this.popUp.open('Por favor ingrese un dia...', 'Cerrar', {duration:2000});
+            this.notifier.notifyInfo('Por favor ingrese un dia...', 2000);
             return;
         }
 
@@ -56,13 +59,11 @@ export class ProductionSheetComponent {
                 this.productionSheetData = data;
                 this.totals = this.getTotalByCategory(data);
                 if(this.productionSheetData.length === 0){
-                    this.popUp.open('No hay pedidos cargados para el dia seleccionado', 'Cerrar', {duration:2000});
+                    this.notifier.notifyInfo('No hay pedidos cargados para el dia seleccionado', 2000);
                 }
             },
                 error: (error) => {
-                this.errorMessage = error.message;
-                console.error("Error generando la lista de produccion: ", error);
-                this.popUp.open('Error al generar la planilla: '+ (error.message || 'Error desconocido'), 'Cerrar', {duration:2000});
+                throw error;
             }
         });
 
@@ -107,10 +108,7 @@ export class ProductionSheetComponent {
 
     showCopyMsg(success:boolean):void{
         if (success){
-            this.popUp.open("Planilla copiada al portapapeles", 'Cerrar', {
-                duration:2000,
-                panelClass:['snackbar-success']
-            });
+            this.notifier.notifyInfo("Planilla copiada al portapapeles", 2000);
         }
     }
 }

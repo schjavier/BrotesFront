@@ -1,4 +1,4 @@
-import {ErrorHandler, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {AuthResponse} from '../../model/user/auth-response';
@@ -10,10 +10,9 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
 
-  constructor(
-      private http:HttpClient,
-      private errorHandler:ErrorHandler
-  ) { }
+    http = inject(HttpClient);
+
+  constructor() {}
 
 
     url:string = `${environment.apiUrl}/auth`;
@@ -23,9 +22,6 @@ export class AuthService {
             tap({
                 next: response => {
                     localStorage.setItem('auth_token', response.token)
-                },
-                error: error => {
-                    this.errorHandler.handleError(error)
                 }
             })
         )

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
@@ -23,6 +23,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UpdateOrderDTO} from '../../../../model/pedido/update-order-dto';
 import {ProductOrderData} from '../../../../model/pedido/product-order-data';
 import {MatCheckbox} from '@angular/material/checkbox';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-create-order-forms-form',
@@ -77,13 +78,14 @@ export class CreateOrderFormComponent implements OnInit {
         fijarPedido: new FormControl('')
     });
 
-    popUp:MatSnackBar = new MatSnackBar();
+    notifier = inject(NotificationService);
+    orderService = inject(OrderService);
+    productService = inject(ProductService);
+    clientService = inject(ClientService);
+    route = inject(ActivatedRoute);
+    router = inject(Router);
 
-    constructor(private orderService: OrderService,
-                private productService: ProductService,
-                private clientService: ClientService,
-                private route: ActivatedRoute,
-                private router: Router) {
+    constructor() {
     }
 
     ngOnInit(): void {
@@ -115,7 +117,7 @@ export class CreateOrderFormComponent implements OnInit {
                 this.createOrderForm.updateValueAndValidity();
             },
             error: (error) => {
-                this.popUp.open('Error al cargar el pedido. ' + error.message, 'Cerrar', {duration:2000});
+                this.notifier.notifyError(error.error, 2000);
                 this.router.navigate(['/dashboard/pedidos/listar'])
             }
         });
@@ -163,21 +165,17 @@ export class CreateOrderFormComponent implements OnInit {
 
             this.orderService.updateOrder(this.pedidoId, orderData).subscribe({
                 next: () => {
-                    console.error(orderData.idPedido, this.pedidoId);
-                    console.log('Pedido Actualizado con Exito');
-                    this.popUp.open('Pedido Actualizado', 'OK', {duration:2000})
+                    this.notifier.notifyInfo("Pedido Actualizado con Exito", 3000);
                     this.router.navigate(['/dashboard/pedidos/listar']);
                 },
                 error: (error) => {
-                    this.errorMessage = error.message || 'Error al actualizar el Pedido';
-                    console.error('Error al actualizar el pedido: ', error);
-                    this.popUp.open('Error actualizando el pedido', "OK", {duration:2000});
+                   throw error;
                 }
             });
         } else {
             this.errorMessage = "Por favor Complete los campos del formulario"
             this.createOrderForm.markAllAsTouched();
-            this.popUp.open(this.errorMessage, "Cerrar");
+            this.notifier.notifyError(this.errorMessage, 2000);
         }
     }
 
@@ -238,13 +236,17 @@ export class CreateOrderFormComponent implements OnInit {
             const quantity = this.productQuantityControl.value;
             this.orderItems.push(this.createOrderItemFormGroup(this.selectedProduct, quantity!));
             this.productQuantityControl.setValue(1);
-            this.popUp.open(`"${this.selectedProduct!.nombre}" agregado`, "OK", {duration:2000});
+
+            this.notifier.notifyInfo(`${this.selectedProduct!.nombre} agregado`, 2000)
 
         } else if (!this.selectedProduct) {
-            this.popUp.open("Por Favor seleccione un producto para añadir", "Cerrar", {duration:2000});
+
+            this.notifier.notifyInfo("Por Favor seleccione un producto para añadir", 2000);
+
         } else if (this.productQuantityControl.invalid){
-            this.popUp.open("La cantidad debe ser al menos 1", "Cerrar", {duration:2000});
+            this.notifier.notifyInfo("La cantidad debe ser al menos 1", 2000);
         }
+
 
         this.selectedProduct = null;
         this.productSearchBar.searchControl.setValue('')
@@ -253,7 +255,7 @@ export class CreateOrderFormComponent implements OnInit {
     removeOrderItem(index:number): void {
         const removedItemName = this.orderItems.at(index).get('nombreProducto')?.value;
         this.orderItems.removeAt(index);
-        this.popUp.open(`"${removedItemName}" eliminado"`, "OK", {duration:2000});
+        this.notifier.notifyInfo(`${removedItemName} eliminado`, 2000);
 
     }
 
@@ -278,21 +280,13 @@ export class CreateOrderFormComponent implements OnInit {
             };
 
             this.orderService.createOrder(orderData).subscribe({
-                next: (response)=> {
+                next: ()=> {
 
-                    // todo => podria mostrar una parte del response en el el popup
-
-                    console.log("pedido creado con exito: ", response);
-                    this.popUp.open("Pedido Creado Con exito", "OK", {duration:2000});
+                    this.notifier.notifyInfo(`Pedido Creado Con Exito`, 2000);
                     this.resetForm();
                 },
                 error: error => {
-                    //todo si nos saltamos el error handler (lo borramos del service) muestra el error correctamente
-                    //
-                    // this.errorMessage = error.error;
-                    // console.error(this.errorMessage);
-                    // this.popUp.open("Error al crear el pedido " + this.errorMessage, "Cerrar", {duration:5000});
-                throw error;
+                    throw error;
                 }
             });
         }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {SearchConfig} from './search-config';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
@@ -7,6 +7,7 @@ import {MatFormField} from '@angular/material/form-field';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
 import {MatInput} from '@angular/material/input';
 import {MatLabel} from '@angular/material/select';
+import {NotificationService} from '../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -58,7 +59,7 @@ export class SearchBarComponent implements OnInit {
               if (searchTerm && searchTerm.length >= this.searchConfig.minLength!){
                   return this.searchSuggestionFn(searchTerm).pipe(
                       catchError(error => {
-                          console.error('Error fetching suggestions:', error);
+                          console.error(error.error);
                           return of([])
                       })
                   );
