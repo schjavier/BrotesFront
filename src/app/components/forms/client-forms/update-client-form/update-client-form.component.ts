@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ClientService} from '../../../../services/client-service/client-service.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {SearchBarComponent} from '../../../search-bar/search-bar.component';
 import {Client} from '../../../../model/client/client';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {MatButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
 import {UpdateClientDto} from '../../../../model/client/update-client-dto';
@@ -14,6 +14,7 @@ import {Product} from '../../../../model/product/product';
 import {DatosListaCliente} from '../../../../model/client/datos-lista-cliente';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-update-client-form',
@@ -35,10 +36,9 @@ export class UpdateClientFormComponent {
   errorMessage: string | null = null;
 
   client!:Client;
-
   isClientActive: boolean = true;
 
-  popUp: MatSnackBar = new MatSnackBar();
+  notifier = inject(NotificationService);
 
   updateClientForm: FormGroup = new FormGroup({
 
@@ -75,9 +75,8 @@ export class UpdateClientFormComponent {
                     this.errorMessage = null;
                 },
                 error: error => {
-                    this.errorMessage = error.message;
-                    console.error("Error al cargar el Cliente: ", error);
                     this.updateClientForm.reset();
+                    throw error;
                 }
             });
         }else {
@@ -108,12 +107,12 @@ export class UpdateClientFormComponent {
   deactivateClient(clientId: number) {
     this.clientService.deactivateClient(clientId).subscribe({
         next: ()=> {
-          console.log("Cliente Desactivado");
-          this.popUp.open("Cliente Desactivado", "OK" ,{
-            duration:3000
-          })
+
+            this.notifier.notifyInfo("Cliente Desactivado", 2000);
+
         }, error: error => {
-          this.errorMessage = error.message;
+
+            throw error;
         }}
     );
   }
@@ -121,12 +120,11 @@ export class UpdateClientFormComponent {
   activateClient(clientId: number) {
     this.clientService.activateClient(clientId).subscribe({
       next: ()=> {
-        console.log("Cliente Activado");
-        this.popUp.open("Cliente Activado", "OK" ,{
-          duration:3000
-        })
+
+          this.notifier.notifyInfo("Cliente Activado", 2000)
+
       }, error: error => {
-        this.errorMessage = error.message;
+        throw error;
       }
     })
   }
@@ -134,12 +132,10 @@ export class UpdateClientFormComponent {
   deleteClient(clientId: number) {
     this.clientService.deleteClient(clientId).subscribe({
       next: () => {
-        console.log("Cliente Eliminado");
-        this.popUp.open("Cliente Eliminado", "OK" ,{
-          duration:3000
-        })
-      }, error: error => {
-        this.errorMessage = error.message;
+        this.notifier.notifyInfo("Cliente Eliminado", 2000);
+
+        }, error: error => {
+            throw error;
       }
     })
     this.updateClientForm.reset();
@@ -156,12 +152,11 @@ export class UpdateClientFormComponent {
 
     this.clientService.updateClient(dataClient).subscribe({
       next: ()=> {
-        console.log("Cliente Actualizado");
-        this.popUp.open("Cliente Actualizado", "OK" ,{
-          duration:3000
-        })
+
+        this.notifier.notifyInfo("Cliente Actualizado", 2000);
+
       }, error: error => {
-        this.errorMessage = error.message;
+        throw error;
       }
     });
   }

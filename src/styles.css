@@ -18,3 +18,15 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.errorSnackBar{
+    --mdc-snackbar-container-color: #c11414;
+    --mat-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.infoSnackBar{
+    --mdc-snackbar-container-color: #5d9f5e;
+    --mat-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+}

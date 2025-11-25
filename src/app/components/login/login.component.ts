@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
@@ -6,6 +6,8 @@ import {MatInput} from '@angular/material/input';
 import {AuthService} from '../../services/auth-service/auth.service';
 import {AuthRequest} from '../../model/user/auth-request';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../services/notification-service/notification.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,8 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
     title:string = "Brotes"
+
+    notifier = inject(NotificationService)
 
     constructor(private authService:AuthService,
                 private router: Router) {

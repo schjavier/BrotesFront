@@ -11,6 +11,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../../../dialog/dialog.component';
 import {MatSort, MatSortHeader, Sort} from '@angular/material/sort';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-order-forms-list',
@@ -31,6 +32,7 @@ export class OrderListComponent {
 
     orderService = inject(OrderService);
     dialog = inject(MatDialog);
+    notifier = inject(NotificationService);
 
     orderList = signal<OrderDetailsDto[] | null>(null);
     errorMessage: string | null = null;
@@ -65,11 +67,10 @@ export class OrderListComponent {
             ),
             map(orders => orders.content.map(order => ({...order, isExpanded: false}))
             ),
-            catchError(error => {
-                this.errorMessage = error.error;
-                console.error("Error cargando pedidos", this.errorMessage);
+            catchError( () => {
+                this.notifier.notifyError("Error Cargando Pedidos", 2000);
                 this.orderList.set(null);
-                return of(null);
+                return of([]);
             })
         ).subscribe(
             orders => {

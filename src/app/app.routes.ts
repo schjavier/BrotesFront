@@ -14,7 +14,7 @@ import { OrderDashboardComponent } from './components/dashboard/order-dashboard/
 import { OrderListComponent } from './components/dashboard/order-dashboard/order-list/order-list.component';
 import { CreateOrderFormComponent } from './components/forms/order-forms/create-order-form/create-order-form.component';
 import { ProductionSheetComponent } from './components/dashboard/order-dashboard/production-sheet/production-sheet.component';
-import {authGuard} from './auth.guard';
+import {authGuard} from './guards/auth.guard';
 
 export const routes: Routes = [
 

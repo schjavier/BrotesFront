@@ -4,9 +4,7 @@ import {catchError, map, Observable} from 'rxjs';
 import {Client} from '../../model/client/client';
 import {CreateClientDto} from '../../model/client/create-client-dto';
 import {UpdateClientDto} from '../../model/client/update-client-dto';
-import {ErrorHandlerService} from '../error-handler-service/error-handler.service';
 import { environment } from '../../../environments/environment';
-import {DatosListaCliente} from '../../model/client/datos-lista-cliente';
 import {ClientResponse} from '../../model/client/client-response';
 
 
@@ -16,62 +14,50 @@ import {ClientResponse} from '../../model/client/client-response';
 export class ClientService {
 
   constructor(
-    private http: HttpClient,
-    private errorHandler:ErrorHandlerService) {
+    private http: HttpClient) {
   }
 
   status:string = "true"
   url:string = `${environment.apiUrl}/clientes`;
 
   getClientById(id:number):Observable<Client>{
-    return this.http.get<Client>(this.url + "/" + id).pipe
-    (catchError(error => this.errorHandler.handleHttpError(error)));
+    return this.http.get<Client>(this.url + "/" + id);
   }
 
   getAllClients(pageNumber:number):Observable<ClientResponse>{
-    return this.http.get<any>(this.url + "?page=" + pageNumber).pipe(
-        catchError(error=> this.errorHandler.handleHttpError(error) ));
+    return this.http.get<any>(this.url + "?page=" + pageNumber);
   }
 
   createClient(clientDto:CreateClientDto):Observable<Client>{
-    return this.http.post<Client>(this.url, clientDto)
+    return this.http.post<Client>(this.url, clientDto);
   }
 
     getClientByName(searchTerm: string):Observable<Client> {
-      return this.http.get<Client>(this.url + "/client?nombre=" + searchTerm).pipe
-        (catchError(error => this.errorHandler.handleHttpError(error)));
+      return this.http.get<Client>(this.url + "/client?nombre=" + searchTerm);
 
     }
 
     deactivateClient(clientId:number):Observable<Client>{
-    return this.http.patch<Client>(this.url + "/" + clientId.toString() + "/desactivar", {}).pipe
-    (catchError(error => this.errorHandler.handleHttpError(error)));
+    return this.http.patch<Client>(this.url + "/" + clientId.toString() + "/desactivar", {});
     }
 
   activateClient(clientId:number):Observable<Client>{
-    return this.http.patch<Client>(this.url + "/" + clientId.toString() + "/activar", {}).pipe
-    (catchError(error => this.errorHandler.handleHttpError(error)));
+    return this.http.patch<Client>(this.url + "/" + clientId.toString() + "/activar", {});
   }
 
   updateClient(dataClient: UpdateClientDto) {
-    return this.http.put<Client>(this.url, dataClient).pipe(
-      catchError(error => this.errorHandler.handleHttpError(error)));
+    return this.http.put<Client>(this.url, dataClient);
     }
 
     deleteClient(clientId:number):Observable<Client>{
-      return this.http.delete<Client>(this.url + "/" + clientId).pipe(
-        catchError(error => this.errorHandler.handleHttpError(error)));
+      return this.http.delete<Client>(this.url + "/" + clientId);
     }
 
     getClientSuggestionByName(nombre: string):Observable<Client[]> {
-      return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre).pipe(
-          catchError(error => this.errorHandler.handleHttpError(error))
-      )
+      return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre);
     }
     getClientSuggestionByNameAndStatus(nombre: string):Observable<Client[]> {
-      return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre + "&status=" + this.status).pipe(
-          catchError(error => this.errorHandler.handleHttpError(error))
-      )
+      return this.http.get<Client[]>(this.url + "/buscar?nombre=" + nombre + "&status=" + this.status);
     }
 
 

@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Product} from '../../../../model/product/product';
 import {catchError, map, Observable, of, tap} from 'rxjs';
 import {ProductService} from '../../../../services/product-service/product.service';
 import {AsyncPipe, NgFor, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {NotificationService} from '../../../../services/notification-service/notification.service';
 
 @Component({
   selector: 'app-product-list',
@@ -21,13 +22,15 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 export class ProductListComponent implements OnInit {
 
   productList$!: Observable<Product[] | null>;
-  errorMessage:string | null = null;
   isMobile:boolean = false;
 
   totalItems = 0;
   currentPage = 0;
 
-  constructor(private productService: ProductService) {
+  notifier = inject(NotificationService);
+  productService = inject(ProductService);
+
+  constructor() {
     this.productList$ = of([]);
   }
 
@@ -48,16 +51,14 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.errorMessage = null;
 
     this.productList$ = this.productService.getAllProducts(this.currentPage).pipe(
         tap(response =>  this.totalItems = response.totalElements),
         map(products => products.content.map(product => ({...product, isExpanded: false}))
         ),
-      catchError(error => {
-        this.errorMessage = error.message;
-        console.error('error al cargar productos: ', error);
-        return of(null);
+      catchError( () => {
+         this.notifier.notifyError("Error cargando Productos", 2000);
+         return of([]);
       })
     );
   }
