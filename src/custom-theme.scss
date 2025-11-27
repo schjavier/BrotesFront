@@ -17,8 +17,12 @@
 
     @include mat.sort-overrides((
        arrow-color: #defbd7,
-    ))
+    ));
 
+  @include mat.card-overrides((
+    elevated-container-color: #e3e3e3,
+    elevated-container-elevation: #5d9f5e,
+  ));
 }
 
 html {

@@ -4,10 +4,20 @@
    title: '¿Qué hacemos hoy?' ,
    placeholder: 'Buscar ... ',
    debounceTime: 500,
-   minLength: 3 }">
-                    //[searchSuggestionFn]="getProductSuggestion"
-                    //[displayFn]="displayProductSuggestion"
-                    //(itemSelected)="onProductSelected($event)" >
+   minLength: 3 }"
+                    [searchSuggestionFn]="getActivitySuggestion"
+                    [displayFn]="displayActivitySuggestion"
+                    (itemSelected)="onSuggestionSelected($event)" >
     </app-search-bar>
 </div>
+<h3>Acceso Rápido</h3>
+  <div class="activitiesWrapper">
+
+    @for (activity of activities() ; track $index){
+      <app-activity-card [activity]="activity" ></app-activity-card>
+    }
+
+</div>
+
+
 </div>

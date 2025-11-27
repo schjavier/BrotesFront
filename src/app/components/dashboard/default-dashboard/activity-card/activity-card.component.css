@@ -1,0 +1,28 @@
+.activityCard{
+  width: 25vw;
+  height: 25vh;
+  margin: 10px;
+
+}
+
+.cardTitle, p {
+  color: var(--mat-sys-primary);
+}
+
+.cardContent{
+  height: 100%;
+}
+
+
+
+@media (max-width: 576px) {
+
+  .activityCard{
+    width: 60vw;
+    height: 25vh;
+
+  }
+
+
+
+}
