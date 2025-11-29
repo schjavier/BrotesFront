@@ -2,7 +2,11 @@
   width: 25vw;
   height: 25vh;
   margin: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
 
+.cardTitle{
+  border-bottom: #b5821e solid 1px;
 }
 
 .cardTitle, p {
