@@ -17,6 +17,28 @@
 
     @include mat.sort-overrides((
        arrow-color: #defbd7,
+    ));
+
+
+    @include mat.form-field-overrides((
+      filled-container-color: #d9e6d9
+    ));
+
+    @include mat.autocomplete-overrides((
+      background-color: #d9e6d9,
+    ));
+
+}
+
+app-activity-card {
+
+    @include mat.card-overrides((
+      elevated-container-color: #d9e6d9,
+      elevated-container-elevation: #5d9f5e,
+    ));
+
+    @include mat.button-overrides((
+
     ))
 
 }
@@ -32,3 +54,4 @@ html {
     density: 0,
   ));
 }
+
