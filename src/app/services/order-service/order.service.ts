@@ -51,12 +51,14 @@ export class OrderService {
     }
 
     //not implemented yet
-    getOrderByDeliveryDay(deliveryDay:string):Observable<OrderDetailsDto>{
-        return this.http.get<OrderDetailsDto>(this.url + "/buscar?dia=" + deliveryDay);
+    getOrdersByDeliveryDay(deliveryDay:string):Observable<OrderDetailsDto[]>{
+        return this.http.get<OrderDetailsDto[]>(`${this.url}/all/undelivered/dia?diaEntrega=` + deliveryDay.toUpperCase());
     }
 
     getProductionSheetByDay(deliveryDay:string):Observable<ProductionSheet[]>{
         return this.http.get<ProductionSheet[]>(this.url + "/generar/planilla?dia=" + deliveryDay.toUpperCase());
     }
+
+
 
 }
