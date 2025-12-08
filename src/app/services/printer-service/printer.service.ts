@@ -17,7 +17,13 @@ export class PrinterService {
   ticketLine:string = '-'.repeat(this.PAPER_WIDTH) + '\n\n';
   ticketCompanyName = 'BROTES'
   ticketHeader:string = "REMITO";
-  ticketSeparator:string = '[[cut]]\n';
+  ticketSeparator:string = '[[CUT]]\n';
+  ticketOpenBoldTag:string = '[[B]]';
+  ticketCloseBoldTag:string = '[[/B]]';
+  ticketOpenLargeFontTag:string = '[[L]]';
+  ticketCloseLargeFontTag:string = '[[/L]]';
+  tickerOpenCenterTextTag:string = '[[C]]';
+  tickerCloseCenterTextTag:string = '[[/C]]';
 
   constructor() { }
 
@@ -49,20 +55,25 @@ export class PrinterService {
         totalItems++;
       })
 
-      ticket = this.centerText(this.ticketCompanyName);
-      ticket += this.centerText(this.ticketHeader) + '\n';
-      ticket += `Día: ${order.diaDeEntrega}\n`;
-      ticket += `Cliente: ${order.nombreCliente}\n`;
-      ticket += `Dirección: ${order.direccionCliente}\n\n`;
+      ticket = this.tickerOpenCenterTextTag
+                + this.ticketOpenLargeFontTag
+                + this.ticketCompanyName
+                + this.ticketCloseLargeFontTag
+                +'\n';
+
+      ticket += this.ticketHeader + this.tickerCloseCenterTextTag + '\n';
+      ticket += `Día: ${this.ticketOpenBoldTag}${order.diaDeEntrega}${this.ticketCloseBoldTag}\n`;
+      ticket += `Cliente: ${this.ticketOpenBoldTag}${order.nombreCliente}${this.ticketCloseBoldTag}\n`;
+      ticket += `Dirección: ${this.ticketOpenBoldTag}${order.direccionCliente}${this.ticketCloseBoldTag}\n\n`;
       ticket += this.ticketLine;
-      ticket += `Items:\n${ticketItems}\n`;
+      ticket += `${this.ticketOpenBoldTag}Items:${this.ticketCloseBoldTag}\n${ticketItems}\n`;
       ticket += this.ticketLine;
       ticket += this.justifyText(`Items Total:`, `${totalItems}`);
       ticket += this.ticketSeparator;
 
+      console.log(ticket);
       tickets += ticket;
     })
-
     return tickets;
 
   }
@@ -95,17 +106,5 @@ export class PrinterService {
     return rightText + spaces + finalLeft + '\n';
   }
 
-  private centerText(text:string){
-  const availableSpaces:number = this.PAPER_WIDTH - text.length;
-
-  const leftSpacesLength = availableSpaces/2;
-  const rightSpacesLength = availableSpaces/2;
-
-  let leftSpaces = " ".repeat(leftSpacesLength);
-  let rightSpaces = " ".repeat(rightSpacesLength);
-
-  return leftSpaces + text + rightSpaces + '\n';
-
-  }
 
 }
