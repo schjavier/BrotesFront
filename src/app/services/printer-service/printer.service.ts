@@ -1,7 +1,8 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {OrderDetailsDto} from '../../model/pedido/order-details-dto';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../notification-service/notification.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class PrinterService {
   url = 'http://localhost:8000/print';
   http = inject(HttpClient);
   notifier = inject(NotificationService);
+
 
   private readonly PAPER_WIDTH = 48;
 
@@ -24,8 +26,12 @@ export class PrinterService {
   ticketCloseLargeFontTag:string = '[[/L]]';
   tickerOpenCenterTextTag:string = '[[C]]';
   tickerCloseCenterTextTag:string = '[[/C]]';
+  ticketDate: string = '';
 
-  constructor() { }
+  constructor() {
+    const actualDate = new Date();
+    this.ticketDate = actualDate.toISOString().split('T')[0].split('-').reverse().join('-');
+  }
 
   formatAndPrint(orders: OrderDetailsDto[]){
     if (!orders || orders.length === 0) return;
@@ -62,7 +68,7 @@ export class PrinterService {
                 +'\n';
 
       ticket += this.ticketHeader + this.tickerCloseCenterTextTag + '\n';
-      ticket += `Día: ${this.ticketOpenBoldTag}${order.diaDeEntrega}${this.ticketCloseBoldTag}\n`;
+      ticket += `Fecha: ${this.ticketOpenBoldTag}${this.ticketDate}${this.ticketCloseBoldTag}\n`;
       ticket += `Cliente: ${this.ticketOpenBoldTag}${order.nombreCliente}${this.ticketCloseBoldTag}\n`;
       ticket += `Dirección: ${this.ticketOpenBoldTag}${order.direccionCliente}${this.ticketCloseBoldTag}\n\n`;
       ticket += this.ticketLine;
