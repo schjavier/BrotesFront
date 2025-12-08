@@ -44,7 +44,6 @@ export class PrintOrdersComponent {
       .subscribe({
         next: (data) => {
         this.rawOrders.set(data)
-        console.log(this.rawOrders())
       },
         error: (error) => {
           throw error;

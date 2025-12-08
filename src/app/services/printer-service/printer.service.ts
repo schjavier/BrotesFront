@@ -60,7 +60,6 @@ export class PrinterService {
       ticket += this.justifyText(`Items Total:`, `${totalItems}`);
       ticket += this.ticketSeparator;
 
-      console.log(ticket)
       tickets += ticket;
     })
 
