@@ -17,7 +17,7 @@
   @if (!isLoading() && rawOrders().length > 0) {
 
     <div class="ordersList">
-      <p>Pedidos Listos Para imprimir!</p>
+      <h4>Pedidos listos para imprimir!</h4>
 
       <button mat-button class="genButton" (click)="printOrders()" [disabled]="!selectedDay">
       <span>Imprimir</span>

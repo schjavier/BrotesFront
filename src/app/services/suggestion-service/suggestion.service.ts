@@ -12,9 +12,10 @@ export class SuggestionService {
     suggestions= signal<Suggestion[]>( [
 
       {name: 'Crear Pedido', path: '/dashboard/pedidos/registrar', description: 'Crea un pedido'},
-      {name: 'Listar Pedidos', path: '/dashboard/pedidos/listar', description: 'Lista todos los pedidos'},
       {name: 'Generar Planilla', path: '/dashboard/pedidos/generar', description: 'Genera la planilla de producción'},
+      {name: 'Imprimir Remitos', path: '/dashboard/pedidos/imprimir', description: 'Imprime los remitos por día'},
 
+      {name: 'Listar Pedidos', path: '/dashboard/pedidos/listar', description: 'Lista todos los pedidos'},
       {name: 'Registrar Productos', path: '/dashboard/producto/registrar', description: 'Permite cargar un producto en el sistema'},
       {name: 'Actualizar Productos', path: '/dashboard/producto/actualizar', description: 'Permite Modificar un producto existente'},
       {name: 'Listar Productos', path: '/dashboard/producto/listar', description: 'Muesta la Lista de todos los productos'},
