@@ -1,0 +1,30 @@
+<div class="printOrders">
+  <h3>Generar Remitos por Día</h3>
+  <div class="controls">
+    <mat-form-field>
+      <mat-select placeholder="Elija un dia..." [(value)]="selectedDay" >
+        <mat-option *ngFor="let day of deliveryDay | keyvalue" [value]="day.value">
+          {{day.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button class="genButton" (click)="getOrdersToPrint()" [disabled]="!selectedDay">
+      <mat-icon *ngIf="isLoading()">sync</mat-icon>
+      <span>Generar!</span>
+    </button>
+</div>
+
+  @if (!isLoading() && rawOrders().length > 0) {
+
+    <div class="ordersList">
+      <h4>Pedidos listos para imprimir!</h4>
+
+      <button mat-button class="genButton" (click)="printOrders()" [disabled]="!selectedDay">
+      <span>Imprimir</span>
+      </button>
+
+    </div>
+  }
+
+
+</div>

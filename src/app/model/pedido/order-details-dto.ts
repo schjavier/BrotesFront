@@ -5,6 +5,7 @@ export interface OrderDetailsDto {
     idPedido:number;
     idCliente:number;
     nombreCliente:string;
+    direccionCliente:string;
     item:ItemPedidoDetailsDto[];
     fecha:string;
     diaDeEntrega:string;

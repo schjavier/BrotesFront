@@ -15,6 +15,7 @@ import { OrderListComponent } from './components/dashboard/order-dashboard/order
 import { CreateOrderFormComponent } from './components/forms/order-forms/create-order-form/create-order-form.component';
 import { ProductionSheetComponent } from './components/dashboard/order-dashboard/production-sheet/production-sheet.component';
 import {authGuard} from './guards/auth.guard';
+import {PrintOrdersComponent} from './components/dashboard/order-dashboard/print-orders/print-orders.component';
 
 export const routes: Routes = [
 
@@ -53,7 +54,9 @@ export const routes: Routes = [
               {path: 'listar', component: OrderListComponent},
               {path: 'registrar', component: CreateOrderFormComponent},
               {path: 'actualizar/:id', component: CreateOrderFormComponent},
-              {path: 'generar', component: ProductionSheetComponent}
+              {path: 'generar', component: ProductionSheetComponent},
+              {path: 'imprimir', component: PrintOrdersComponent},
+
           ]}
 
     ]},
