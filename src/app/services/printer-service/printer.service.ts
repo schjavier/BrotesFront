@@ -58,7 +58,7 @@ export class PrinterService {
         const leftTxt = `x ${item.cantidad}`
 
         ticketItems += this.justifyText(rightTxt, leftTxt);
-        totalItems++;
+        totalItems += item.cantidad ;
       })
 
       ticket = this.tickerOpenCenterTextTag
@@ -78,6 +78,7 @@ export class PrinterService {
       ticket += this.ticketSeparator;
 
       tickets += ticket;
+
     })
     return tickets;
 
