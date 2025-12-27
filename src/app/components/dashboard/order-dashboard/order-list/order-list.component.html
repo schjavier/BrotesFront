@@ -1,12 +1,17 @@
 @if (orderList(); as orders) {
 
+  <div><p>Pedidos {{ showRecurrent()? "Fijos" : "Semanales" }}</p>
+    <mat-slide-toggle
+      [checked]="showRecurrent()"
+      (change)="toggleRecurrents()"> Mostar Fijos </mat-slide-toggle>  </div>
+
     @if(orders.length > 0){
 
         <table class="order-table" matSort (matSortChange)="sortData($event)">
             <thead>
             <tr>
                 <th scope="col">Nombre Cliente</th>
-                <th scope="col" class="hide-on-mobile">Fecha</th>
+                <th scope="col" [class.hide]="showRecurrent()" class="hide-on-mobile">Fecha</th>
                 <th scope="col" mat-sort-header="diaEntrega">Dia de Entrega</th>
                 <th scope="col" class="hide-on-mobile">Items</th>
                 <th scope="col">Info</th>
@@ -19,7 +24,9 @@
 
                     <tr (click)="toggleDetails(order)" [class.expanded]="order.isExpanded">
                         <td>{{ order.nombreCliente}}</td>
-                        <td class="hide-on-mobile">{{ order.fecha | date:'dd-MM-yyyy' }}</td>
+
+                        <td [class.hide]="showRecurrent()" class="hide-on-mobile">{{ order.fecha | date:'dd-MM-yyyy' }}</td>
+
                         <td>{{ order.diaDeEntrega }}</td>
                         <td class="hide-on-mobile">
                             @if (order.item && order.item.length > 0) {
@@ -33,15 +40,23 @@
                             }
 
                         </td>
-                        <td class="hide-on-mobile"><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></td>
-                        <td class="hide-on-desktop"><mat-icon>{{order.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon></td>
+                        <td class="hide-on-mobile">
+                          <a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido, {isRecurrent : showRecurrent()}]">
+                            <button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button>
+                          </a>
+                        </td>
+
+                      <td class="hide-on-desktop">
+                        <mat-icon>{{order.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+                      </td>
+
                     </tr>
 
                     @if (order.isExpanded){
                     <tr>
                         <td colspan="4" class="detailsRow">
                             <div>
-                                <p><strong>Fecha: </strong> {{order.fecha | date:'dd-MM-yyyy'}}</p>
+                                <p [class.hide]="showRecurrent()"><strong>Fecha: </strong> {{order.fecha | date:'dd-MM-yyyy'}}</p>
                                 <p><strong>Items:</strong></p>
                                 @for (item of order.item; track item.id) {
                                     <p>{{item.nombreProducto}} - {{item.cantidad}}</p>
