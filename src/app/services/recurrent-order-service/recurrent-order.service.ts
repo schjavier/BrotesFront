@@ -35,8 +35,8 @@ export class RecurrentOrderService {
     return this.http.put<OrderDetailsDto>(this.url + "/" + orderId, orderData);
   }
 
-  deleteOrder(idOrder:number):Observable<OrderDetailsDto>{
-    return this.http.delete<OrderDetailsDto>(this.url + "/" + idOrder);
+  deleteOrder(idOrder:number):Observable<string>{
+    return this.http.delete<string>(this.url + "/" + idOrder);
   }
 
 

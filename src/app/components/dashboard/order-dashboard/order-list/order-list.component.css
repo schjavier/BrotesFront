@@ -22,7 +22,6 @@ h2{
     border: none;
     padding: 10px 15px;
     text-align: center;
-
 }
 
 .order-table th {
@@ -46,12 +45,11 @@ h2{
     border-top: var(--mat-sys-primary) solid 3px;
 }
 
-
 .order-table tbody tr {
     background-color: var(--background-color);
     border-bottom: 2px solid var(--mat-sys-primary);
 }
-/* Filas pares*/
+
 .order-table tbody tr:nth-child(even) {
     background-color: var(--background-color);
 }
@@ -83,7 +81,6 @@ mat-icon.info{
     color: var(--mat-sys-primary);
     cursor: pointer;
 }
-
 
 .status-active {
     color: #06420b;
@@ -118,8 +115,6 @@ mat-icon.info{
     display: none;
 }
 
-
-
 @media (max-width: 576px){
     .hide-on-mobile{
         display: none;
@@ -140,6 +135,14 @@ mat-icon.info{
     .detailsRow p {
         color: var(--mat-sys-primary);
     }
+
+    .detailsRow span{
+      margin: 2px;
+    }
+
+  .order-table th:nth-child(5) {
+    border-radius: 0 10px 0 0 ;
+  }
 
     .order-table tbody tr.detailsRow:hover {
         background-color: lightgrey;

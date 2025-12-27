@@ -38,15 +38,12 @@ export class OrderListComponent {
     dialog = inject(MatDialog);
     notifier = inject(NotificationService);
 
-
     showRecurrent= signal<boolean>(false);
-
     orderList = signal<OrderDetailsDto[] | null>(null);
     errorMessage: string | null = null;
     isMobile: boolean = false;
     totalItems: number = 0;
     currentPage: number = 0;
-
     currentSort: Sort = {active: 'cliente', direction: 'asc'}
 
     constructor() {
@@ -69,7 +66,6 @@ export class OrderListComponent {
         const sortParam = this.currentSort.active && this.currentSort.direction?
             `${this.currentSort.active},${this.currentSort.direction}` : 'cliente,asc' ;
 
-
         if (this.showRecurrent()){
 
           this.getRecurrentOrders(sortParam);
@@ -77,9 +73,7 @@ export class OrderListComponent {
         } else {
 
           this.getOrders(sortParam)
-
         }
-
     }
 
     getOrders(sortParam:string){
@@ -104,7 +98,6 @@ export class OrderListComponent {
     }
 
     getRecurrentOrders(sortParam:string){
-
       this.recurrentOrderService.getAllRecurrents(this.currentPage, sortParam).pipe(
         tap(response => this.totalItems = response.totalElements
         ),
@@ -137,9 +130,7 @@ export class OrderListComponent {
 
     onChangePage($event: PageEvent) {
         this.currentPage = $event.pageIndex;
-
         this.loadOrders()
-
     }
 
     sortData(sort: Sort) {
@@ -151,7 +142,6 @@ export class OrderListComponent {
 
         this.currentPage = 0;
         this.loadOrders();
-
     }
 
 
@@ -165,4 +155,27 @@ export class OrderListComponent {
         this.loadOrders();
       }
   }
+
+  handleDeleteOrder(orderId: number) {
+      if (this.showRecurrent()){
+        this.recurrentOrderService.deleteOrder(orderId).subscribe({
+          next: () => { this.notifier.notifyInfo("Pedido Fijo borrado con exito");
+          }, error: err =>  {
+            throw err;
+          }, complete: () => {
+            this.loadOrders();
+          }
+        });
+      } else {
+        this.orderService.deleteOrder(orderId).subscribe({
+          next: () => { this.notifier.notifyInfo("Pedido Semanal borrado con exito");
+          }, error: err =>  {
+            throw err;
+          }, complete: () => {
+            this.loadOrders();
+          }
+        });
+      }
+  }
+
 }
