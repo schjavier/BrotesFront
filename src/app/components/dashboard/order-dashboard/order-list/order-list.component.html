@@ -1,6 +1,7 @@
 @if (orderList(); as orders) {
 
-  <div><p>Pedidos {{ showRecurrent()? "Fijos" : "Semanales" }}</p>
+  <div class="list-header">
+    <h2>Pedidos {{ showRecurrent()? "Fijos" : "Semanales" }}</h2>
     <mat-slide-toggle
       [checked]="showRecurrent()"
       (change)="toggleRecurrents()"> Mostar Fijos </mat-slide-toggle>  </div>

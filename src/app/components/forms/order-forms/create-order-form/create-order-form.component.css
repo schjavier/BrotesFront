@@ -139,6 +139,10 @@ mat-error.deliveryDayError {
 
 }
 
+.hide {
+  display: none;
+}
+
 
 @media (max-width: 576px){
 
@@ -149,3 +153,4 @@ mat-error.deliveryDayError {
 
 
 }
+
