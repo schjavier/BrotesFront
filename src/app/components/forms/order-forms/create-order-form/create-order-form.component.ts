@@ -1,11 +1,10 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {booleanAttribute, Component, inject, input, Input, numberAttribute, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {OrderService} from '../../../../services/order-service/order.service';
 import {ClientService} from '../../../../services/client-service/client-service.service';
 import {ProductService} from '../../../../services/product-service/product.service';
@@ -24,6 +23,7 @@ import {UpdateOrderDTO} from '../../../../model/pedido/update-order-dto';
 import {ProductOrderData} from '../../../../model/pedido/product-order-data';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {NotificationService} from '../../../../services/notification-service/notification.service';
+import {RecurrentOrderService} from '../../../../services/recurrent-order-service/recurrent-order.service';
 
 @Component({
   selector: 'app-create-order-forms-form',
@@ -58,6 +58,9 @@ export class CreateOrderFormComponent implements OnInit {
    @ViewChild('clientSearchBar')
    clientSearchBar!: SearchBarComponent;
 
+    isRecurrent = input(false, {transform: booleanAttribute});
+    id = input<number, string | number>(undefined, { alias: 'id', transform: numberAttribute });
+
     pedidoId:number | null = null;
     isEditing:boolean = false;
 
@@ -78,50 +81,82 @@ export class CreateOrderFormComponent implements OnInit {
         fijarPedido: new FormControl('')
     });
 
+    recurrentOrderService = inject(RecurrentOrderService);
     notifier = inject(NotificationService);
     orderService = inject(OrderService);
     productService = inject(ProductService);
     clientService = inject(ClientService);
+
     route = inject(ActivatedRoute);
+
     router = inject(Router);
 
     constructor() {
     }
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe(params => {
-            const id: string | null = params.get('id');
-            if(id){
+
+            if(this.id()){
                 this.isEditing = true;
-                this.pedidoId = +id;
+                this.pedidoId = this.id()!;
                 this.loadOrderData(this.pedidoId);
             } else {
                 this.isEditing = false;
                 this.pedidoId = null;
                 this.resetForm();
             }
-        });
+        }
 
-    }
 
     loadOrderData(id : number) :void {
-        this.orderService.getOrderById(id).subscribe({
-            next: (pedido) => {
-                this.createOrderForm.patchValue({
-                    idCliente: pedido.idCliente,
-                    nombreCliente: pedido.nombreCliente,
-                    diaEntrega: pedido.diaDeEntrega,
-                });
-                this.setOrderItems(pedido.item);
-                this.createOrderForm.markAsDirty();
-                this.createOrderForm.updateValueAndValidity();
-            },
-            error: (error) => {
-                this.notifier.notifyError(error.error, 2000);
-                this.router.navigate(['/dashboard/pedidos/listar'])
-            }
-        });
+
+      if(this.isRecurrent()) {
+        this.getRecurrentOrderData(id);
+      } else {
+        this.getOrderData(id);
+      }
+
+
     }
+
+    getOrderData(id:number){
+      this.orderService.getOrderById(id).subscribe({
+        next: (pedido) => {
+          this.createOrderForm.patchValue({
+            idCliente: pedido.idCliente,
+            nombreCliente: pedido.nombreCliente,
+            diaEntrega: pedido.diaDeEntrega,
+          });
+          this.setOrderItems(pedido.item);
+          this.createOrderForm.markAsDirty();
+          this.createOrderForm.updateValueAndValidity();
+        },
+        error: (error) => {
+          this.notifier.notifyError(error.error, 2000);
+          this.router.navigate(['/dashboard/pedidos/listar'])
+        }
+      });
+    }
+
+    getRecurrentOrderData(id:number){
+      this.recurrentOrderService.getRecurrentOrderById(id).subscribe({
+        next: (pedido) => {
+          this.createOrderForm.patchValue({
+            idCliente: pedido.idCliente,
+            nombreCliente: pedido.nombreCliente,
+            diaEntrega: pedido.diaDeEntrega,
+          });
+          this.setOrderItems(pedido.item);
+          this.createOrderForm.markAsDirty();
+          this.createOrderForm.updateValueAndValidity();
+        },
+        error: (error) => {
+          this.notifier.notifyError(error.error, 2000);
+          this.router.navigate(['/dashboard/pedidos/listar'])
+        }
+      });
+    }
+
 
     setOrderItems(items: ItemPedidoDetailsDto[]):void{
         this.orderItems.clear();
@@ -163,19 +198,36 @@ export class CreateOrderFormComponent implements OnInit {
                 diaEntrega: formValues.diaEntrega
             };
 
-            this.orderService.updateOrder(this.pedidoId, orderData).subscribe({
+            if(this.isRecurrent()){
+
+              this.recurrentOrderService.updateRecurrentOrder(this.pedidoId, orderData).subscribe({
                 next: () => {
-                    this.notifier.notifyInfo("Pedido Actualizado con Exito", 3000);
-                    this.router.navigate(['/dashboard/pedidos/listar']);
+                  this.notifier.notifyInfo("Pedido Actualizado con Exito", 3000);
+                  this.router.navigate(['/dashboard/pedidos/listar']);
                 },
                 error: (error) => {
-                   throw error;
+                  throw error;
                 }
-            });
+              });
+
+            } else {
+
+              this.orderService.updateOrder(this.pedidoId, orderData).subscribe({
+                next: () => {
+                  this.notifier.notifyInfo("Pedido Actualizado con Exito", 3000);
+                  this.router.navigate(['/dashboard/pedidos/listar']);
+                },
+                error: (error) => {
+                  throw error;
+                }
+              });
+
+            }
+
         } else {
-            this.errorMessage = "Por favor Complete los campos del formulario"
-            this.createOrderForm.markAllAsTouched();
-            this.notifier.notifyError(this.errorMessage, 2000);
+          this.errorMessage = "Por favor Complete los campos del formulario"
+          this.createOrderForm.markAllAsTouched();
+          this.notifier.notifyError(this.errorMessage, 2000);
         }
     }
 

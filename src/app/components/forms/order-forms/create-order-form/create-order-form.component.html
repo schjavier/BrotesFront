@@ -79,7 +79,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <div class="checkbox">
+            <div [class.hide]="isEditing" class="checkbox">
                 <mat-checkbox formControlName="fijarPedido">Fijar pedido</mat-checkbox>
             </div>
 
