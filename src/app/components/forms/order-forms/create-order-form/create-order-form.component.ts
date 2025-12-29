@@ -87,8 +87,6 @@ export class CreateOrderFormComponent implements OnInit {
     productService = inject(ProductService);
     clientService = inject(ClientService);
 
-    route = inject(ActivatedRoute);
-
     router = inject(Router);
 
     constructor() {
