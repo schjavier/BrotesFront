@@ -38,7 +38,7 @@ export class OrderListComponent {
     dialog = inject(MatDialog);
     notifier = inject(NotificationService);
 
-    showRecurrent= signal<boolean>(false);
+    showRecurrent = signal<boolean>(false);
     orderList = signal<OrderDetailsDto[] | null>(null);
     errorMessage: string | null = null;
     isMobile: boolean = false;

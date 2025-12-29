@@ -68,8 +68,8 @@
                                 @for (item of order.item; track item.id) {
                                     <p>{{item.nombreProducto}} - {{item.cantidad}}</p>
                                 }
-                                <span><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></span>
-                                <span><button class="editButton" mat-button><mat-icon class="edit">delete</mat-icon>Borrar</button></span>
+                                <span><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido, {isRecurrent : showRecurrent()}]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></span>
+                                <span><button class="editButton" mat-button (click)="handleDeleteOrder(order.idPedido)"><mat-icon class="edit">delete</mat-icon>Borrar</button></span>
 
                             </div>
                         </td>
