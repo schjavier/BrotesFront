@@ -14,6 +14,7 @@ import {MatSort, MatSortHeader, Sort} from '@angular/material/sort';
 import {NotificationService} from '../../../../services/notification-service/notification.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {RecurrentOrderService} from '../../../../services/recurrent-order-service/recurrent-order.service';
+import {PrinterService} from '../../../../services/printer-service/printer.service';
 
 @Component({
   selector: 'app-order-forms-list',
@@ -37,9 +38,13 @@ export class OrderListComponent {
     recurrentOrderService = inject(RecurrentOrderService);
     dialog = inject(MatDialog);
     notifier = inject(NotificationService);
+    printerService = inject(PrinterService);
+
 
     showRecurrent = signal<boolean>(false);
     orderList = signal<OrderDetailsDto[] | null>(null);
+    orders = signal<OrderDetailsDto[]>([]);
+
     errorMessage: string | null = null;
     isMobile: boolean = false;
     totalItems: number = 0;
@@ -176,6 +181,20 @@ export class OrderListComponent {
           }
         });
       }
+  }
+
+
+  handlePrintOrder(idOrder: number) {
+    this.orderService.getOrderById(idOrder).subscribe({
+      next: (order) => {
+        this.orders.set([order]);
+        this.printerService.formatAndPrint(this.orders());
+      }, error: err => {
+        throw err;
+      }, complete: () => {
+        this.notifier.notifyInfo("Pedido Impreso!")
+      }
+    })
   }
 
 }
