@@ -2,7 +2,6 @@ import {inject, Injectable} from '@angular/core';
 import {OrderDetailsDto} from '../../model/pedido/order-details-dto';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../notification-service/notification.service';
-import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +36,6 @@ export class PrinterService {
     if (!orders || orders.length === 0) return;
 
     let tickets = this.formatOrdersToTickets(orders);
-
     this.printTickets(tickets)
 
   }

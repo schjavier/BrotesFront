@@ -16,7 +16,7 @@
                 <th scope="col" mat-sort-header="diaEntrega">Dia de Entrega</th>
                 <th scope="col" class="hide-on-mobile">Items</th>
                 <th scope="col" class="hide-on-desktop">Info</th>
-                <th scope="col" colspan="2" class="hide-on-mobile">Opciones</th>
+                <th scope="col" colspan="3" class="hide-on-mobile">Opciones</th>
 
             </tr>
             </thead>
@@ -53,6 +53,10 @@
                         <button class="editButton" mat-button (click)="handleDeleteOrder(order.idPedido)"><mat-icon class="edit">delete</mat-icon>Borrar</button>
                       </td>
 
+                      <td [class.hide]="showRecurrent()" class="hide-on-mobile" >
+                        <button class="editButton" mat-button (click)="handlePrintOrder(order.idPedido)" ><mat-icon class="edit">print</mat-icon>Imprimir</button>
+                      </td>
+
                       <td class="hide-on-desktop">
                         <mat-icon>{{order.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
                       </td>
@@ -70,6 +74,7 @@
                                 }
                                 <span><a [routerLink]="['/dashboard/pedidos/actualizar', order.idPedido, {isRecurrent : showRecurrent()}]"><button class="editButton" mat-button><mat-icon class="edit">edit</mat-icon>Editar</button></a></span>
                                 <span><button class="editButton" mat-button (click)="handleDeleteOrder(order.idPedido)"><mat-icon class="edit">delete</mat-icon>Borrar</button></span>
+                                <span [class.hide]="showRecurrent()"><button class="editButton" mat-button (click)="handlePrintOrder(order.idPedido)"><mat-icon class="edit">print</mat-icon>Imprimir</button></span>
 
                             </div>
                         </td>
