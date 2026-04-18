@@ -71,7 +71,7 @@ export class CreateOrderFormComponent implements OnInit {
     selectedClient: DatosListaCliente | null = null;
     selectedProduct: DatosListaProducto | null = null;
 
-    productQuantityControl:FormControl = new FormControl(1, [Validators.required]);
+    productQuantityControl:FormControl = new FormControl(0, [Validators.required]);
 
     createOrderForm: FormGroup = new FormGroup({
         idCliente: new FormControl({value: '', disabled: true}, [Validators.required]),
@@ -264,7 +264,7 @@ export class CreateOrderFormComponent implements OnInit {
 
     onProductSelected (product:DatosListaProducto):void {
         this.selectedProduct = product;
-        this.productQuantityControl.setValue(1);
+        this.productQuantityControl.setValue(0.1);
     }
 
     get orderItems(): FormArray {
@@ -276,7 +276,7 @@ export class CreateOrderFormComponent implements OnInit {
             idProducto: new FormControl(product ? product.id : '', Validators.required),
             nombreProducto: new FormControl(product ? product.nombre : '', Validators.required),
             categoria: new FormControl(product ? product.categoria : '', Validators.required),
-            cantidad: new FormControl(quantity, [Validators.required, Validators.min(1)]),
+            cantidad: new FormControl(quantity, [Validators.required, Validators.min(0.1)]),
             })
     }
 
@@ -285,7 +285,7 @@ export class CreateOrderFormComponent implements OnInit {
         if (this.selectedProduct && this.productQuantityControl.valid){
             const quantity = this.productQuantityControl.value;
             this.orderItems.push(this.createOrderItemFormGroup(this.selectedProduct, quantity!));
-            this.productQuantityControl.setValue(1);
+            this.productQuantityControl.setValue(0.1);
 
             this.notifier.notifyInfo(`${this.selectedProduct!.nombre} agregado`, 2000)
 
@@ -294,7 +294,7 @@ export class CreateOrderFormComponent implements OnInit {
             this.notifier.notifyInfo("Por Favor seleccione un producto para añadir", 2000);
 
         } else if (this.productQuantityControl.invalid){
-            this.notifier.notifyInfo("La cantidad debe ser al menos 1", 2000);
+            this.notifier.notifyInfo("La cantidad debe ser al menos 0.1", 2000);
         }
 
 

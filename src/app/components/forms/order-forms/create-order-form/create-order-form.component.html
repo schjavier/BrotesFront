@@ -41,9 +41,9 @@
             <div class="quantityInputWrapper">
             <mat-form-field class="quantityInput">
                 <mat-label>Cantidad</mat-label>
-                <input matInput type="number" [formControl]="productQuantityControl" min="1" >
+                <input matInput type="number" [formControl]="productQuantityControl" min="0.1" >
                 <mat-error class="quantityError" *ngIf="productQuantityControl.hasError('min') || productQuantityControl.invalid">
-                    Cantidad mínima: 1
+                    Cantidad mínima: 0.1
                 </mat-error>
             </mat-form-field>
 
